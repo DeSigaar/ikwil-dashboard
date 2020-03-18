@@ -5,13 +5,14 @@ const initState = {
 };
 
 const activitiesReducer = (state = initState, action: any) => {
-  console.log("action :", action);
   switch (action.type) {
     case "CREATE_ACTIVITY":
-      console.log("action", action);
-      break;
+      return state;
+    case "CREATE_ACTIVITY_ERROR":
+      return action.err;
+    default:
+      return state;
   }
-  return state;
 };
 
 export default activitiesReducer;

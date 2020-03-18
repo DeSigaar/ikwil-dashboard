@@ -15,18 +15,28 @@ import thunk from "redux-thunk";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
-import config from "./config/fbConfig";
-import "./config/dotEnv";
-require("dotenv").config();
-firebase.initializeApp(config);
-firebase.firestore().settings({ timestampsInSnapshots: true });
+import fbConfig from "./config/fbConfig";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import { createFirestoreInstance } from "redux-firestore";
+firebase.initializeApp(fbConfig);
+
+const rrfConfig = {
+  userProfile: "users"
+};
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
-
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance
+};
 ReactDOM.render(
   <Router>
     <Provider store={store}>
-      <App />
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <App />
+      </ReactReduxFirebaseProvider>
     </Provider>
   </Router>,
   document.getElementById("root")

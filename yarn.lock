@@ -5570,6 +5570,11 @@ immer@1.10.0:
   resolved "https://registry.yarnpkg.com/immer/-/immer-1.10.0.tgz#bad67605ba9c810275d91e1c2a47d4582e98286d"
   integrity sha512-O3sR1/opvCDGLEVcvrGTMtLac8GJ5IwZC4puPrLuRj3l7ICKvkmA0vGuU9OW8mV9WIBRnaxp5GJh9IEAaNOoYg==
 
+immer@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-5.0.0.tgz#07f462b7d95f7e86c214a861ecacd766d42b8c0a"
+  integrity sha512-G7gRqKbi9NE025XVyqyTV98dxUOtdKvu/P1QRaVZfA55aEcXgjbxPdm+TlWdcSMNPKijlaHNz61DGPyelouRlA==
+
 import-cwd@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/import-cwd/-/import-cwd-2.1.0.tgz#aa6cf36e722761285cb371ec6519f53e2435b0a9"
@@ -9315,6 +9320,15 @@ react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
+react-redux-firebase@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/react-redux-firebase/-/react-redux-firebase-3.1.2.tgz#1f0b141f82f73c6122362cebaacf9346efdced44"
+  integrity sha512-YJaiBGLmGFPJIzCdqXASb1eVdOB8ZCNlOFptlEB1ICEqIEHDY9uGXcRIZy1fGeEGUWc4oSl5QFWFpDZ2npKtmg==
+  dependencies:
+    hoist-non-react-statics "^3.3.0"
+    lodash "^4.17.15"
+    prop-types "^15.7.2"
+
 react-redux@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.0.tgz#f970f62192b3981642fec46fd0db18a074fe879d"
@@ -9542,6 +9556,20 @@ redent@^3.0.0:
   dependencies:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
+
+reduce-reducers@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/reduce-reducers/-/reduce-reducers-1.0.4.tgz#fb77e751a9eb0201760ac5a605ca8c9c2d0537f8"
+  integrity sha512-Mb2WZ2bJF597exiqX7owBzrqJ74DHLK3yOQjCyPAaNifRncE8OD0wFIuoMhXxTnHK07+8zZ2SJEKy/qtiyR7vw==
+
+redux-firestore@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/redux-firestore/-/redux-firestore-0.13.0.tgz#154e705726740c6173e2f8a1d82214aeccc6954f"
+  integrity sha512-0Vf/MXrH6gUqVwSmAQAz9Ic1J4uADCaF29DcpcNU2ecZoYG5aQSZO2iGXUqzjAOeatE1Ksz8SDEvKu8gBRvYXg==
+  dependencies:
+    immer "5.0.0"
+    lodash "^4.17.15"
+    reduce-reducers "^1.0.4"
 
 redux-thunk@^2.3.0:
   version "2.3.0"

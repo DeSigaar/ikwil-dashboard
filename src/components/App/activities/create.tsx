@@ -6,7 +6,6 @@ const CreateActivity: React.FC = props => {
   const [name, setName] = useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     createActivity(name);
   };
   return (
