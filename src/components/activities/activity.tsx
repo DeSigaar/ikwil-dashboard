@@ -9,7 +9,11 @@ interface Props {
 }
 
 const Activity: React.FC<Props> = ({ activity }) => {
-  return <div>Yo.</div>;
+  if (typeof activity !== "undefined") {
+    return <div>{activity.name}</div>;
+  } else {
+    return null;
+  }
 };
 const mapStateToProps = (state: any) => {
   if (typeof state.firestore.ordered.activities !== "undefined") {

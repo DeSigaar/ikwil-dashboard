@@ -18,13 +18,18 @@ import "firebase/auth";
 import fbConfig from "./config/fbConfig";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { createFirestoreInstance } from "redux-firestore";
+import { composeWithDevTools } from "redux-devtools-extension";
+
 firebase.initializeApp(fbConfig);
 
 const rrfConfig = {
   userProfile: "users"
 };
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+export const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 const rrfProps = {
   firebase,
   config: rrfConfig,

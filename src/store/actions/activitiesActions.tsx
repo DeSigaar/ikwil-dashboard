@@ -1,6 +1,5 @@
 import { store } from "../../index";
 import firebase from "firebase/app";
-import "firebase/firestore";
 
 export const createActivity = (activity: any) => {
   firebase
@@ -17,8 +16,3 @@ export const createActivity = (activity: any) => {
 
   return store.dispatch({ type: "CREATE_ACTIVITY", activity });
 };
-
-/*
-
-
-*/
