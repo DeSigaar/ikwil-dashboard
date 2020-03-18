@@ -9,11 +9,9 @@ interface Props {
 }
 
 const Activity: React.FC<Props> = ({ activity }) => {
-  console.log("activity", activity);
   return <div>Yo.</div>;
 };
 const mapStateToProps = (state: any) => {
-  console.log("state :", state);
   if (typeof state.firestore.ordered.activities !== "undefined") {
     return { activity: state.firestore.ordered.activities[0] };
   }

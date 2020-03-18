@@ -1,8 +1,8 @@
 import React from "react";
 import { Switch, Route, Redirect, Link } from "react-router-dom";
 import "../../scss/index.scss";
-import Activities from "./activities/index";
-import Activity from "./activities/activity";
+import Activities from "../activities/index";
+import Activity from "../activities/activity";
 
 function App() {
   return (
