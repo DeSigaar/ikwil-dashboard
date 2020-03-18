@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, Redirect, Link } from "react-router-dom";
 import "../../scss/index.scss";
 import Activities from "./activities/index";
+import CreateActivity from "./activities/create";
 function App() {
   return (
     <div>
@@ -13,6 +14,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Activities />
+          <CreateActivity />
         </Route>
         <Route exact path="/about">
           <h1>About</h1>

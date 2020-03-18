@@ -1,14 +1,17 @@
+/* Basic react stuff */
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App/App";
+
+/* Router stuff */
 import { BrowserRouter as Router } from "react-router-dom";
 
 /* Redux stuff */
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./store/reducers/rootReducer";
 import { Provider } from "react-redux";
-
-const store = createStore(rootReducer);
+import thunk from "redux-thunk";
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Router>
