@@ -12,6 +12,7 @@ import rootReducer from "./store/reducers/rootReducer";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 export const store = createStore(rootReducer, applyMiddleware(thunk));
+require("dotenv").config();
 
 ReactDOM.render(
   <Router>
