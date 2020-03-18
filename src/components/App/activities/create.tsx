@@ -13,7 +13,11 @@ const CreateActivity: React.FC = props => {
       <form onSubmit={e => handleSubmit(e)}>
         <div>
           naam
-          <input value={name} onChange={e => setName(e.target.value)} />
+          <input
+            required
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
         </div>
         <button>submit</button>
       </form>

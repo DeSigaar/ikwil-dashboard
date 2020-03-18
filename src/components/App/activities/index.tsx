@@ -2,27 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-
+import Summary from "./summary";
+import Create from "./create";
 interface Props {
   data?: iActivity[];
 }
 
-interface iActivity {
-  name?: string;
-  id?: string;
-}
 const Activities: React.FC<Props> = ({ data }) => {
   return (
     <div>
-      {typeof data !== "undefined" ? (
-        <>
-          {data.map(activity => {
-            return <div key={activity.id}>{activity.name}</div>;
-          })}
-        </>
-      ) : (
-        <></>
-      )}
+      <Summary data={data} />
+      <Create />
     </div>
   );
 };
