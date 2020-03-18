@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect, Link } from "react-router-dom";
 import "../../scss/index.scss";
+import Activities from "./activities/index";
 function App() {
   return (
     <div>
@@ -11,7 +12,7 @@ function App() {
       </div>
       <Switch>
         <Route exact path="/">
-          <h1>Homepage</h1>
+          <Activities />
         </Route>
         <Route exact path="/about">
           <h1>About</h1>
