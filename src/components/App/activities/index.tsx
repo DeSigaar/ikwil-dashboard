@@ -1,12 +1,42 @@
 import React from "react";
 import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
 
-const Activities: React.FC = props => {
-  return <div>test</div>;
+interface Props {
+  data?: iActivity[];
+}
+
+interface iActivity {
+  name?: string;
+  id?: string;
+}
+const Activities: React.FC<Props> = ({ data }) => {
+  return (
+    <div>
+      {typeof data !== "undefined" ? (
+        <>
+          {data.map(activity => {
+            return <div key={activity.id}>{activity.name}</div>;
+          })}
+        </>
+      ) : (
+        <></>
+      )}
+    </div>
+  );
 };
+
 const mapStateToProps = (state: any) => {
   return {
-    activities: state.activities.activities.name
+    data: state.firestore.ordered.activities
   };
 };
-export default connect(mapStateToProps)(Activities);
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([
+    {
+      collection: "activities"
+    }
+  ])
+)(Activities) as React.FC;
