@@ -11,8 +11,17 @@ import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./store/reducers/rootReducer";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
+import config from "./config/fbConfig";
+import "./config/dotEnv";
 require("dotenv").config();
+firebase.initializeApp(config);
+firebase.firestore().settings({ timestampsInSnapshots: true });
+
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Router>

@@ -50,4 +50,7 @@ psd
 thumb
 sketch
 
+**/fbConfig.js
+
+.env
 # End of https://www.gitignore.io/api/react,firebase
