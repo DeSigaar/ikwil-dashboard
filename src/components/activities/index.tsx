@@ -6,21 +6,26 @@ import Summary from "./summary";
 import Create from "./create";
 interface Props {
   data?: iActivity[];
-  loggedIn: boolean | undefined;
+  isLoggedIn: boolean;
 }
 
-const Activities: React.FC<Props> = ({ data, loggedIn }) => {
+const Activities: React.FC<Props> = ({ data, isLoggedIn }) => {
   return (
     <div>
       <Summary data={data} />
-      <Create />
+      {isLoggedIn ? <Create /> : null}
     </div>
   );
 };
 
 const mapStateToProps = (state: any) => {
+  let isLoggedIn = false;
+  if (!state.firebase.profile.isEmpty) {
+    isLoggedIn = true;
+  }
   return {
-    data: state.firestore.ordered.activities
+    data: state.firestore.ordered.activities,
+    isLoggedIn
   };
 };
 export default compose(

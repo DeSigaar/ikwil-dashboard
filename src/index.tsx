@@ -23,7 +23,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 firebase.initializeApp(fbConfig);
 
 const rrfConfig = {
-  userProfile: "users"
+  userProfile: "users",
+  useFirestoreForProfile: true
 };
 
 export const store = createStore(

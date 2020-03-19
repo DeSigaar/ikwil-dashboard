@@ -22,7 +22,6 @@ export const signOut = () => {
 };
 
 export const signUp = (newUser: iNewUser) => {
-  console.log("newUser :", newUser);
   return () => {
     firebase
       .auth()
