@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 interface Props {
   data?: iActivity[] | undefined;
 }
-const testComponent: React.FC<Props> = ({ data }) => {
+const Summary: React.FC<Props> = ({ data }) => {
   return (
     <div>
       {typeof data !== "undefined" ? (
@@ -22,4 +22,4 @@ const testComponent: React.FC<Props> = ({ data }) => {
     </div>
   );
 };
-export default testComponent;
+export default Summary;

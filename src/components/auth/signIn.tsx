@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { signIn } from "../../store/actions/authActions";
 
 interface Props {
-  authError?: string;
+  authError?: any;
   signIn: any;
 }
 
-const Login: React.FC<Props> = ({ authError }) => {
+const SignIn: React.FC<Props> = ({ authError }) => {
   const [email, setEmail] = useState<string>("test@test.nl");
   const [password, setPassword] = useState<string>("testtest");
 
@@ -37,19 +37,19 @@ const Login: React.FC<Props> = ({ authError }) => {
         />
       </div>
       <button>Submit</button>
-      {typeof authError !== "undefined" ? authError : null}
+      {typeof authError !== "undefined" && authError !== null
+        ? authError.message
+        : null}
     </form>
   );
 };
 const mapStateToProps = (state: any) => {
-  if (state.auth.authError !== null) {
-    return { authError: state.auth.authError.message };
-  }
+  return { authError: state.auth.authError };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    signIn: (credentionals: any) => dispatch(signIn)
+    signIn: (user: iLogin) => dispatch(signIn(user))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

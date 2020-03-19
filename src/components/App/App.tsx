@@ -3,9 +3,16 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import "../../scss/index.scss";
 import Activities from "../activities/index";
 import Activity from "../activities/activity";
-import Login from "../login/index";
+import Login from "../auth/signIn";
 import Nav from "../nav/index";
-function App() {
+import { connect } from "react-redux";
+import SignUp from "../auth/signUp";
+
+interface Props {
+  loggedIn?: boolean;
+}
+
+const App: React.FC<Props> = ({ loggedIn }) => {
   return (
     <div>
       <Nav />
@@ -16,18 +23,33 @@ function App() {
         <Route exact path="/about">
           <h1>About</h1>
         </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
         <Route
           exact
           path="/activity/:id"
           render={({ match }) => <Activity link={match} />}
         />
+
+        {loggedIn ? null : (
+          <>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/sign-up">
+              <SignUp />
+            </Route>
+          </>
+        )}
+
         <Redirect to="/" />
       </Switch>
     </div>
   );
-}
-
-export default App;
+};
+const mapStateToProps = (state: any) => {
+  if (state.firebase.auth.isEmpty === false) {
+    return { loggedIn: true };
+  } else {
+    return { loggedIn: false };
+  }
+};
+export default connect(mapStateToProps)(App);

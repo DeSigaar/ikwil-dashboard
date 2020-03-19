@@ -16,15 +16,22 @@ const Nav: React.FC<Props> = ({ loggedIn }) => {
       <span>|</span>
 
       {!loggedIn ? (
-        <Link to="/login">Login</Link>
+        <>
+          <Link to="/login">Login</Link>
+          <span>|</span>
+          <Link to="/sign-up">sign up</Link>
+        </>
       ) : (
-        <span onClick={() => signOut()}>Logout</span>
+        <>
+          <span onClick={() => signOut()}>Logout</span>
+          <span>|</span>
+        </>
       )}
     </div>
   );
 };
 const mapStateToProps = (state: any) => {
-  if (state.auth.isEmpty === false) {
+  if (state.firebase.auth.isEmpty === false) {
     return { loggedIn: true };
   } else {
     return { loggedIn: false };

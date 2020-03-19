@@ -6,9 +6,10 @@ import Summary from "./summary";
 import Create from "./create";
 interface Props {
   data?: iActivity[];
+  loggedIn: boolean | undefined;
 }
 
-const Activities: React.FC<Props> = ({ data }) => {
+const Activities: React.FC<Props> = ({ data, loggedIn }) => {
   return (
     <div>
       <Summary data={data} />

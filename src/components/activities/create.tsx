@@ -29,4 +29,5 @@ const mapDispatchToProps = (dispatch: any) => {
     createActivity: (activity: any) => dispatch(createActivity(activity))
   };
 };
+
 export default connect(null, mapDispatchToProps)(CreateActivity);
