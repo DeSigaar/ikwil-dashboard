@@ -11,12 +11,30 @@ export const createActivity = (activity: any, profile: any, id: string) => {
       creatorID: id
     })
     .then(() => {
-      store.dispatch({ type: "CREATE_ACTIVITY", activity });
+      store.dispatch({ type: "CREATE_ACTIVITY_SUCCESS", activity });
     })
     .catch((err: any) => {
       store.dispatch({ type: "CREATE_ACTIVITY_ERROR", err });
       console.error("err", err);
     });
 
-  return store.dispatch({ type: "CREATE_ACTIVITY", activity });
+  return store.dispatch({ type: "CREATE_ACTIVITY_SUCCESS", activity });
+};
+
+export const EditActivity = (
+  activity: any,
+  profile: any,
+  id: string,
+  docId: string
+) => {
+  firebase
+    .firestore()
+    .collection("activities")
+    .doc(docId)
+    .set({
+      name: activity.name,
+      createdBy: profile.firstName + " " + profile.lastName,
+      creatorID: id
+    })
+    .then(() => store.dispatch({ type: "EDIT_ACTIVITY_SUCCESS" }));
 };

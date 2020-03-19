@@ -2,12 +2,12 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import "../../scss/index.scss";
 import Activities from "../activities/index";
-import Activity from "../activities/activity";
+import Activity from "../activity/activity";
 import Login from "../auth/signIn";
 import Nav from "../nav/index";
 import { connect } from "react-redux";
 import SignUp from "../auth/signUp";
-
+import ActivityEdit from "../activity/edit";
 interface Props {
   loggedIn?: boolean;
 }
@@ -29,7 +29,13 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           render={({ match }) => <Activity link={match} />}
         />
 
-        {loggedIn ? null : (
+        {loggedIn ? (
+          <Route
+            exact
+            path="/activity/:id/edit"
+            render={({ match }) => <ActivityEdit link={match} />}
+          />
+        ) : (
           <>
             <Route exact path="/login">
               <Login />
