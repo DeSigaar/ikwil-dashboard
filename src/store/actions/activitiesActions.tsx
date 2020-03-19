@@ -36,5 +36,16 @@ export const EditActivity = (
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id
     })
-    .then(() => store.dispatch({ type: "EDIT_ACTIVITY_SUCCESS" }));
+    .then(() => store.dispatch({ type: "EDIT_ACTIVITY_SUCCESS" }))
+    .catch(err => store.dispatch({ type: "EDIT_ACTIVITY_ERROR", err }));
+};
+
+export const DeleteActivity = (docId: string) => {
+  firebase
+    .firestore()
+    .collection("activities")
+    .doc(docId)
+    .delete()
+    .then(() => store.dispatch({ type: "DELETE_ACTIVITY_SUCCESS" }))
+    .catch(err => store.dispatch({ type: "DELETE_ACTIVITY_ERROR", err }));
 };

@@ -1,4 +1,4 @@
 interface iActivity {
   name?: string;
-  id?: string;
+  id: string;
 }
