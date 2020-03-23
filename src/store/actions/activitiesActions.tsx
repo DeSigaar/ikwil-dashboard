@@ -1,12 +1,19 @@
 import { store } from "../../index";
 import firebase from "firebase/app";
 
-export const createActivity = (activity: any, profile: any, id: string) => {
+export const createActivity = (
+  activity: iActivity,
+  profile: any,
+  id: string
+) => {
   firebase
     .firestore()
     .collection("activities")
     .add({
-      name: activity,
+      name: activity.name,
+      startTime: activity.startTime,
+      endTime: activity.endTime,
+      room: activity.room,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id
     })
@@ -33,6 +40,9 @@ export const EditActivity = (
     .doc(docId)
     .set({
       name: activity.name,
+      startTime: activity.startTime,
+      endTime: activity.endTime,
+      room: activity.room,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id
     })

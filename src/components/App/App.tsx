@@ -2,12 +2,12 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import "../../scss/index.scss";
 import Activities from "../activities/index";
-import Activity from "../activity/activity";
+import Activity from "../activities/activity/activity";
 import Login from "../auth/signIn";
 import Nav from "../nav/index";
 import { connect } from "react-redux";
 import SignUp from "../auth/signUp";
-import ActivityEdit from "../activity/edit";
+import ActivityEdit from "../activities/activity/edit";
 interface Props {
   loggedIn?: boolean;
 }

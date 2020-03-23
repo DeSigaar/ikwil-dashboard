@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import Summary from "./summary";
-import Create from "./create";
+import Create from "./activity/create";
 interface Props {
   data?: iActivity[];
   isLoggedIn: boolean;
