@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 interface Props {
-  data?: iActivity[] | undefined;
+  data?: iOrganizer[] | undefined;
 }
 const Summary: React.FC<Props> = ({ data }) => {
   return (
@@ -10,10 +10,10 @@ const Summary: React.FC<Props> = ({ data }) => {
       <h2>Overzicht</h2>
       {typeof data !== "undefined" ? (
         <>
-          {data.map(activity => {
+          {data.map(organisor => {
             return (
-              <Link key={activity.id} to={"/activity/" + activity.id}>
-                <div>{activity.name}</div>
+              <Link key={organisor.id} to={"/organizer/" + organisor.id}>
+                <div>{organisor.name}</div>
               </Link>
             );
           })}
