@@ -4,20 +4,28 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { EditActivity } from "../../../store/actions/activitiesActions";
 import { Redirect } from "react-router-dom";
-
+import { getSecondPart } from "../../../functions/stringSplitting";
 interface Props {
   link?: any;
   profile?: any;
-  activity?: any;
+  activity?: iActivity;
   auth?: any;
+  categories?: iCategory[];
 }
 
-const ActivityEdit: React.FC<Props> = ({ activity, auth, profile, link }) => {
+const ActivityEdit: React.FC<Props> = ({
+  activity,
+  auth,
+  profile,
+  link,
+  categories
+}) => {
   const [name, setName] = useState<string>("");
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("");
   const [room, setRoom] = useState<string>("");
   const [redirect, setRedirect] = useState<boolean>(false);
+  const [category, setSelectedCategory] = useState<string>("geen");
 
   useEffect(() => {
     if (typeof activity !== "undefined") {
@@ -25,17 +33,25 @@ const ActivityEdit: React.FC<Props> = ({ activity, auth, profile, link }) => {
       setStartTime(activity.startTime);
       setEndTime(activity.endTime);
       setRoom(activity.name);
+      setSelectedCategory(getSecondPart(activity.category, "/"));
     }
   }, [activity]);
 
+  let options = [<option value="geen">Select</option>];
+  if (typeof categories !== "undefined") {
+    categories.forEach(category => {
+      options.push(<option value={category.id}>{category.name}</option>);
+    });
+  }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     EditActivity(
-      { name, startTime, endTime, room },
+      { name, startTime, endTime, room, category },
       profile,
       auth.uid,
       link.params.id
     );
+
     setRedirect(true);
   };
   if (typeof activity !== "undefined") {
@@ -76,6 +92,16 @@ const ActivityEdit: React.FC<Props> = ({ activity, auth, profile, link }) => {
                 onChange={e => setRoom(e.target.value)}
               />
             </div>
+            <div>
+              Categorie
+              <select
+                required
+                value={category}
+                onChange={e => setSelectedCategory(e.target.value)}
+              >
+                {options}
+              </select>
+            </div>
             <button>update</button>
           </form>
         </>
@@ -92,7 +118,8 @@ const mapStateToProps = (state: any) => {
     return {
       activity: state.firestore.ordered.activities[0],
       profile: state.firebase.profile,
-      auth: state.firebase.auth
+      auth: state.firebase.auth,
+      categories: state.firestore.ordered.categories
     };
   }
 };
@@ -106,6 +133,9 @@ const mapDispatchToProps = (dispatch: any) => {
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props: Props) => [
-    { collection: "activities", doc: props.link.params.id }
+    { collection: "activities", doc: props.link.params.id },
+    {
+      collection: "categories"
+    }
   ])
 )(ActivityEdit) as React.FC<Props>;

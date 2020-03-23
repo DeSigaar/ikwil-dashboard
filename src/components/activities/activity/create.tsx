@@ -21,7 +21,7 @@ const Create: React.FC<Props> = ({
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("");
   const [room, setRoom] = useState<string>("");
-  const [category, setSelectedCategory] = useState<string>("none");
+  const [category, setSelectedCategory] = useState<string>("geen");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createActivity(
@@ -31,7 +31,7 @@ const Create: React.FC<Props> = ({
     );
   };
 
-  let options = [<option value="none">Select</option>];
+  let options = [<option value="geen">Select</option>];
 
   if (typeof categories !== "undefined") {
     categories.forEach(category => {

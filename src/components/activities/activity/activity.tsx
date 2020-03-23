@@ -40,7 +40,7 @@ const Activity: React.FC<Props> = ({ link, data }) => {
             <div>{activity.room}</div>
             <div>{activity.createdBy}</div>
           </div>
-          {category !== {} ? (
+          {category !== {} && category !== undefined ? (
             <div>
               <h2>Category stuff</h2>
               <div>{category.name}</div>

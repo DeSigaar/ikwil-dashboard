@@ -43,6 +43,7 @@ export const EditActivity = (
       name: activity.name,
       startTime: activity.startTime,
       endTime: activity.endTime,
+      category: "categories/" + activity.category,
       room: activity.room,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id
