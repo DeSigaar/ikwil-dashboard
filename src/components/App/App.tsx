@@ -14,6 +14,9 @@ import OrganizerEdit from "../organisers/organizer/edit";
 import News from "../news/index";
 import NewsItem from "../news/newsItem/newsItem";
 import NewsItemEdit from "../news/newsItem/edit";
+import Rules from "../rules/index";
+import Rule from "../rules/rule/rule";
+import RuleEdit from "../rules/rule/edit";
 interface Props {
   loggedIn?: boolean;
 }
@@ -50,6 +53,14 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           path="/activity/:id"
           render={({ match }) => <Activity link={match} />}
         />
+        <Route exact path="/rule">
+          <Rules />
+        </Route>
+        <Route
+          exact
+          path="/rule/:id"
+          render={({ match }) => <Rule link={match} />}
+        />
 
         {loggedIn ? (
           <>
@@ -67,6 +78,11 @@ const App: React.FC<Props> = ({ loggedIn }) => {
               exact
               path="/news/:id/edit"
               render={({ match }) => <NewsItemEdit link={match} />}
+            />
+            <Route
+              exact
+              path="/rule/:id/edit"
+              render={({ match }) => <RuleEdit link={match} />}
             />
           </>
         ) : (
