@@ -6,4 +6,5 @@ interface iActivity {
   id?: string;
   createdBy?: string;
   creatorId?: string;
+  category: string;
 }

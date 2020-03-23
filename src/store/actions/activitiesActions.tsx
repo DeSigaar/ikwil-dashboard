@@ -14,6 +14,7 @@ export const createActivity = (
       startTime: activity.startTime,
       endTime: activity.endTime,
       room: activity.room,
+      category: "categories/" + activity.category,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id
     })

@@ -1,22 +1,43 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createActivity } from "../../../store/actions/activitiesActions";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
 
 interface Props {
   profile: any;
   userId: string;
+  categories: iCategory[];
+  organisers: iOrganizer[];
 }
 
-const CreateActivity: React.FC<Props> = ({ profile, userId }) => {
+const Create: React.FC<Props> = ({
+  profile,
+  userId,
+  categories,
+  organisers
+}) => {
   const [name, setName] = useState<string>("");
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("");
   const [room, setRoom] = useState<string>("");
-
+  const [category, setSelectedCategory] = useState<string>("none");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createActivity({ name, startTime, endTime, room }, profile, userId);
+    createActivity(
+      { name, startTime, endTime, room, category },
+      profile,
+      userId
+    );
   };
+
+  let options = [<option value="none">Select</option>];
+
+  if (typeof categories !== "undefined") {
+    categories.forEach(category => {
+      options.push(<option value={category.id}>{category.name}</option>);
+    });
+  }
   return (
     <div>
       <h2>Toevoegen</h2>
@@ -55,16 +76,14 @@ const CreateActivity: React.FC<Props> = ({ profile, userId }) => {
         </div>
         <div>
           Categorie
-          <select>
-            <option value="catExercise">Beweging</option>
-            <option value="catCreative">Creatief</option>
-            <option value="catKids">Kinderen</option>
-            <option value="catSocial">Sociaal</option>
-            <option value="catSpiritual">Spiritueel</option>
-            <option value="catLanguage">Taal</option>
+          <select
+            value={category}
+            onChange={e => setSelectedCategory(e.target.value)}
+          >
+            {options}
           </select>
         </div>
-        Kartrekkers
+
         <button>submit</button>
       </form>
     </div>
@@ -73,14 +92,26 @@ const CreateActivity: React.FC<Props> = ({ profile, userId }) => {
 const mapStateToProps = (state: any) => {
   return {
     profile: state.firebase.profile,
-    userId: state.firebase.auth.uid
+    userId: state.firebase.auth.uid,
+    categories: state.firestore.ordered.categories,
+    organisers: state.firestore.ordered.organisers
   };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createActivity: (activity: any, profile: any, userId: string) =>
+    createActivity: (activity: iActivity, profile: any, userId: string) =>
       dispatch(createActivity(activity, profile, userId))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateActivity);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect(() => [
+    {
+      collection: "categories"
+    },
+    {
+      collection: "organisers"
+    }
+  ])
+)(Create) as React.FC;
