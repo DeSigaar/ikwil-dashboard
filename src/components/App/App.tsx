@@ -11,6 +11,9 @@ import ActivityEdit from "../activities/activity/edit";
 import Organisers from "../organisers/index";
 import Organizer from "../organisers/organizer/organizer";
 import OrganizerEdit from "../organisers/organizer/edit";
+import News from "../news/index";
+import NewsItem from "../news/newsItem/newsItem";
+import NewsItemEdit from "../news/newsItem/edit";
 interface Props {
   loggedIn?: boolean;
 }
@@ -34,6 +37,14 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           path="/organizer/:id"
           render={({ match }) => <Organizer link={match} />}
         />
+        <Route exact path="/news">
+          <News />
+        </Route>
+        <Route
+          exact
+          path="/news/:id"
+          render={({ match }) => <NewsItem link={match} />}
+        />
         <Route
           exact
           path="/activity/:id"
@@ -51,6 +62,11 @@ const App: React.FC<Props> = ({ loggedIn }) => {
               exact
               path="/organizer/:id/edit"
               render={({ match }) => <OrganizerEdit link={match} />}
+            />
+            <Route
+              exact
+              path="/news/:id/edit"
+              render={({ match }) => <NewsItemEdit link={match} />}
             />
           </>
         ) : (
