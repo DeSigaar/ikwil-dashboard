@@ -1,7 +1,7 @@
 interface iOrganizer {
   id?: string;
   name: string;
-  isAvailable: boolean;
+  isAvailable?: boolean;
   createdBy?: string;
   creatorId?: string;
 }

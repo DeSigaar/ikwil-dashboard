@@ -5,8 +5,8 @@ interface Props {
 }
 const Summary: React.FC<Props> = ({ data }) => {
   return (
-    <div>
-      <h2>Overzicht</h2>
+    <div className="s-card">
+      <h2 className="s-card__header">Overzicht</h2>
       {typeof data !== "undefined" ? (
         <>
           {data.map(activity => {

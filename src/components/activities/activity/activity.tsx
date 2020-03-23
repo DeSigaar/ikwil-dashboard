@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
@@ -6,14 +6,29 @@ import { Link } from "react-router-dom";
 import { DeleteActivity } from "../../../store/actions/activitiesActions";
 import { Redirect } from "react-router-dom";
 import { getSecondPart } from "../../../functions/stringSplitting";
+import { useFirestore } from "react-redux-firebase";
+
 interface Props {
   link: any;
   data?: any;
 }
 
 const Activity: React.FC<Props> = ({ link, data }) => {
+  const firestore = useFirestore();
+
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof data.activity.category !== "undefined") {
+      let test = firestore
+        .collection("categories")
+        .doc(getSecondPart(data.activity.category, "/"))
+        .get()
+        .then((aa: any) => console.log("aa", aa));
+      console.log("test :", test);
+    }
+  }, [data.activity]);
 
   if (typeof data.activity !== "undefined") {
     const handleDelte = () => {
@@ -94,15 +109,15 @@ const mapDispatchToProps = (dispatch: any) => {
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props: Props) => [
-    { collection: "activities", doc: props.link.params.id },
-    {
-      collection: "categories",
-      doc: `${
-        typeof props.data.activity.category !== "undefined"
-          ? getSecondPart(props.data.activity.category, "/")
-          : "none"
-      }`
-    }
+    { collection: "activities", doc: props.link.params.id }
+    // {
+    //   collection: "categories",
+    //   doc: `${
+    //     typeof props.data.activity.category !== "undefined"
+    //       ? getSecondPart(props.data.activity.category, "/")
+    //       : "none"
+    //   }`
+    // }
     //TO:DO betere manier vinden
   ])
 )(Activity) as React.FC<Props>;

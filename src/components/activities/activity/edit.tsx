@@ -37,10 +37,14 @@ const ActivityEdit: React.FC<Props> = ({
     }
   }, [activity]);
 
-  let options = [<option value="geen">Select</option>];
+  let categoryOptions = [<option value="geen">Select</option>];
   if (typeof categories !== "undefined") {
     categories.forEach(category => {
-      options.push(<option value={category.id}>{category.name}</option>);
+      categoryOptions.push(
+        <option key={category.id} value={category.id}>
+          {category.name}
+        </option>
+      );
     });
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -99,7 +103,7 @@ const ActivityEdit: React.FC<Props> = ({
                 value={category}
                 onChange={e => setSelectedCategory(e.target.value)}
               >
-                {options}
+                {categoryOptions}
               </select>
             </div>
             <button>update</button>

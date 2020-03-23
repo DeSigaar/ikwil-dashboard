@@ -4,7 +4,8 @@ import firebase from "firebase/app";
 export const createActivity = (
   activity: iActivity,
   profile: any,
-  id: string
+  id: string,
+  organisers: string[]
 ) => {
   firebase
     .firestore()
@@ -15,6 +16,7 @@ export const createActivity = (
       endTime: activity.endTime,
       room: activity.room,
       category: "categories/" + activity.category,
+      organisers,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id
     })

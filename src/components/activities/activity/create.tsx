@@ -22,28 +22,73 @@ const Create: React.FC<Props> = ({
   const [endTime, setEndTime] = useState<string>("");
   const [room, setRoom] = useState<string>("");
   const [category, setSelectedCategory] = useState<string>("geen");
+  const [activeOrganisers, setActiveOrganisers] = useState<string[]>([]);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let refOranisers: string[] = [];
+    activeOrganisers.forEach(ref => {
+      refOranisers.push("organisers/" + ref);
+    });
     createActivity(
       { name, startTime, endTime, room, category },
       profile,
-      userId
+      userId,
+      refOranisers
     );
   };
 
-  let options = [<option value="geen">Select</option>];
+  let categoryOptions = [<option value="geen">Select</option>];
 
   if (typeof categories !== "undefined") {
     categories.forEach(category => {
-      options.push(<option value={category.id}>{category.name}</option>);
+      categoryOptions.push(
+        <option key={category.id} value={category.id}>
+          {category.name}
+        </option>
+      );
     });
   }
+  let organisersOptions: any = [];
+  if (typeof organisers !== "undefined") {
+    organisers.forEach(organizer => {
+      if (typeof organizer.id !== "undefined") {
+        organisersOptions.push(
+          <div key={organizer.id}>
+            <input
+              checked={activeOrganisers.includes(organizer.id)}
+              onChange={e => handleActiveOrganisers(e, organizer.id)}
+              type="checkbox"
+            />
+            {organizer.name}
+          </div>
+        );
+      }
+    });
+  }
+  const handleActiveOrganisers = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: string | undefined
+  ) => {
+    let tempActiveOrganisers = [...activeOrganisers];
+    if (typeof id !== "undefined") {
+      if (tempActiveOrganisers.includes(id)) {
+        tempActiveOrganisers.splice(
+          tempActiveOrganisers.findIndex(item => item === id),
+          1
+        );
+      } else {
+        tempActiveOrganisers.push(id);
+      }
+      setActiveOrganisers(tempActiveOrganisers);
+    }
+  };
   return (
     <div>
       <h2>Toevoegen</h2>
       <form onSubmit={e => handleSubmit(e)}>
         <div>
-          Naam
+          <h3>Naam</h3>
           <input
             required
             value={name}
@@ -51,7 +96,7 @@ const Create: React.FC<Props> = ({
           />
         </div>
         <div>
-          Tijden
+          <h3>Tijden</h3>
           <input
             required
             type="time"
@@ -67,7 +112,7 @@ const Create: React.FC<Props> = ({
           />
         </div>
         <div>
-          Locatie
+          <h3>Locatie</h3>
           <input
             required
             value={room}
@@ -75,15 +120,19 @@ const Create: React.FC<Props> = ({
           />
         </div>
         <div>
-          Categorie
+          <h3>Categorie</h3>
           <select
+            required
             value={category}
             onChange={e => setSelectedCategory(e.target.value)}
           >
-            {options}
+            {categoryOptions}
           </select>
         </div>
-
+        <div>
+          <h3>Organisers</h3>
+          {organisersOptions}
+        </div>
         <button>submit</button>
       </form>
     </div>
@@ -99,8 +148,12 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createActivity: (activity: iActivity, profile: any, userId: string) =>
-      dispatch(createActivity(activity, profile, userId))
+    createActivity: (
+      activity: iActivity,
+      profile: any,
+      userId: string,
+      organisers: string[]
+    ) => dispatch(createActivity(activity, profile, userId, organisers))
   };
 };
 
