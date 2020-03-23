@@ -1,27 +1,39 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { createActivity } from "../../store/actions/activitiesActions";
+import { createOrganizer } from "../../../store/actions/organizerActions";
 
 interface Props {
   profile: any;
   userId: string;
 }
 
-const CreateActivity: React.FC<Props> = ({ profile, userId }) => {
+const Create: React.FC<Props> = ({ profile, userId }) => {
   const [name, setName] = useState<string>("");
+  const [isAvailable, setIsAvailable] = useState<boolean>(true);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createActivity(name, profile, userId);
+    createOrganizer({ name, isAvailable }, profile, userId);
   };
   return (
     <div>
+      <h2>Toevoegen</h2>
       <form onSubmit={e => handleSubmit(e)}>
         <div>
-          naam
+          Naam
           <input
             required
             value={name}
             onChange={e => setName(e.target.value)}
+          />
+        </div>
+        <div>
+          Beschikbaar
+          <input
+            required
+            type="checkbox"
+            checked={isAvailable}
+            onChange={e => setIsAvailable(!isAvailable)}
           />
         </div>
         <button>submit</button>
@@ -37,9 +49,9 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createActivity: (activity: any, profile: any, userId: string) =>
-      dispatch(createActivity(activity, profile, userId))
+    createOrganizer: (organizer: any, profile: any, userId: string) =>
+      dispatch(createOrganizer(organizer, profile, userId))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateActivity);
+export default connect(mapStateToProps, mapDispatchToProps)(Create);

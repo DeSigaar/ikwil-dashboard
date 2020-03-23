@@ -1,4 +1,9 @@
 interface iActivity {
-  name?: string;
-  id: string;
+  name: string;
+  startTime: string;
+  endTime: string;
+  room: string;
+  id?: string;
+  createdBy?: string;
+  creatorId?: string;
 }
