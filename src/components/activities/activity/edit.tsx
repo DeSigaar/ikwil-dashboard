@@ -88,6 +88,7 @@ const ActivityEdit: React.FC<Props> = ({
               onChange={e => handleActiveOrganisers(e, organizer.id)}
               type="checkbox"
             />
+            {organizer.name}
           </div>
           )
       }
@@ -151,7 +152,7 @@ const ActivityEdit: React.FC<Props> = ({
               />
             </div>
         
-          {organisersOptions.length === 0 ? <div>Er zijn nog geen kartrekkers toegevoegd. Klik <Link to='/organizer'>hier</Link> om ze toe te voegen</div> :   <div>{console.log(organisersOptions)}   {organisersOptions} </div>}
+          {organisersOptions.length === 0 ? <div>Er zijn nog geen kartrekkers toegevoegd. Klik <Link to='/organizer'>hier</Link> om ze toe te voegen</div> :   <div> {organisersOptions} </div>}
     
        
             <div>

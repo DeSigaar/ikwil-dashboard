@@ -132,7 +132,6 @@ const Create: React.FC<Props> = ({
         </div><
         div>
           <h3>Organisers</h3>
-          {console.log('organisersOptions :', organisersOptions)}
           {organisersOptions.length === 0 ?  
            <div>Er zijn nog geen kartrekkers gevonden! Klik <Link to="/organizer">hier</Link> om ze aan te maken!</div>: organisersOptions.map((organizer:any) => {return organizer})}
         </div>
