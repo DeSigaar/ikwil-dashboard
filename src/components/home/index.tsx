@@ -5,7 +5,7 @@ import News from '../news/index';
 import Activities from '../activities/index';
 
 interface Props {
-//   loggedIn?: boolean;
+  //   loggedIn?: boolean;
 }
 
 const Nav: React.FC<Props> = () => {

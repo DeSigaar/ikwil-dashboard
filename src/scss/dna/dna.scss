@@ -20,13 +20,15 @@ $font-weight-activity-title: 600;
 $font-size-nav: 24px;
 $font-weight-nav: normal;
 
-$font-size-title: 16px;
+$font-size-title: 17px;
 $font-weight-title: bold;
 
-$font-size-text: 16px;
+$font-size-text: 15px;
 $font-weight-text: normal;
 
 //SPACING
+$spacing-tiny: 10px;
+$spacing-small-tiny: 20px;
 $spacing-small: 30px;
 $spacing-small-medium: 40px;
 $spacing-medium-small: 60px;
@@ -35,14 +37,16 @@ $spacing-medium-big: 100px;
 $spacing-big: 120px;
 
 //CARD
-$card-short: 445px;
+$card-short: calc(50vh - 85px);
 $card-tall: calc(100vh - 140px);
 $card-width: 660px;
+$card-margin: 0 0 30px 0;
 
 body {
   font-family: 'Poppins', sans-serif;
   background-color: $color-background;
   padding: $spacing-small;
+  color: $color-black;
 }
 
 //CSS RESET
@@ -54,12 +58,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Remove default padding */
-ul[class],
-ol[class] {
-  padding: 0;
-}
-
 /* Remove default margin */
 body,
 h1,
@@ -67,9 +65,6 @@ h2,
 h3,
 h4,
 p,
-ul[class],
-ol[class],
-li,
 figure,
 figcaption,
 blockquote,

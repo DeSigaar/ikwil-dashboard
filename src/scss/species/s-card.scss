@@ -4,11 +4,13 @@
   padding: $spacing-small-medium $spacing-medium-small;
   background-color: $color-white;
   box-shadow: $shadow-card;
+  margin: $card-margin;
 
   &__header {
-    font-size: $font-weight-header;
+    font-size: $font-size-header;
     font-weight: $font-weight-header;
-    padding-bottom: $spacing-small-medium;
+    padding-bottom: $spacing-small-tiny;
+    color: $color-black;
   }
 }
 
