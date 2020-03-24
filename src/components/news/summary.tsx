@@ -44,8 +44,20 @@ const Summary: React.FC<Props> = ({ data }) => {
           >
             {data.map(newsItem => {
               return (
-                <Link key={newsItem.id} to={"/news/" + newsItem.id}>
-                  <div>{newsItem.title}</div>
+                <Link
+                  className="c-newsItem__link"
+                  key={newsItem.id}
+                  to={"/news/" + newsItem.id}
+                >
+                  <div className="c-newsItem">
+                    <img
+                      className="c-newsItem__image"
+                      src="https://images.unsplash.com/photo-1584556812952-905ffd0c611a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                      alt="toiletrolls-Coronavirus"
+                    />
+                    <h3 className="c-newsItem__title">{newsItem.title}</h3>
+                    <p className="c-newsItem__text">{newsItem.text}</p>
+                  </div>
                 </Link>
               );
             })}

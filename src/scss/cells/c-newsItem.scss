@@ -1,0 +1,17 @@
+.c-newsItem {
+  color: $color-black;
+  height: 244px;
+  overflow: hidden;
+
+  &__link {
+    text-decoration: none;
+  }
+
+  &__image {
+    width: 135px;
+    height: 135px;
+    object-fit: cover;
+    float: left;
+    padding-right: $spacing-small;
+  }
+}
