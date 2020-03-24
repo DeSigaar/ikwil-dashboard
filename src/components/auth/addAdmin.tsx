@@ -7,7 +7,7 @@ interface Props {
   signUp: any;
 }
 
-const AddUser: React.FC<Props> = ({ signUp, authError }) => {
+const AddAdmin: React.FC<Props> = ({ signUp, authError }) => {
   const [email, setEmail] = useState<string>("testerino@gmail.com");
   const [firstName, setFirstName] = useState<string>("Tester");
   const [lastName, setLastName] = useState<string>("ino");
@@ -54,4 +54,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddUser);
+export default connect(mapStateToProps, mapDispatchToProps)(AddAdmin);

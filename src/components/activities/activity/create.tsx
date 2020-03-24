@@ -129,11 +129,11 @@ const Create: React.FC<Props> = ({
           >
             {categoryOptions}
           </select>
-        </div>
-        <div>
+        </div><
+        div>
           <h3>Organisers</h3>
-          {organisersOptions.length>0 ?  
-          {organisersOptions} : <div>Er zijn nog geen kartrekkers gevonden! Klik <Link to="/organizer">hier</Link> om ze aan te maken!</div>}
+          {organisersOptions.length === 0 ?  
+           <div>Er zijn nog geen kartrekkers gevonden! Klik <Link to="/organizer">hier</Link> om ze aan te maken!</div>: organisersOptions.map((organizer:any) => {return organizer})}
         </div>
       
         <button>submit</button>

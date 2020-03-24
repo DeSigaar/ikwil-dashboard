@@ -79,17 +79,23 @@ const ActivityEdit: React.FC<Props> = ({
 
   let organisersOptions: any = [];
   if (typeof organisers !== "undefined") {
-    organisers.forEach(organizer => <div key={organizer.id}>{typeof organizer.id !== "undefined" ? organisersOptions.push( 
-      <div key={organizer.id}>
-        <input
-          checked={activeOrganisers.includes(organizer.id)}
-          onChange={e => handleActiveOrganisers(e, organizer.id)}
-          type="checkbox"
-        />
-        {organizer.name}
-      </div>
-    ): null}</div>);
+    organisers.forEach(organizer => {
+      if(typeof organizer.id !== "undefined"){
+        organisersOptions.push( 
+          <div key={organizer.id}>
+            <input
+              checked={activeOrganisers.includes(organizer.id)}
+              onChange={e => handleActiveOrganisers(e, organizer.id)}
+              type="checkbox"
+            />
+            {organizer.name}
+          </div>
+          )
+      }
+    })
   }
+    
+  
   const handleActiveOrganisers = (
     e: React.ChangeEvent<HTMLInputElement>,
     id: string | undefined
@@ -146,7 +152,7 @@ const ActivityEdit: React.FC<Props> = ({
               />
             </div>
         
-          {organisersOptions.length === 0 ? <div>Er zijn nog geen kartrekkers toegevoegd. Klik <Link to='/organizer'>hier</Link> om ze toe te voegen</div> :   <div>{organisersOptions}</div>}
+          {organisersOptions.length === 0 ? <div>Er zijn nog geen kartrekkers toegevoegd. Klik <Link to='/organizer'>hier</Link> om ze toe te voegen</div> :   <div> {organisersOptions} </div>}
     
        
             <div>
