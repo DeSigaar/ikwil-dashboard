@@ -9,30 +9,26 @@ interface Props {
 
 const Nav: React.FC<Props> = ({ loggedIn }) => {
   return (
-    <div>
+    <div className="s-nav">
+      <img src="/logo.svg" alt="Stichting Ik Wil Logo" className="c-logo" />
       <Link to="/">To Homepage</Link>
-      <span>|</span>
-      <Link to="/about">About</Link>
-      <span>|</span>
       <Link to="/organizer">Organizer</Link>
-      <span>|</span>
       <Link to="/news">News</Link>
-      <span>|</span>
       {!loggedIn ? (
         <>
           <Link to="/login">Login</Link>
-          <span>|</span>
           <Link to="/sign-up">sign up</Link>
         </>
       ) : (
         <>
-          <span onClick={() => signOut()}>Logout</span>
-          <span>|</span>
+          {/* <span onClick={() => signOut()}>Logout</span> */}
+          {/* <span>|</span> */}
         </>
       )}
     </div>
   );
 };
+
 const mapStateToProps = (state: any) => {
   if (state.firebase.auth.isEmpty === false) {
     return { loggedIn: true };
