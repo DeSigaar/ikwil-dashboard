@@ -6,14 +6,15 @@ export const createRule = (
   profile: any,
   id: string
 ) => {
-  firebase
-    .firestore()
-    .collection("rules")
-    .add({
+  const ref = firebase
+  .firestore().collection('rules').doc();
+  ref
+    .set({
       name: rule.name,
       rule: rule.rule,
       createdBy: profile.firstName + " " + profile.lastName,
-      creatorID: id
+      creatorID: id,
+      id: ref.id
     })
     .then(() => {
       store.dispatch({ type: "CREATE_RULE_SUCCESS", rule });

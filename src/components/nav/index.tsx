@@ -14,6 +14,8 @@ const Nav: React.FC<Props> = ({ loggedIn }) => {
       <span>|</span>
       <Link to="/about">About</Link>
       <span>|</span>
+      <Link to="/activity">Activity</Link>
+      <span>|</span>
       <Link to="/organizer">Organizer</Link>
       <span>|</span>
       <Link to="/news">News</Link>

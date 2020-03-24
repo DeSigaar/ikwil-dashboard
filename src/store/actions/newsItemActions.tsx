@@ -6,14 +6,15 @@ export const createNewsItem = (
   profile: any,
   id: string
 ) => {
-  firebase
-    .firestore()
-    .collection("news")
-    .add({
+  const ref = firebase
+  .firestore().collection('news').doc();
+  ref
+    .set({
       title: newsItem.title,
       text: newsItem.text,
       createdBy: profile.firstName + " " + profile.lastName,
-      creatorID: id
+      creatorID: id,
+      id: ref.id
     })
     .then(() => {
       store.dispatch({ type: "CREATE_NEWSITEM_SUCCESS", newsItem });

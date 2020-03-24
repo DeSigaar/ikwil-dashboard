@@ -21,10 +21,10 @@ const Organisers: React.FC<Props> = ({ data, isLoggedIn }) => {
 const mapStateToProps = (state: any) => {
   let isLoggedIn = false;
   if (!state.firebase.profile.isEmpty) {
-    isLoggedIn = true;
+    isLoggedIn = true
   }
   return {
-    data: state.firestore.ordered.organisers,
+    data: state.firestore.ordered.organisers, 
     isLoggedIn
   };
 };

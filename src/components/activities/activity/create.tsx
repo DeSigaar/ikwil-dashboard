@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { createActivity } from "../../../store/actions/activitiesActions";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
+import {Link} from "react-router-dom"
 
 interface Props {
   profile: any;
@@ -38,7 +39,7 @@ const Create: React.FC<Props> = ({
     );
   };
 
-  let categoryOptions = [<option value="geen">Select</option>];
+  let categoryOptions = [<option key="noKey" value="geen">Select</option>];
 
   if (typeof categories !== "undefined") {
     categories.forEach(category => {
@@ -131,8 +132,10 @@ const Create: React.FC<Props> = ({
         </div>
         <div>
           <h3>Organisers</h3>
-          {organisersOptions}
+          {organisersOptions.length>0 ?  
+          {organisersOptions} : <div>Er zijn nog geen kartrekkers gevonden! Klik <Link to="/organizer">hier</Link> om ze aan te maken!</div>}
         </div>
+      
         <button>submit</button>
       </form>
     </div>

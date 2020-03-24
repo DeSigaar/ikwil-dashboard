@@ -21,24 +21,31 @@ const Activity: React.FC<Props> = ({ link, data }) => {
   const [organisers, setOrganisers] = useState<any>([]);
   const [count, setCount] = useState<number>(1);
   useEffect(() => {
-    if (typeof data.activity.category !== "undefined") {
-      //Category fetch
-      firestore.collection('categories').doc(getSecondPart(data.activity.category, "/")).get().then((data:any) => setCategory(data.data()))
+    if(typeof data.activity !== "undefined"){
+      if (typeof data.activity.category !== "undefined") {
+        //Category fetch
+        firestore.collection('categories').doc(getSecondPart(data.activity.category, "/")).get().then((data:any) => setCategory(data.data()))
+        
+        if(typeof data.activity.organisers !== "undefined" && data.activity.organisers.length > 0){
+
+        //Organisers fetch
+          let organisersIds:any = [];
+          data.activity.organisers.forEach((organizer:iOrganizer) => {
+            organisersIds.push(getSecondPart(organizer, "/"));
+          });
       
-      //Organisers fetch
-      let organisersIds:any = [];
-      data.activity.organisers.forEach((organizer:iOrganizer) => {
-        organisersIds.push(getSecondPart(organizer, "/"));
-      });
+          let arr:any = [];
+          firestore.collection('organisers').where('id', 'in',  organisersIds).get().then((data:any) => data.docs.forEach((doc:any) => {
+              arr.push(doc.data());
+              setOrganisers(arr);
+              setCount(Math.floor(Math.random() * Math.floor(100))); 
+              //TO:DO Netter maken
+          }))
+        }
   
-      let arr:any = [];
-      firestore.collection('organisers').where('id', 'in',  organisersIds).get().then((data:any) => data.docs.forEach((doc:any) => {
-          arr.push(doc.data());
-          setOrganisers(arr);
-          setCount(Math.floor(Math.random() * Math.floor(100))); 
-          //TO:DO Netter maken
-      }))
+      }
     }
+   
   }, [data.activity, firestore]);
 
   if (typeof data.activity !== "undefined") {
@@ -76,9 +83,14 @@ const Activity: React.FC<Props> = ({ link, data }) => {
           {typeof organisers !== "undefined" ? (
             <div>
               <h2>Organizer stuff</h2>
+              {organisers.length === 0 ? <>Er zijn geen kartrekkers toegevoegd</> :  
+              <>
               {organisers.map((organizer:iOrganizer) => {
                 return <div key={organizer.id}>{organizer.name}</div>
               })}
+              </>
+              }
+             
             </div>
           ) : null}
           <Link to={link.url + "/edit"}>edit</Link>

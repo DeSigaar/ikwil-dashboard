@@ -11,7 +11,6 @@ interface Props {
 }
 
 const Organizer: React.FC<Props> = ({ organizer, link }) => {
-  console.log("organizer :", organizer);
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
 
