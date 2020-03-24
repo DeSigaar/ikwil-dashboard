@@ -83,7 +83,9 @@ const Activity: React.FC<Props> = ({ link, data }) => {
           {typeof organisers !== "undefined" ? (
             <div>
               <h2>Organizer stuff</h2>
-              {organisers.length === 0 ? <>Er zijn geen kartrekkers toegevoegd</> :  
+              {organisers.length === 0 ? 
+              <>Er zijn geen kartrekkers toegevoegd</> 
+              :  
               <>
               {organisers.map((organizer:iOrganizer) => {
                 return <div key={organizer.id}>{organizer.name}</div>
