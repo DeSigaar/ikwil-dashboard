@@ -7,6 +7,9 @@ $color-light-gray: #E8E8E8;
 $color-grey: #707070;
 $color-black: #222222;
 
+//SHADOW
+$shadow-card: 0px 5px 16px 0px rgba(0, 0, 0, 0.06);
+
 //FONTS
 $font-size-header: 34px;
 $font-weight-header: bold;
@@ -39,6 +42,7 @@ $card-width: 660px;
 body {
   font-family: 'Poppins', sans-serif;
   background-color: $color-background;
+  padding: $spacing-small;
 }
 
 //CSS RESET
