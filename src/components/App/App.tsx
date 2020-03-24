@@ -6,7 +6,7 @@ import Activity from "../activities/activity/activity";
 import Login from "../auth/signIn";
 import Nav from "../nav/index";
 import { connect } from "react-redux";
-import SignUp from "../auth/signUp";
+import AddAdmin from "../auth/addAdmin";
 import ActivityEdit from "../activities/activity/edit";
 import Organisers from "../organisers/index";
 import Organizer from "../organisers/organizer/organizer";
@@ -87,15 +87,16 @@ const App: React.FC<Props> = ({ loggedIn }) => {
               path="/rule/:id/edit"
               render={({ match }) => <RuleEdit link={match} />}
             />
+            <Route exact path="/add-admin">
+              <AddAdmin />
+            </Route>
           </>
         ) : (
           <>
             <Route exact path="/login">
               <Login />
-            </Route>
-            <Route exact path="/sign-up">
-              <SignUp />
-            </Route>
+            </Route> 
+       
           </>
         )}
 
