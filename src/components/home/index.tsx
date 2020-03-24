@@ -1,10 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import News from '../news/index';
+// import { Link } from "react-router-dom";
+// import { connect } from "react-redux";
+import News from "../news/index";
 
 interface Props {
-//   loggedIn?: boolean;
+  //   loggedIn?: boolean;
 }
 
 const Nav: React.FC<Props> = () => {

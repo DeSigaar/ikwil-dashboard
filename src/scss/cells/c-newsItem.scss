@@ -1,6 +1,6 @@
 .c-newsItem {
   color: $color-black;
-  height: 244px;
+  height: 215px;
   overflow: hidden;
 
   &__link {
@@ -12,6 +12,16 @@
     height: 135px;
     object-fit: cover;
     float: left;
-    padding-right: $spacing-small;
+    margin-right: $spacing-small-tiny;
+  }
+
+  &__title {
+    font-size: $font-size-title;
+    margin-bottom: $spacing-tiny;
+  }
+
+  &__text {
+    font-size: $font-size-text;
+    color: $color-grey;
   }
 }
