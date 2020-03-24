@@ -11,10 +11,10 @@ interface Props {
 
 const News: React.FC<Props> = ({ data, isLoggedIn }) => {
   return (
-    <div>
+    <>
       <Summary data={data} />
       {/* {isLoggedIn ? <Create /> : null} */}
-    </div>
+    </>
   );
 };
 

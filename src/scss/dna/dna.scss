@@ -36,7 +36,7 @@ $spacing-big: 120px;
 
 //CARD
 $card-short: 445px;
-$card-tall: 920px;
+$card-tall: calc(100vh - 140px);
 $card-width: 660px;
 
 body {
