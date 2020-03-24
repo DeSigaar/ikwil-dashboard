@@ -11,20 +11,25 @@ const Nav: React.FC<Props> = ({ loggedIn }) => {
   return (
     <div className="s-nav">
       <img src="/logo.svg" alt="Stichting Ik Wil Logo" className="c-logo" />
-      <Link to="/">To Homepage</Link>
-      <Link to="/organizer">Organizer</Link>
-      <Link to="/news">News</Link>
-      {!loggedIn ? (
-        <>
-          <Link to="/login">Login</Link>
-          <Link to="/sign-up">sign up</Link>
+      <nav className="c-nav">
+        <ul>
+          <li><Link to="/">To Homepage</Link></li>
+          <li><Link to="/organizer">Organizer</Link></li>
+          <li><Link to="/news">News</Link></li>
+        {!loggedIn ? (
+          <>
+             <li><Link to="/login">Login</Link></li>
+             <li><Link to="/sign-up">sign up</Link></li>
+          </>
+        ) : (
+          <>
+            {/* <span onClick={() => signOut()}>Logout</span> */}
+            {/* <span>|</span> */}
         </>
-      ) : (
-        <>
-          {/* <span onClick={() => signOut()}>Logout</span> */}
-          {/* <span>|</span> */}
-        </>
-      )}
+            )}
+          </ul>
+      </nav>
+      <div></div>
     </div>
   );
 };
