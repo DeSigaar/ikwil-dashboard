@@ -6,7 +6,7 @@ import Activity from "../activities/activity/activity";
 import Login from "../auth/signIn";
 import Nav from "../nav/index";
 import { connect } from "react-redux";
-import SignUp from "../auth/signUp";
+import AddAdmin from "../auth/addAdmin";
 import ActivityEdit from "../activities/activity/edit";
 import Organisers from "../organisers/index";
 import Organizer from "../organisers/organizer/organizer";
@@ -16,6 +16,9 @@ import NewsItem from "../news/newsItem/newsItem";
 import NewsItemEdit from "../news/newsItem/edit";
 
 import "../../scss/index.scss";
+import Rules from "../rules/index";
+import Rule from "../rules/rule/rule";
+import RuleEdit from "../rules/rule/edit";
 interface Props {
   loggedIn?: boolean;
 }
@@ -29,6 +32,9 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           <Home />
         </Route>
         <Route exact path="/activities">
+          Niks jonge
+        </Route>
+        <Route exact path="/activity">
           <Activities />
         </Route>
         <Route exact path="/about">
@@ -55,6 +61,14 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           path="/activity/:id"
           render={({ match }) => <Activity link={match} />}
         />
+        <Route exact path="/rule">
+          <Rules />
+        </Route>
+        <Route
+          exact
+          path="/rule/:id"
+          render={({ match }) => <Rule link={match} />}
+        />
 
         {loggedIn ? (
           <>
@@ -73,15 +87,21 @@ const App: React.FC<Props> = ({ loggedIn }) => {
               path="/news/:id/edit"
               render={({ match }) => <NewsItemEdit link={match} />}
             />
+            <Route
+              exact
+              path="/rule/:id/edit"
+              render={({ match }) => <RuleEdit link={match} />}
+            />
+            <Route exact path="/add-admin">
+              <AddAdmin />
+            </Route>
           </>
         ) : (
           <>
             <Route exact path="/login">
               <Login />
-            </Route>
-            <Route exact path="/sign-up">
-              <SignUp />
-            </Route>
+            </Route> 
+       
           </>
         )}
 

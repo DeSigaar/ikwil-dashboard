@@ -2,36 +2,33 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import { EditOrganizer } from "../../../store/actions/organizerActions";
+import { EditRule } from "../../../store/actions/ruleActions";
 import { Redirect } from "react-router-dom";
 
 interface Props {
   link?: any;
   profile?: any;
-  organizer?: iOrganizer;
+  rule?: iRule;
   auth?: any;
 }
 
-const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
+const Edit: React.FC<Props> = ({ rule, auth, profile, link }) => {
   const [name, setName] = useState<string>("");
-  const [isAvailable, setIsAvailable] = useState<boolean>(false);
+  const [userRule, setUserRule] = useState<string>("");
   const [redirect, setRedirect] = useState<boolean>(false);
   useEffect(() => {
-    if (typeof organizer !== "undefined") {
-      setName(organizer.name);
-      if(typeof organizer.isAvailable !== "undefined"){ 
-        setIsAvailable(organizer.isAvailable);
-      }
-
+    if (typeof rule !== "undefined") {
+      setName(rule.name);
+      setUserRule(rule.rule);
     }
-  }, [organizer]);
+  }, [rule]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    EditOrganizer({ name, isAvailable }, profile, auth.uid, link.params.id);
+    EditRule({ name, rule }, profile, auth.uid, link.params.id);
     setRedirect(true);
   };
-  if (typeof organizer !== "undefined") {
+  if (typeof rule !== "undefined") {
     if (!redirect) {
       return (
         <>
@@ -46,12 +43,11 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
               />
             </div>
             <div>
-              Locatie
+              Regel
               <input
                 required
-                type="checkbox"
-                checked={isAvailable}
-                onChange={e => setIsAvailable(!isAvailable)}
+                value={userRule}
+                onChange={e => setUserRule(e.target.value)}
               />
             </div>
             <button>update</button>
@@ -59,16 +55,16 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
         </>
       );
     } else {
-      return <Redirect to={"/organizer/" + link.params.id} />;
+      return <Redirect to={"/rule/" + link.params.id} />;
     }
   } else {
     return <>Error</>;
   }
 };
 const mapStateToProps = (state: any) => {
-  if (typeof state.firestore.ordered.organisers !== "undefined") {
+  if (typeof state.firestore.ordered.rules !== "undefined") {
     return {
-      organizer: state.firestore.ordered.organisers[0],
+      organizer: state.firestore.ordered.rules[0],
       profile: state.firebase.profile,
       auth: state.firebase.auth
     };
@@ -76,14 +72,14 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    EditOrganizer: (organizer: any, profile: any, id: string, docId: string) =>
-      dispatch(EditOrganizer(organizer, profile, id, docId))
+    EditRule: (rule: any, profile: any, id: string, docId: string) =>
+      dispatch(EditRule(rule, profile, id, docId))
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props: Props) => [
-    { collection: "organizer", doc: props.link.params.id }
+    { collection: "rules", doc: props.link.params.id }
   ])
 )(Edit) as React.FC<Props>;

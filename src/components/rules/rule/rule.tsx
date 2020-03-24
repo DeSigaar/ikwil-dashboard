@@ -3,22 +3,22 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
-import { DeleteOrganizer } from "../../../store/actions/organizerActions";
+import { DeleteRule } from "../../../store/actions/ruleActions";
 import { Redirect } from "react-router-dom";
 interface Props {
   link: any;
-  organizer?: iOrganizer;
+  rule?: iRule;
 }
 
-const Organizer: React.FC<Props> = ({ organizer, link }) => {
+const Rule: React.FC<Props> = ({ rule, link }) => {
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
 
-  if (typeof organizer !== "undefined") {
+  if (typeof rule !== "undefined") {
     const handleDelete = () => {
-      if (typeof organizer.id !== "undefined") {
+      if (typeof rule.id !== "undefined") {
         //TO:DO Netter maker
-        DeleteOrganizer(organizer.id);
+        DeleteRule(rule.id);
         setRedirect(true);
       } else {
         alert("oeps");
@@ -27,9 +27,9 @@ const Organizer: React.FC<Props> = ({ organizer, link }) => {
     if (!redirect) {
       return (
         <div>
-          <h2>Organizer</h2>
-          <p>{organizer.name}</p>
-          <p>{organizer.createdBy}</p>
+          <h2>Regel</h2>
+          <p>{rule.name}</p>
+          <p>{rule.createdBy}</p>
 
           <Link to={link.url + "/edit"}>edit</Link>
           <button onClick={() => setSafeDelete(true)}>delete</button>
@@ -43,27 +43,27 @@ const Organizer: React.FC<Props> = ({ organizer, link }) => {
         </div>
       );
     } else {
-      return <Redirect to={"/organizer"} />;
+      return <Redirect to={"/rule"} />;
     }
   } else {
     return null;
   }
 };
 const mapStateToProps = (state: any) => {
-  if (typeof state.firestore.ordered.organisers !== "undefined") {
-    return { organizer: state.firestore.ordered.organisers[0] };
+  if (typeof state.firestore.ordered.rules !== "undefined") {
+    return { rule: state.firestore.ordered.rules[0] };
   }
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    DeleteOrganizer: (docId: string) => dispatch(DeleteOrganizer(docId))
+    DeleteRule: (docId: string) => dispatch(DeleteRule(docId))
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props: Props) => [
-    { collection: "organisers", doc: props.link.params.id }
+    { collection: "rules", doc: props.link.params.id }
   ])
-)(Organizer) as React.FC<Props>;
+)(Rule) as React.FC<Props>;

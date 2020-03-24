@@ -1,8 +1,7 @@
-interface iOrganizer {
+interface iRule {
   id?: string;
   name: string;
-  isAvailable?: boolean;
+  rule: string;
   createdBy?: string;
   creatorId?: string;
 }
- 

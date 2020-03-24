@@ -52,5 +52,7 @@ sketch
 
 **/fbConfig.js
 
+src/config/
+
 .env
 # End of https://www.gitignore.io/api/react,firebase
