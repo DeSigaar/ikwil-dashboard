@@ -18,17 +18,18 @@ const Activity: React.FC<Props> = ({ link, data }) => {
 
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
+  const [category, setCategory] = useState<iCategory | undefined>(undefined);
 
   useEffect(() => {
     if (typeof data.activity.category !== "undefined") {
-      let test = firestore
+      firestore
         .collection("categories")
         .doc(getSecondPart(data.activity.category, "/"))
         .get()
-        .then((aa: any) => console.log("aa", aa));
-      console.log("test :", test);
+        .then((data: any) => setCategory(data.data()));
     }
-  }, [data.activity]);
+  }, [data.activity, firestore]);
+
 
   if (typeof data.activity !== "undefined") {
     const handleDelte = () => {
@@ -40,7 +41,7 @@ const Activity: React.FC<Props> = ({ link, data }) => {
         alert("oeps");
       }
     };
-    const { activity, category } = data;
+    const { activity } = data;
     if (!redirect) {
       return (
         <div>
@@ -55,7 +56,7 @@ const Activity: React.FC<Props> = ({ link, data }) => {
             <div>{activity.room}</div>
             <div>{activity.createdBy}</div>
           </div>
-          {category !== {} && category !== undefined ? (
+          {typeof category !== "undefined" ? (
             <div>
               <h2>Category stuff</h2>
               <div>{category.name}</div>
@@ -110,14 +111,5 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props: Props) => [
     { collection: "activities", doc: props.link.params.id }
-    // {
-    //   collection: "categories",
-    //   doc: `${
-    //     typeof props.data.activity.category !== "undefined"
-    //       ? getSecondPart(props.data.activity.category, "/")
-    //       : "none"
-    //   }`
-    // }
-    //TO:DO betere manier vinden
   ])
 )(Activity) as React.FC<Props>;
