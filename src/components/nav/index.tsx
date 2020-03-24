@@ -18,6 +18,8 @@ const Nav: React.FC<Props> = ({ loggedIn }) => {
       <span>|</span>
       <Link to="/news">News</Link>
       <span>|</span>
+      <Link to="/rule">Rules</Link>
+      <span>|</span>
       {!loggedIn ? (
         <>
           <Link to="/login">Login</Link>
