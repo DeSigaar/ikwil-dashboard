@@ -7,4 +7,5 @@ interface iActivity {
   createdBy?: string;
   creatorId?: string;
   category: string;
+  organisers: string[]; 
 }

@@ -5,18 +5,18 @@ export const createActivity = (
   activity: iActivity,
   profile: any,
   id: string,
-  organisers: string[]
+
 ) => {
   firebase
     .firestore()
     .collection("activities")
     .add({
       name: activity.name,
-      startTime: activity.startTime,
+      startTime: activity.startTime, 
       endTime: activity.endTime,
       room: activity.room,
       category: "categories/" + activity.category,
-      organisers,
+      organisers: activity.organisers,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id
     })
@@ -32,10 +32,10 @@ export const createActivity = (
 };
 
 export const EditActivity = (
-  activity: any,
+  activity: iActivity,
   profile: any,
   id: string,
-  docId: string
+  docId: string,
 ) => {
   firebase
     .firestore()
@@ -45,6 +45,7 @@ export const EditActivity = (
       name: activity.name,
       startTime: activity.startTime,
       endTime: activity.endTime,
+      organisers: activity.organisers,
       category: "categories/" + activity.category,
       room: activity.room,
       createdBy: profile.firstName + " " + profile.lastName,

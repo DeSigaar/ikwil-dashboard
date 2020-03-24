@@ -26,15 +26,15 @@ const Create: React.FC<Props> = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let refOranisers: string[] = [];
+    let organisers: string[] = [];
     activeOrganisers.forEach(ref => {
-      refOranisers.push("organisers/" + ref);
+      organisers.push("organisers/" + ref);
     });
     createActivity(
-      { name, startTime, endTime, room, category },
+      { name, startTime, endTime, room, category,  organisers },
       profile,
       userId,
-      refOranisers
+    
     );
   };
 
@@ -152,8 +152,8 @@ const mapDispatchToProps = (dispatch: any) => {
       activity: iActivity,
       profile: any,
       userId: string,
-      organisers: string[]
-    ) => dispatch(createActivity(activity, profile, userId, organisers))
+  
+    ) => dispatch(createActivity(activity, profile, userId))
   };
 };
 
