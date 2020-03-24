@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
+import { firestoreConnect, useFirestore } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
 import { DeleteActivity } from "../../../store/actions/activitiesActions";
 import { Redirect } from "react-router-dom";
 import { getSecondPart } from "../../../functions/stringSplitting";
-import { useFirestore } from "react-redux-firebase";
 
 interface Props {
   link: any;
@@ -19,32 +18,40 @@ const Activity: React.FC<Props> = ({ link, data }) => {
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
   const [category, setCategory] = useState<iCategory | undefined>(undefined);
-
+  const [organisers, setOrganisers] = useState<any>([]);
+  const [count, setCount] = useState<number>(1);
   useEffect(() => {
     if (typeof data.activity.category !== "undefined") {
-      firestore
-        .collection("categories")
-        .doc(getSecondPart(data.activity.category, "/"))
-        .get()
-        .then((data: any) => setCategory(data.data()));
+      //Category fetch
+      firestore.collection('categories').doc(getSecondPart(data.activity.category, "/")).get().then((data:any) => setCategory(data.data()))
+      
+      //Organisers fetch
+      let organisersIds:any = [];
+      data.activity.organisers.forEach((organizer:iOrganizer) => {
+        organisersIds.push(getSecondPart(organizer, "/"));
+      });
+  
+      let arr:any = [];
+      firestore.collection('organisers').where('id', 'in',  organisersIds).get().then((data:any) => data.docs.forEach((doc:any) => {
+          arr.push(doc.data());
+          setOrganisers(arr);
+          setCount(Math.floor(Math.random() * Math.floor(100))); 
+          //TO:DO Netter maken
+      }))
     }
   }, [data.activity, firestore]);
-
 
   if (typeof data.activity !== "undefined") {
     const handleDelte = () => {
       if (typeof data.activity.id !== "undefined") {
-        //TO:DO Netter maker
         DeleteActivity(data.activity.id);
         setRedirect(true);
-      } else {
-        alert("oeps");
       }
     };
     const { activity } = data;
     if (!redirect) {
       return (
-        <div>
+        <div className={count.toString()}>
           <div>
             <h2>Activity stuff</h2>
             <div>{activity.name}</div>
@@ -66,6 +73,14 @@ const Activity: React.FC<Props> = ({ link, data }) => {
             </div>
           ) : null}
 
+          {typeof organisers !== "undefined" ? (
+            <div>
+              <h2>Organizer stuff</h2>
+              {organisers.map((organizer:iOrganizer) => {
+                return <div key={organizer.id}>{organizer.name}</div>
+              })}
+            </div>
+          ) : null}
           <Link to={link.url + "/edit"}>edit</Link>
           <button onClick={() => setSafeDelete(true)}>delete</button>
           {safeDelete ? (
