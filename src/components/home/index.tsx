@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import News from '../news/index';
 
 interface Props {
 //   loggedIn?: boolean;
@@ -9,7 +10,7 @@ interface Props {
 const Nav: React.FC<Props> = () => {
   return (
     <div className="s-home">
-      home overview
+      <News></News>
     </div>
   );
 };
