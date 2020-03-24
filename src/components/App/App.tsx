@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import "../../scss/index.scss";
 import Activities from "../activities/index";
 import Activity from "../activities/activity/activity";
 import Login from "../auth/signIn";
@@ -14,6 +13,8 @@ import OrganizerEdit from "../organisers/organizer/edit";
 import News from "../news/index";
 import NewsItem from "../news/newsItem/newsItem";
 import NewsItemEdit from "../news/newsItem/edit";
+
+import "../../scss/index.scss";
 interface Props {
   loggedIn?: boolean;
 }

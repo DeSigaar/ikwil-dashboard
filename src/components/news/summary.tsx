@@ -10,13 +10,13 @@ interface Props {
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-    slidesToSlide: 3 // optional, default to 1.
+    items: 1,
+    slidesToSlide: 1 // optional, default to 1.
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
-    slidesToSlide: 2 // optional, default to 1.
+    items: 1,
+    slidesToSlide: 1 // optional, default to 1.
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
@@ -27,8 +27,8 @@ const responsive = {
 
 const Summary: React.FC<Props> = ({ data }) => {
   return (
-    <div>
-      <h2>Nieuws</h2>
+    <div className="s-card-small">
+      <h2 className="s-card-small__header">Nieuws</h2>
       {typeof data !== "undefined" ? (
         <>
           <Carousel
@@ -37,7 +37,9 @@ const Summary: React.FC<Props> = ({ data }) => {
             infinite={true}
             autoPlay={false}
             autoPlaySpeed={10000}
-            containerClass="carousel-container"
+            containerClass="o-carousel"
+            dotListClass="o-carousel__dots"
+            sliderClass="o-carousel__slider"
             arrows={false}
           >
             {data.map(newsItem => {

@@ -1,0 +1,21 @@
+.s-card-small {
+  height: $card-short;
+  width: $card-width;
+  padding: $spacing-small-medium $spacing-medium-small;
+  background-color: $color-white;
+
+  &__header {
+    font-size: $font-weight-header;
+    font-weight: $font-weight-header;
+    padding-bottom: $spacing-small-medium;
+  }
+
+
+}
+
+.s-card-big {
+  height: $card-tall;
+  width: $card-width;
+  padding: $spacing-small-medium $spacing-medium-small;
+  background-color: $color-white;
+}

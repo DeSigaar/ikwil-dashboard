@@ -1,7 +1,12 @@
-.carousel-container{
-  height: 100px;
+.o-carousel {
+  height: 289px;
+  align-items: flex-start;
 
-  .react-multi-carousel-dot-list{
+  &__slider {
+    height: 244px;
+  }
+
+  &__dots {
     margin-top: 50px;
   }
 }
