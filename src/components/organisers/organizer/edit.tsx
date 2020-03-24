@@ -19,7 +19,10 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
   useEffect(() => {
     if (typeof organizer !== "undefined") {
       setName(organizer.name);
-      setIsAvailable(organizer.isAvailable);
+      if(typeof organizer.isAvailable !== "undefined"){ 
+        setIsAvailable(organizer.isAvailable);
+      }
+
     }
   }, [organizer]);
 

@@ -5,6 +5,7 @@ import { compose } from "redux";
 import { EditActivity } from "../../../store/actions/activitiesActions";
 import { Redirect } from "react-router-dom";
 import { getSecondPart } from "../../../functions/stringSplitting";
+import {Link} from "react-router-dom";
 interface Props {
   link?: any;
   profile?: any;
@@ -109,7 +110,7 @@ const ActivityEdit: React.FC<Props> = ({
   if (typeof activity !== "undefined") {
     if (!redirect) {
       return (
-        <>
+        <div>
           <h2>Edit</h2>
           <form onSubmit={e => handleSubmit(e)}>
             <div>
@@ -144,10 +145,10 @@ const ActivityEdit: React.FC<Props> = ({
                 onChange={e => setRoom(e.target.value)}
               />
             </div>
-            <div>
-      
-          {organisersOptions}
-        </div>
+        
+          {organisersOptions.length === 0 ? <div>Er zijn nog geen kartrekkers toegevoegd. Klik <Link to='/organizer'>hier</Link> om ze toe te voegen</div> :   <div>{organisersOptions}</div>}
+    
+       
             <div>
               Categorie
               <select
@@ -161,7 +162,7 @@ const ActivityEdit: React.FC<Props> = ({
             
             <button>update</button>
           </form>
-        </>
+        </div>
       );
     } else {
       return <Redirect to={"/activity/" + link.params.id} />;

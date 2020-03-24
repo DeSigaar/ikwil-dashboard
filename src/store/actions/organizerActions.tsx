@@ -6,14 +6,15 @@ export const createOrganizer = (
   profile: any,
   id: string
 ) => {
-  firebase
-    .firestore()
-    .collection("organisers")
-    .add({
+  const ref = firebase
+  .firestore().collection('organisers').doc();
+  ref
+    .set({
       name: organizer.name,
       isAvailable: organizer.isAvailable,
       createdBy: profile.firstName + " " + profile.lastName,
-      creatorID: id
+      creatorID: id,
+      id: ref.id
     })
     .then(() => {
       store.dispatch({ type: "CREATE_ORGANISERS_SUCCESS", organizer });

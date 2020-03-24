@@ -7,10 +7,10 @@ export const createActivity = (
   id: string,
 
 ) => {
-  firebase
-    .firestore()
-    .collection("activities")
-    .add({
+  const ref = firebase
+  .firestore().collection('activities').doc();
+  ref
+    .set({
       name: activity.name,
       startTime: activity.startTime, 
       endTime: activity.endTime,

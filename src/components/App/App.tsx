@@ -27,6 +27,9 @@ const App: React.FC<Props> = ({ loggedIn }) => {
       <Nav />
       <Switch>
         <Route exact path="/">
+          Niks jonge
+        </Route>
+        <Route exact path="/activity">
           <Activities />
         </Route>
         <Route exact path="/about">
