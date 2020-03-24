@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import Home from "../home/index";
 import Activities from "../activities/index";
 import Activity from "../activities/activity/activity";
 import Login from "../auth/signIn";
@@ -25,6 +26,9 @@ const App: React.FC<Props> = ({ loggedIn }) => {
       <Nav />
       <Switch>
         <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/activities">
           <Activities />
         </Route>
         <Route exact path="/about">
