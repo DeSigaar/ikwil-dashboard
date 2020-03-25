@@ -11,7 +11,7 @@ interface Props {
 
 const Activities: React.FC<Props> = ({ data, isLoggedIn }) => {
   return (
-    <div className="s-card-big">
+    <div id="activities" className="s-card-big">
       <Summary data={data} />
       {/* {isLoggedIn ? <Create /> : null} */}
     </div>

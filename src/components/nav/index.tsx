@@ -10,24 +10,39 @@ interface Props {
 const Nav: React.FC<Props> = ({ loggedIn }) => {
   return (
     <div className="s-nav">
-      <Link to="/"><img src="/logo.svg" alt="Stichting Ik Wil Logo" className="c-logo" /></Link>
+      <Link to="/">
+        <img src="/logo.svg" alt="Stichting Ik Wil Logo" className="c-logo" />
+      </Link>
       <nav className="c-nav">
         <ul>
-          <li><Link to="/">To Homepage</Link></li>
-          <li><Link to="/organizer">Organizer</Link></li>
-          <li><Link to="/news">News</Link></li>
-        {!loggedIn ? (
-          <>
-             <li><Link to="/login">Login</Link></li>
-             <li><Link to="/sign-up">sign up</Link></li>
-          </>
-        ) : (
-          <>
-            {/* <span onClick={() => signOut()}>Logout</span> */}
-            {/* <span>|</span> */}
-        </>
-            )}
-          </ul>
+          <li>
+            <Link to="#meal">Maaltijd van de dag</Link>
+          </li>
+          <li>
+            <Link to="#news">News</Link>
+          </li>
+          <li>
+            <Link to="#activities">Activiteiten</Link>
+          </li>
+          <li>
+            <Link to="#organisers">Coördinatoren</Link>
+          </li>
+          <li>
+            <Link to="#rules">Huisregelementen</Link>
+          </li>
+          {!loggedIn ? (
+            <>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/sign-up">sign up</Link>
+              </li>
+            </>
+          ) : (
+            <>{/* <span onClick={() => signOut()}>Logout</span> */}</>
+          )}
+        </ul>
       </nav>
       <div></div>
     </div>

@@ -11,7 +11,7 @@ interface Props {
 
 const News: React.FC<Props> = ({ data, isLoggedIn }) => {
   return (
-    <div className="s-card-small">
+    <div id="news" className="s-card-small">
       <Summary data={data} />
       {/* {isLoggedIn ? <Create /> : null} */}
     </div>

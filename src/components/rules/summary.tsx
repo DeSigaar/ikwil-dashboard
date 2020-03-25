@@ -26,7 +26,7 @@ const responsive = {
 
 const Summary: React.FC<Props> = ({ data }) => {
   return (
-    <div className="s-card-small">
+    <>
       <h2 className="s-card-small__header">Huisregelementen</h2>
       {typeof data !== "undefined" ? (
         <>
@@ -54,7 +54,7 @@ const Summary: React.FC<Props> = ({ data }) => {
       ) : (
         <></>
       )}
-    </div>
+    </>
   );
 };
 export default Summary;
