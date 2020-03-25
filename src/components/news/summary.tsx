@@ -26,7 +26,7 @@ const responsive = {
 };
 
 const Summary: React.FC<Props> = ({ data }) => {
-  const [isMoving, setIsMoving] = useState<boolean>(true);
+  const [isMoving, setIsMoving] = useState<boolean>(false);
 
   return (
     <>
