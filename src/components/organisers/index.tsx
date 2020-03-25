@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import Summary from "./summary";
-import Create from "./organizer/create";
+// import Create from "./organizer/create";
 interface Props {
   data?: iOrganizer[];
   isLoggedIn: boolean;
@@ -13,7 +13,7 @@ const Organisers: React.FC<Props> = ({ data, isLoggedIn }) => {
   return (
     <div>
       <Summary data={data} />
-      {isLoggedIn ? <Create /> : null}
+      {/* {isLoggedIn ? <Create /> : null} */}
     </div>
   );
 };
@@ -21,10 +21,10 @@ const Organisers: React.FC<Props> = ({ data, isLoggedIn }) => {
 const mapStateToProps = (state: any) => {
   let isLoggedIn = false;
   if (!state.firebase.profile.isEmpty) {
-    isLoggedIn = true
+    isLoggedIn = true;
   }
   return {
-    data: state.firestore.ordered.organisers, 
+    data: state.firestore.ordered.organisers,
     isLoggedIn
   };
 };

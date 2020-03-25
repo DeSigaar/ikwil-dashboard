@@ -1,0 +1,37 @@
+.c-organiser {
+  color: $color-black;
+  overflow: hidden;
+  height: 120px;
+  margin-bottom: $spacing-small-tiny;
+
+  &__link {
+    text-decoration: none;
+  }
+
+  &__image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    float: left;
+    margin-right: $spacing-small-tiny;
+  }
+
+  &__name {
+    font-size: $font-size-title;
+    margin-bottom: $spacing-tiny;
+  }
+
+  &__description {
+    height: 44px;
+    overflow: hidden;
+    font-size: $font-size-text;
+    color: $color-grey;
+  }
+
+  &__place {
+    color: $color-grey;
+    font-size: $font-size-title;
+    font-weight: $font-weight-title;
+    margin-top: $spacing-small-tiny;
+  }
+}
