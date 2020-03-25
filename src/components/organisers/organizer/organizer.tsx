@@ -29,6 +29,8 @@ const Organizer: React.FC<Props> = ({ organizer, link }) => {
         <div>
           <h2>Organizer</h2>
           <p>{organizer.name}</p>
+          <p>{organizer.description}</p>
+          <p>{organizer.place}</p>
           <p>{organizer.createdBy}</p>
 
           <Link to={link.url + "/edit"}>edit</Link>

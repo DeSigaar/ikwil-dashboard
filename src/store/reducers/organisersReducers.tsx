@@ -1,6 +1,8 @@
 const initState = {
   organisers: {
     name: "",
+    description: "",
+    place: "",
     isAvailable: true
   }
 };

@@ -7,10 +7,14 @@ export const createOrganizer = (
   id: string
 ) => {
   const ref = firebase
-  .firestore().collection('organisers').doc();
+    .firestore()
+    .collection("organisers")
+    .doc();
   ref
     .set({
       name: organizer.name,
+      description: organizer.description,
+      place: organizer.place,
       isAvailable: organizer.isAvailable,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id,
@@ -39,6 +43,8 @@ export const EditOrganizer = (
     .doc(docId)
     .set({
       name: organizer.name,
+      description: organizer.description,
+      place: organizer.place,
       isAvailable: organizer.isAvailable,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id
