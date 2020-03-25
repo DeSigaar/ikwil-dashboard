@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -26,6 +26,8 @@ const responsive = {
 };
 
 const Summary: React.FC<Props> = ({ data }) => {
+  const [isMoving, setIsMoving] = useState<boolean>(true);
+
   return (
     <div className="s-card-small">
       <h2 className="s-card-small__header">Nieuws</h2>
@@ -35,12 +37,14 @@ const Summary: React.FC<Props> = ({ data }) => {
             showDots={true}
             responsive={responsive}
             infinite={true}
-            autoPlay={false}
-            autoPlaySpeed={10000}
+            autoPlay={true}
+            autoPlaySpeed={20000}
             containerClass="o-carousel"
             dotListClass="o-carousel__dots"
             sliderClass="o-carousel__slider"
             arrows={false}
+            beforeChange={() => setIsMoving(true)}
+            afterChange={() => setIsMoving(false)}
           >
             {data.map(newsItem => {
               return (
@@ -48,6 +52,11 @@ const Summary: React.FC<Props> = ({ data }) => {
                   className="c-newsItem__link"
                   key={newsItem.id}
                   to={"/news/" + newsItem.id}
+                  onClick={e => {
+                    if (isMoving === true) {
+                      e.preventDefault();
+                    }
+                  }}
                 >
                   <div className="c-newsItem">
                     <img
