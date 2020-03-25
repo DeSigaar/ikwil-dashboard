@@ -12,6 +12,11 @@
     padding-bottom: $spacing-small-tiny;
     color: $color-black;
   }
+
+  &__scrollable-container {
+    max-height: 100%;
+    overflow: auto;
+  }
 }
 
 .s-card-big {
@@ -21,4 +26,9 @@
   background-color: $color-white;
   box-shadow: $shadow-card;
   margin: $card-margin;
+
+  &__scrollable-container {
+    max-height: 100%;
+    overflow: auto;
+  }
 }
