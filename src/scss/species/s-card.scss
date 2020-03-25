@@ -14,7 +14,7 @@
   }
 
   &__scrollable-container {
-    max-height: 100%;
+    max-height: 85%;
     overflow: auto;
   }
 }
@@ -26,6 +26,13 @@
   background-color: $color-white;
   box-shadow: $shadow-card;
   margin: $card-margin;
+
+  &__header {
+    font-size: $font-size-header;
+    font-weight: $font-weight-header;
+    padding-bottom: $spacing-small-tiny;
+    color: $color-black;
+  }
 
   &__scrollable-container {
     max-height: 100%;

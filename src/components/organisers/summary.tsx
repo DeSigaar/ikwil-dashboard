@@ -6,7 +6,7 @@ interface Props {
 }
 const Summary: React.FC<Props> = ({ data }) => {
   return (
-    <div className="s-card-small">
+    <>
       <h2 className="s-card-small__header">Aanwezig bestuur</h2>
       <div className="s-card-small__scrollable-container">
         {typeof data !== "undefined" ? (
@@ -38,7 +38,7 @@ const Summary: React.FC<Props> = ({ data }) => {
           <></>
         )}
       </div>
-    </div>
+    </>
   );
 };
 export default Summary;

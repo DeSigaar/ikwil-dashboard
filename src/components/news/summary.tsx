@@ -29,7 +29,7 @@ const Summary: React.FC<Props> = ({ data }) => {
   const [isMoving, setIsMoving] = useState<boolean>(true);
 
   return (
-    <div className="s-card-small">
+    <>
       <h2 className="s-card-small__header">Nieuws</h2>
       {typeof data !== "undefined" ? (
         <>
@@ -75,7 +75,7 @@ const Summary: React.FC<Props> = ({ data }) => {
       ) : (
         <></>
       )}
-    </div>
+    </>
   );
 };
 export default Summary;

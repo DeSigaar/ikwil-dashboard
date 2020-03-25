@@ -11,7 +11,7 @@ interface Props {
 
 const Organisers: React.FC<Props> = ({ data, isLoggedIn }) => {
   return (
-    <div>
+    <div className="s-card-small">
       <Summary data={data} />
       {/* {isLoggedIn ? <Create /> : null} */}
     </div>
