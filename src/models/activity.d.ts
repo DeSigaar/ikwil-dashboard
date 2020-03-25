@@ -5,6 +5,8 @@ interface iActivity {
   createdBy?: string;
   creatorId?: string;
   category: string;
+  repeats?: boolean;
   organisers: string[];
-  when?: iOnce | iDay[];
+  day?: iOnce;
+  days?: iDay[];
 }

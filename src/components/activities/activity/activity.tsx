@@ -20,6 +20,7 @@ const Activity: React.FC<Props> = ({ link, data }) => {
   const [category, setCategory] = useState<iCategory | undefined>(undefined);
   const [organisers, setOrganisers] = useState<any>([]);
   const [count, setCount] = useState<number>(1);
+
   const [daysState, setDaysState] = useState<iDay[] | undefined>(undefined);
   const [time, setTime] = useState<iOnce>({
     date: "",
@@ -61,15 +62,11 @@ const Activity: React.FC<Props> = ({ link, data }) => {
               })
             );
 
-          if (
-            typeof data.activity.when !== "undefined" &&
-            typeof data.activity.repeats !== "undefined"
-          ) {
-            if (data.activity.repeats) {
-              setDaysState(data.activity.when);
-            } else {
-              setTime(data.activity.when);
-            }
+          if (typeof data.activity.days !== "undefined") {
+            setDaysState(data.activity.days);
+          }
+          if (typeof data.activity.day !== "undefined") {
+            setTime(data.activity.day);
           }
         }
       }
@@ -156,7 +153,7 @@ const Activity: React.FC<Props> = ({ link, data }) => {
         </div>
       );
     } else {
-      return <Redirect to={"/" + link.params.id} />;
+      return <Redirect to={"/activity"} />;
     }
   } else {
     return null;

@@ -5,6 +5,7 @@ import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Link } from "react-router-dom";
 import Days from "../../common/days/index";
+import days from "../../../models/daysModel";
 interface Props {
   profile: any;
   userId: string;
@@ -22,7 +23,7 @@ const Create: React.FC<Props> = ({
   const [room, setRoom] = useState<string>("");
   const [category, setSelectedCategory] = useState<string>("geen");
   const [activeOrganisers, setActiveOrganisers] = useState<string[]>([]);
-  const [stateDays, setDaysState] = useState<iDay[]>([]);
+  const [stateDays, setDaysState] = useState<iDay[]>(days);
   const [once, setOnce] = useState<boolean>(false);
   const [date, setDate] = useState<string>("");
   const [startTime, setStartTime] = useState<string>("");
@@ -47,22 +48,26 @@ const Create: React.FC<Props> = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let organisers: string[] = [];
-    let datesToPush: any;
+    let dayToPush: iOnce | undefined = undefined;
+    let daysToPush: iDay[] | undefined = undefined;
     let repeats = !once;
     activeOrganisers.forEach(ref => {
       organisers.push("organisers/" + ref);
     });
     if (once) {
-      datesToPush = { date, startTime, endTime };
+      dayToPush = { date, startTime, endTime };
+      daysToPush = undefined;
     } else {
-      datesToPush = stateDays;
+      daysToPush = stateDays;
+      dayToPush = undefined;
     }
 
     createActivity(
       { name, room, category, organisers },
       profile,
       userId,
-      datesToPush,
+      dayToPush,
+      daysToPush,
       repeats
     );
   };
@@ -175,7 +180,7 @@ const Create: React.FC<Props> = ({
                 type="date"
                 value={date}
                 onChange={e => setDate(e.target.value)}
-              />{" "}
+              />
               <div>
                 <h3>Tijden</h3>
                 <input
@@ -194,7 +199,7 @@ const Create: React.FC<Props> = ({
               </div>
             </div>
           ) : (
-            <Days setDays={setDays} />
+            <Days stateDays={stateDays} setDays={setDays} />
           )}
         </div>
 
@@ -217,10 +222,20 @@ const mapDispatchToProps = (dispatch: any) => {
       activity: iActivity,
       profile: any,
       userId: string,
-      datesToPush: iOnce | iDay[],
+      dayToPush: iOnce | undefined,
+      daysToPush: iDay[] | undefined,
       repeats: boolean
     ) =>
-      dispatch(createActivity(activity, profile, userId, datesToPush, repeats))
+      dispatch(
+        createActivity(
+          activity,
+          profile,
+          userId,
+          dayToPush,
+          daysToPush,
+          repeats
+        )
+      )
   };
 };
 

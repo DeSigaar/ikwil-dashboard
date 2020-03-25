@@ -3,19 +3,24 @@ import Day from "./day";
 
 interface Props {
   setDays: (days: iDay) => void;
+  stateDays: iDay[];
 }
 
-const DateTime: React.FC<Props> = ({ setDays }) => {
+const Days: React.FC<Props> = ({ setDays, stateDays }) => {
   return (
     <div>
-      <Day name="monday" setDays={setDays} />
-      <Day name="tuesday" setDays={setDays} />
-      <Day name="wednesday" setDays={setDays} />
-      <Day name="thursday" setDays={setDays} />
-      <Day name="friday" setDays={setDays} />
-      <Day name="saturday" setDays={setDays} />
-      <Day name="sunday" setDays={setDays} />
+      {stateDays.map(day => {
+        return (
+          <Day
+            key={day.name}
+            initialStartTime={day.startTime}
+            initialEndTime={day.endTime}
+            name={day.name}
+            setDays={setDays}
+          />
+        );
+      })}
     </div>
   );
 };
-export default DateTime;
+export default Days;

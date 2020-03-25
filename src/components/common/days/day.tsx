@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 interface Props {
   setDays: (day: iDay) => void;
   name: string;
+  initialStartTime: string;
+  initialEndTime: string;
 }
-const Day: React.FC<Props> = ({ name, setDays }) => {
-  const [startTime, setStartTime] = useState<string>("");
-  const [endTime, setEndTime] = useState<string>("");
-
-  useEffect(() => {
-    setDays({ name: name, startTime, endTime });
-  }, [startTime, endTime, setDays, name]);
+const Day: React.FC<Props> = ({
+  name,
+  setDays,
+  initialEndTime,
+  initialStartTime
+}) => {
+  const [startTime, setStartTime] = useState<string>(initialStartTime);
+  const [endTime, setEndTime] = useState<string>(initialEndTime);
 
   return (
     <div>
@@ -20,7 +23,10 @@ const Day: React.FC<Props> = ({ name, setDays }) => {
         <input
           type="time"
           value={startTime}
-          onChange={e => setStartTime(e.target.value)}
+          onChange={e => {
+            setDays({ name: name, startTime: e.target.value, endTime });
+            setStartTime(e.target.value);
+          }}
         />
       </div>
       <div>
@@ -28,7 +34,10 @@ const Day: React.FC<Props> = ({ name, setDays }) => {
         <input
           type="time"
           value={endTime}
-          onChange={e => setEndTime(e.target.value)}
+          onChange={e => {
+            setDays({ name: name, startTime, endTime: e.target.value });
+            setEndTime(e.target.value);
+          }}
         />
       </div>
     </div>
