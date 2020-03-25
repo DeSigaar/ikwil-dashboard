@@ -10,7 +10,7 @@ interface Props {
 const Nav: React.FC<Props> = ({ loggedIn }) => {
   return (
     <div className="s-nav">
-      <img src="/logo.svg" alt="Stichting Ik Wil Logo" className="c-logo" />
+      <Link to="/"><img src="/logo.svg" alt="Stichting Ik Wil Logo" className="c-logo" /></Link>
       <nav className="c-nav">
         <ul>
           <li><Link to="/">To Homepage</Link></li>
