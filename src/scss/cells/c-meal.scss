@@ -1,0 +1,17 @@
+.c-meal {
+  color: $color-black;
+  height: 215px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__link {
+    text-decoration: none;
+  }
+
+  &__icon {
+    height: 80px;
+    width: 80px;
+    margin-right: $spacing-small-medium;
+  }
+}
