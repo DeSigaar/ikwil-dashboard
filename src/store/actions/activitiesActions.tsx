@@ -5,20 +5,23 @@ export const createActivity = (
   activity: iActivity,
   profile: any,
   id: string,
-
+  datesToPush: iOnce | iDay[],
+  repeats: boolean
 ) => {
   const ref = firebase
-  .firestore().collection('activities').doc();
+    .firestore()
+    .collection("activities")
+    .doc();
   ref
     .set({
       name: activity.name,
-      startTime: activity.startTime, 
-      endTime: activity.endTime,
       room: activity.room,
       category: "categories/" + activity.category,
       organisers: activity.organisers,
       createdBy: profile.firstName + " " + profile.lastName,
-      creatorID: id
+      creatorID: id,
+      when: datesToPush,
+      repeats: repeats
     })
     .then(() => {
       store.dispatch({ type: "CREATE_ACTIVITY_SUCCESS", activity });
@@ -36,6 +39,7 @@ export const EditActivity = (
   profile: any,
   id: string,
   docId: string,
+  datesToPush: iOnce | iDay[]
 ) => {
   firebase
     .firestore()
@@ -43,13 +47,12 @@ export const EditActivity = (
     .doc(docId)
     .set({
       name: activity.name,
-      startTime: activity.startTime,
-      endTime: activity.endTime,
       organisers: activity.organisers,
       category: "categories/" + activity.category,
       room: activity.room,
       createdBy: profile.firstName + " " + profile.lastName,
-      creatorID: id
+      creatorID: id,
+      when: datesToPush
     })
     .then(() => store.dispatch({ type: "EDIT_ACTIVITY_SUCCESS" }))
     .catch(err => store.dispatch({ type: "EDIT_ACTIVITY_ERROR", err }));

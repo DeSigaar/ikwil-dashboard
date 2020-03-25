@@ -5,7 +5,7 @@ import { compose } from "redux";
 import { EditActivity } from "../../../store/actions/activitiesActions";
 import { Redirect } from "react-router-dom";
 import { getSecondPart } from "../../../functions/stringSplitting";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 interface Props {
   link?: any;
   profile?: any;
@@ -23,7 +23,6 @@ const ActivityEdit: React.FC<Props> = ({
   categories,
   organisers
 }) => {
-
   const [name, setName] = useState<string>("");
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("");
@@ -34,30 +33,36 @@ const ActivityEdit: React.FC<Props> = ({
   useEffect(() => {
     if (typeof activity !== "undefined") {
       setName(activity.name);
-      setStartTime(activity.startTime);
-      setEndTime(activity.endTime);
       setRoom(activity.name);
       setSelectedCategory(getSecondPart(activity.category, "/"));
-      let arr:string[] = [];
+      let arr: string[] = [];
       activity.organisers.forEach(organizer => {
-        arr.push(getSecondPart(organizer, "/"))
+        arr.push(getSecondPart(organizer, "/"));
         setActiveOrganisers(arr);
       });
 
+      // if (typeof activity.when !== "undefined") {
+      //   if (typeof activity.when.date !== "undefined") {
+      //     setStartTime(activity.when.startTime);
+      //     setEndTime(activity.when.endTime);
+      //   }
+      // }
     }
   }, [activity]);
 
-  let categoryOptions = [<option key="none" value="geen">Select</option>];
+  let categoryOptions = [
+    <option key="none" value="geen">
+      Select
+    </option>
+  ];
   if (typeof categories !== "undefined") {
-    categories.forEach(category => 
+    categories.forEach(category => (
       <div key={category.id}>
-      categoryOptions.push(
-        <option  value={category.id}>
-          {category.name}
-        </option>
-      );
+        categoryOptions.push(
+        <option value={category.id}>{category.name}</option>
+        );
       </div>
-    );
+    ));
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -66,22 +71,20 @@ const ActivityEdit: React.FC<Props> = ({
     activeOrganisers.forEach(ref => {
       organisers.push("organisers/" + ref);
     });
-    EditActivity(
-      { name, startTime, endTime, room, category, organisers },
-      profile,
-      auth.uid,
-      link.params.id,
-
-    );
+    // EditActivity(
+    //   { name, startTime, endTime, room, category, organisers },
+    //   profile,
+    //   auth.uid,
+    //   link.params.id
+    // );
     setRedirect(true);
   };
-
 
   let organisersOptions: any = [];
   if (typeof organisers !== "undefined") {
     organisers.forEach(organizer => {
-      if(typeof organizer.id !== "undefined"){
-        organisersOptions.push( 
+      if (typeof organizer.id !== "undefined") {
+        organisersOptions.push(
           <div key={organizer.id}>
             <input
               checked={activeOrganisers.includes(organizer.id)}
@@ -90,12 +93,11 @@ const ActivityEdit: React.FC<Props> = ({
             />
             {organizer.name}
           </div>
-          )
+        );
       }
-    })
+    });
   }
-    
-  
+
   const handleActiveOrganisers = (
     e: React.ChangeEvent<HTMLInputElement>,
     id: string | undefined
@@ -151,10 +153,16 @@ const ActivityEdit: React.FC<Props> = ({
                 onChange={e => setRoom(e.target.value)}
               />
             </div>
-        
-          {organisersOptions.length === 0 ? <div>Er zijn nog geen kartrekkers toegevoegd. Klik <Link to='/organizer'>hier</Link> om ze toe te voegen</div> :   <div> {organisersOptions} </div>}
-    
-       
+
+            {organisersOptions.length === 0 ? (
+              <div>
+                Er zijn nog geen kartrekkers toegevoegd. Klik{" "}
+                <Link to="/organizer">hier</Link> om ze toe te voegen
+              </div>
+            ) : (
+              <div> {organisersOptions} </div>
+            )}
+
             <div>
               Categorie
               <select
@@ -165,7 +173,7 @@ const ActivityEdit: React.FC<Props> = ({
                 {categoryOptions}
               </select>
             </div>
-            
+
             <button>update</button>
           </form>
         </div>
@@ -189,10 +197,15 @@ const mapStateToProps = (state: any) => {
   }
 };
 const mapDispatchToProps = (dispatch: any) => {
-  return {
-    EditActivity: (activity: iActivity, profile: any, id: string, docId: string, organisers: string[]) =>
-      dispatch(EditActivity(activity, profile, id, docId))
-  };
+  // return {
+  //   EditActivity: (
+  //     activity: iActivity,
+  //     profile: any,
+  //     id: string,
+  //     docId: string,
+  //     organisers: string[]
+  //   ) => dispatch(EditActivity(activity, profile, id, docId))
+  // };
 };
 
 export default compose(
