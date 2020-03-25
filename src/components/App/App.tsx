@@ -3,20 +3,26 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../home/index";
 import Activities from "../activities/index";
 import Activity from "../activities/activity/activity";
+import ActivityAdd from "../activities/activity/create"
+import ActivityEdit from "../activities/activity/edit";
 import Login from "../auth/signIn";
 import Nav from "../nav/index";
 import { connect } from "react-redux";
 import AddAdmin from "../auth/addAdmin";
-import ActivityEdit from "../activities/activity/edit";
+
 import Organisers from "../organisers/index";
 import Organizer from "../organisers/organizer/organizer";
 import OrganizerEdit from "../organisers/organizer/edit";
+import OrganizerAdd from "../organisers/organizer/create";
+
 import News from "../news/index";
 import NewsItem from "../news/newsItem/newsItem";
 import NewsItemEdit from "../news/newsItem/edit";
+import NewsItemAdd from "../news/newsItem/create";
 
 import "../../scss/index.scss";
 import Rules from "../rules/index";
+import RuleAdd from "../rules/rule/create";
 import Rule from "../rules/rule/rule";
 import RuleEdit from "../rules/rule/edit";
 interface Props {
@@ -26,52 +32,28 @@ interface Props {
 const App: React.FC<Props> = ({ loggedIn }) => {
   return (
     <div>
-      <Nav />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/activities">
-          Niks jonge
-        </Route>
-        <Route exact path="/activity">
-          <Activities />
-        </Route>
-        <Route exact path="/about">
-          <h1>About</h1>
-        </Route>
-        <Route exact path="/organizer">
-          <Organisers />
-        </Route>
-        <Route
-          exact
-          path="/organizer/:id"
-          render={({ match }) => <Organizer link={match} />}
-        />
-        <Route exact path="/news">
-          <News />
-        </Route>
-        <Route
-          exact
-          path="/news/:id"
-          render={({ match }) => <NewsItem link={match} />}
-        />
-        <Route
-          exact
-          path="/activity/:id"
-          render={({ match }) => <Activity link={match} />}
-        />
-        <Route exact path="/rule">
-          <Rules />
-        </Route>
-        <Route
-          exact
-          path="/rule/:id"
-          render={({ match }) => <Rule link={match} />}
-        />
-
-        {loggedIn ? (
+      {loggedIn ? (
           <>
+            <Route
+              exact
+              path="/activity/add"
+              component={ActivityAdd}
+            />
+            <Route
+              exact
+              path="/rule/add"
+              component={RuleAdd}
+            />
+            <Route
+              exact
+              path="/organizer/add"
+              component={OrganizerAdd}
+            />
+            <Route
+              exact
+              path="/news/add"
+              component={NewsItemAdd}
+            />
             <Route
               exact
               path="/activity/:id/edit"
@@ -104,7 +86,43 @@ const App: React.FC<Props> = ({ loggedIn }) => {
        
           </>
         )}
-
+      <Nav />
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/activity">
+          <Activities />
+        </Route>
+        <Route exact path="/organizer">
+          <Organisers />
+        </Route>
+        <Route exact path="/news">
+          <News />
+        </Route>
+        <Route exact path="/rule">
+          <Rules />
+        </Route>
+        <Route
+          exact
+          path="/organizer/:id"
+          render={({ match }) => <Organizer link={match} />}
+        />
+        <Route
+          exact
+          path="/news/:id"
+          render={({ match }) => <NewsItem link={match} />}
+        />
+        <Route
+          exact
+          path="/activity/:id"
+          render={({ match }) => <Activity link={match} />}
+        />
+        <Route
+          exact
+          path="/rule/:id"
+          render={({ match }) => <Rule link={match} />}
+        />
         <Redirect to="/" />
       </Switch>
     </div>
