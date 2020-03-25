@@ -1,0 +1,15 @@
+.c-rule {
+  color: $color-black;
+  height: 215px;
+  overflow: hidden;
+
+  &__title {
+    font-size: $font-size-title;
+    margin-bottom: $spacing-tiny;
+  }
+
+  &__text {
+    font-size: $font-size-text;
+    color: $color-grey;
+  }
+}

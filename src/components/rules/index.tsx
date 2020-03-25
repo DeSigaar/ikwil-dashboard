@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import Summary from "./summary";
-import Create from "./rule/create";
+// import Create from "./rule/create";
 interface Props {
   data?: iRule[];
   isLoggedIn: boolean;
@@ -13,7 +13,7 @@ const Rules: React.FC<Props> = ({ data, isLoggedIn }) => {
   return (
     <div>
       <Summary data={data} />
-      {isLoggedIn ? <Create /> : null}
+      {/* {isLoggedIn ? <Create /> : null} */}
     </div>
   );
 };
