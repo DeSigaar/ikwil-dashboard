@@ -6,16 +6,15 @@ import Summary from "./summary";
 // import Create from "./newsItem/create";
 interface Props {
   data?: iNewsItem[];
-  isMoving: boolean;
   isLoggedIn: boolean;
 }
 
-const News: React.FC<Props> = ({ data, isMoving, isLoggedIn }) => {
+const News: React.FC<Props> = ({ data, isLoggedIn }) => {
   return (
-    <>
+    <div className="s-card-small">
       <Summary data={data} />
       {/* {isLoggedIn ? <Create /> : null} */}
-    </>
+    </div>
   );
 };
 
