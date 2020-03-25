@@ -1,0 +1,28 @@
+.__activity-container {
+  max-height: 100%;
+  overflow: auto;
+}
+
+.c-activity {
+  margin-top: $spacing-small-medium;
+  text-decoration: none;
+  color: $color-black;
+  display: block;
+
+  .__top-content {
+    display: flex;
+    align-items: center;
+
+    .__icon {
+      padding-right: $spacing-small-tiny;
+    }
+  }
+  .__bottom-content {
+    display: flex;
+    margin-top: $spacing-tiny;
+
+    .__time {
+      padding-right: $spacing-medium-small;
+    }
+  }
+}
