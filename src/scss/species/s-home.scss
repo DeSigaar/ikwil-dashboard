@@ -1,6 +1,7 @@
-.s-home{
+.s-home {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  flex-direction: column;
   height: calc(100vh - 100px);
 }
