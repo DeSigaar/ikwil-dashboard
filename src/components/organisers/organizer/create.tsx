@@ -9,11 +9,13 @@ interface Props {
 
 const Create: React.FC<Props> = ({ profile, userId }) => {
   const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [place, setPlace] = useState<string>("");
   const [isAvailable, setIsAvailable] = useState<boolean>(true);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createOrganizer({ name, isAvailable }, profile, userId);
+    createOrganizer({ name, description, place, isAvailable }, profile, userId);
   };
   return (
     <div>
@@ -25,6 +27,22 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
             required
             value={name}
             onChange={e => setName(e.target.value)}
+          />
+        </div>
+        <div>
+          Beschrijving van je werk
+          <input
+            required
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+          />
+        </div>
+        <div>
+          Plaats waar je het meeste bent
+          <input
+            required
+            value={place}
+            onChange={e => setPlace(e.target.value)}
           />
         </div>
         <div>
