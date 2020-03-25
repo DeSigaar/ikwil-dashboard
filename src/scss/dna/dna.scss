@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0&display=swap");
 
 //COLORS
 $color-white: #ffffff;
 $color-background: #f5f5f5;
-$color-light-gray: #E8E8E8;
+$color-light-gray: #e8e8e8;
 $color-grey: #707070;
 $color-black: #222222;
 
@@ -43,10 +43,34 @@ $card-width: 660px;
 $card-margin: 0 30px 30px 0;
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background-color: $color-background;
   padding: $spacing-small;
   color: $color-black;
+}
+
+// Scrollbar
+/* width */
+::-webkit-scrollbar {
+  width: 3px;
+  border-radius: 50px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 50px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 //CSS RESET
@@ -99,7 +123,7 @@ img {
 }
 
 /* Natural flow and rhythm in articles by default */
-article>*+* {
+article > * + * {
   margin-top: 1em;
 }
 
