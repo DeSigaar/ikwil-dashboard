@@ -91,7 +91,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
         }
       });
     }
-  }, [activities, inititialActivities, sortedDays]);
+  }, [activities, inititialActivities, sortedDays, initSortedDays]);
 
   let renderDays: any = [];
   Object.keys(sortedDays).forEach(function(key) {
