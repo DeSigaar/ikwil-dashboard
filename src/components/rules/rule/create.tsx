@@ -16,31 +16,33 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
     createRule({ name, rule }, profile, userId);
   };
   return (
-    <>
-      <h2>Toevoegen</h2>
-      <form onSubmit={e => handleSubmit(e)}>
-        <div className="o-inputfield">
-          <label className="o-inputfield__label">Naam</label>
-          <input
-            className="o-inputfield__input"
-            required
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
-        </div>
-        <div className="o-inputfield">
-          <label className="o-inputfield__label">Regel</label>
-          <input
-            className="o-inputfield__input"
-            required
-            value={rule}
-            onChange={e => setRule(e.target.value)}
-          />
-        </div>
+    <div className="s-cms">
+      <div className="s-cms__form-conatiner">
+        <h2 className="s-cms__header">Toevoegen regel</h2>
+        <form onSubmit={e => handleSubmit(e)}>
+          <div className="o-inputfield">
+            <label className="o-inputfield__label">Naam</label>
+            <input
+              className="o-inputfield__input"
+              required
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+          </div>
+          <div className="o-inputfield">
+            <label className="o-inputfield__label">Regel</label>
+            <input
+              className="o-inputfield__input"
+              required
+              value={rule}
+              onChange={e => setRule(e.target.value)}
+            />
+          </div>
 
-        <button>Plaats regel</button>
-      </form>
-    </>
+          <button>Plaats regel</button>
+        </form>
+      </div>
+    </div>
   );
 };
 const mapStateToProps = (state: any) => {
