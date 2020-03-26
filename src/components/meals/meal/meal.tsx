@@ -3,22 +3,22 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
-import { DeleteRule } from "../../../store/actions/ruleActions";
+import { DeleteMeal } from "../../../store/actions/mealActions";
 import { Redirect } from "react-router-dom";
 interface Props {
   link: any;
-  rule?: iRule;
+  meal?: iMeal;
 }
 
-const Rule: React.FC<Props> = ({ rule, link }) => {
+const Meal: React.FC<Props> = ({ meal, link }) => {
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
 
-  if (typeof rule !== "undefined") {
+  if (typeof meal !== "undefined") {
     const handleDelete = () => {
-      if (typeof rule.id !== "undefined") {
+      if (typeof meal.id !== "undefined") {
         //TO:DO Netter maker
-        DeleteRule(rule.id);
+        DeleteMeal(meal.id);
         setRedirect(true);
       } else {
         alert("oeps");
@@ -28,8 +28,8 @@ const Rule: React.FC<Props> = ({ rule, link }) => {
       return (
         <div>
           <h2>Regel</h2>
-          <p>{rule.name}</p>
-          <p>{rule.createdBy}</p>
+          <p>{meal.name}</p>
+          <p>{meal.createdBy}</p>
 
           <Link to={link.url + "/edit"}>edit</Link>
           <button onClick={() => setSafeDelete(true)}>delete</button>
@@ -43,27 +43,27 @@ const Rule: React.FC<Props> = ({ rule, link }) => {
         </div>
       );
     } else {
-      return <Redirect to={"/rule"} />;
+      return <Redirect to={"/meal"} />;
     }
   } else {
     return null;
   }
 };
 const mapStateToProps = (state: any) => {
-  if (typeof state.firestore.ordered.rules !== "undefined") {
-    return { rule: state.firestore.ordered.rules[0] };
+  if (typeof state.firestore.ordered.meals !== "undefined") {
+    return { meal: state.firestore.ordered.meals[0] };
   }
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    DeleteRule: (docId: string) => dispatch(DeleteRule(docId))
+    DeleteMeal: (docId: string) => dispatch(DeleteMeal(docId))
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props: Props) => [
-    { collection: "rules", doc: props.link.params.id }
+    { collection: "meals", doc: props.link.params.id }
   ])
-)(Rule) as React.FC<Props>;
+)(Meal) as React.FC<Props>;

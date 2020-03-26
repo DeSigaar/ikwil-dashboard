@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { createRule } from "../../../store/actions/ruleActions";
+import { createMeal } from "../../../store/actions/mealActions";
 
 interface Props {
   profile: any;
@@ -9,11 +9,18 @@ interface Props {
 
 const Create: React.FC<Props> = ({ profile, userId }) => {
   const [name, setName] = useState<string>("");
-  const [rule, setRule] = useState<string>("");
-
+  const [price, setPrice] = useState<string>("");
+  const [ingredients, setIngredients] = useState<string>("");
+  const [isHallal, setIsHallal] = useState<boolean>(false);
+  const [isVegan, setIsVegan] = useState<boolean>(false);
+  const [isVegetarian, setisVegetarian] = useState<boolean>(false);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createRule({ name, rule }, profile, userId);
+    createMeal(
+      { name, price, ingredients, isHallal, isVegan, isVegetarian },
+      profile,
+      userId
+    );
   };
   return (
     <div>
@@ -28,14 +35,51 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
           />
         </div>
         <div>
-          Regel
+          Prijs
           <input
             required
-            value={rule}
-            onChange={e => setRule(e.target.value)}
+            value={price}
+            type="number"
+            min="1"
+            step="any"
+            onChange={e => setPrice(e.target.value)}
           />
         </div>
-
+        <div>
+          Ingredienten
+          <input
+            value={ingredients}
+            placeholder={"Sla, Tomaat, Ui"}
+            onChange={e => setIngredients(e.target.value)}
+          />
+        </div>
+        <div>
+          Hallal
+          <input
+            type="checkbox"
+            checked={isHallal}
+            placeholder={"Sla, Tomaat, Ui"}
+            onChange={e => setIsHallal(!isHallal)}
+          />
+        </div>
+        <div>
+          Vegetarisch
+          <input
+            type="checkbox"
+            checked={isVegetarian}
+            placeholder={"Sla, Tomaat, Ui"}
+            onChange={e => setisVegetarian(!isVegetarian)}
+          />
+        </div>
+        <div>
+          Vegan
+          <input
+            type="checkbox"
+            checked={isVegan}
+            placeholder={"Sla, Tomaat, Ui"}
+            onChange={e => setIsVegan(!isVegan)}
+          />
+        </div>
         <button>submit</button>
       </form>
     </div>
@@ -49,8 +93,8 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createRule: (rule: any, profile: any, userId: string) =>
-      dispatch(createRule(rule, profile, userId))
+    createMeal: (meal: any, profile: any, userId: string) =>
+      dispatch(createMeal(meal, profile, userId))
   };
 };
 
