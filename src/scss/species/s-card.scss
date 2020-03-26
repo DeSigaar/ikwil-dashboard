@@ -20,9 +20,13 @@
 }
 
 .s-card-big {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: $card-tall;
   width: $card-width;
   padding: $spacing-small-medium $spacing-medium-small;
+  padding-bottom: $spacing-small-tiny;
   background-color: $color-white;
   box-shadow: $shadow-card;
   margin: $card-margin;
@@ -35,7 +39,7 @@
   }
 
   &__scrollable-container {
-    max-height: 90%;
+    max-height: 85%;
     overflow: auto;
   }
 }

@@ -1,0 +1,15 @@
+.c-dayChanger {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: $spacing-small;
+
+  &__date {
+    padding: 0 $spacing-small;
+  }
+
+  &__arrow>img {
+    width: 15px;
+  }
+}
