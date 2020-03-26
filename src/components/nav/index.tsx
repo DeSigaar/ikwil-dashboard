@@ -19,7 +19,7 @@ const Nav: React.FC<Props> = ({ loggedIn }) => {
             <Link to="#meal">Maaltijd van de dag</Link>
           </li>
           <li>
-            <Link to="#news">News</Link>
+            <Link to="#news">Nieuws</Link>
           </li>
           <li>
             <Link to="#activities">Activiteiten</Link>
