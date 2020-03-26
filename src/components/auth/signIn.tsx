@@ -17,30 +17,38 @@ const SignIn: React.FC<Props> = ({ authError }) => {
     signIn({ email, password });
   };
   return (
-    <form onSubmit={e => handleSubmit(e)}>
-      <h2>Login</h2>
-      <div>
-        email
-        <input
-          required
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        password
-        <input
-          required
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-      </div>
-      <button>Submit</button>
-      {typeof authError !== "undefined" && authError !== null
-        ? authError.message
-        : null}
-    </form>
+    <div className="s-login">
+      <img
+        src="/logo.svg"
+        alt="Stichting Ik Wil Logo"
+        className="s-login__logo"
+      />
+      <form onSubmit={e => handleSubmit(e)}>
+        <div className="o-inputfield">
+          <label className="o-inputfield__label">Emailadres</label>
+          <input
+            className="o-inputfield__input"
+            required
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="o-inputfield">
+          <label className="o-inputfield__label">Wachtwoord</label>
+          <input
+            className="o-inputfield__input"
+            required
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
+        <button>Login</button>
+        {typeof authError !== "undefined" && authError !== null
+          ? authError.message
+          : null}
+      </form>
+    </div>
   );
 };
 const mapStateToProps = (state: any) => {

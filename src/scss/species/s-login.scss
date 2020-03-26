@@ -1,0 +1,13 @@
+.s-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: calc(100vh - 100px);
+
+  &__logo {
+    width: 235px;
+    height: 235px;
+    margin-bottom: $spacing-small;
+  }
+}
