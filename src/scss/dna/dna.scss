@@ -215,7 +215,7 @@ dd {
 
 /* Set core body defaults */
 body {
-  min-height: calc(100vh- 3px);
+  height: calc(100vh - 3px);
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
