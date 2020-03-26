@@ -28,7 +28,8 @@ const Summary: React.FC<Props> = ({ data }) => {
                   </div>
                   <div className="c-activity__bottom-content">
                     <div className="c-activity__time">
-                      {activity.startTime} - {activity.endTime}
+                      {/* {activity.startTime} - {activity.endTime} */}
+                      start time - end time
                     </div>
                     <div>{activity.room}</div>
                   </div>
