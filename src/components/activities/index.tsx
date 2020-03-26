@@ -5,14 +5,14 @@ import { compose } from "redux";
 import Summary from "./summary";
 // import Create from "./activity/create";
 interface Props {
-  data?: iActivity[];
+  activities?: iActivity[];
   isLoggedIn: boolean;
 }
 
-const Activities: React.FC<Props> = ({ data, isLoggedIn }) => {
+const Activities: React.FC<Props> = ({ activities, isLoggedIn }) => {
   return (
     <div id="activities" className="s-card-big">
-      <Summary data={data} />
+      <Summary activities={activities} />
       {/* {isLoggedIn ? <Create /> : null} */}
     </div>
   );
@@ -24,7 +24,7 @@ const mapStateToProps = (state: any) => {
     isLoggedIn = true;
   }
   return {
-    data: state.firestore.ordered.activities,
+    activities: state.firestore.ordered.activities,
     isLoggedIn
   };
 };
