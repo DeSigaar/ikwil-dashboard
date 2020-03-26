@@ -1,7 +1,8 @@
 .o-carousel {
   align-items: flex-start;
+  height: calc(37vh - 85px);
 
   &__slider {
-    height: 270px;
+    height: 86%;
   }
 }

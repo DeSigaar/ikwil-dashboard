@@ -1,6 +1,6 @@
 .c-rule {
   color: $color-black;
-  height: 215px;
+  height: calc(37vh - 125px);
   overflow: hidden;
 
   &__title {
