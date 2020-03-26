@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import meal from "./meal/meal";
 import { EditMeal } from "../../store/actions/mealActions";
+import { Link } from "react-router-dom";
 
 interface Props {
   meals: iMeal[];
@@ -25,14 +25,12 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
             activeMeals.push(meal.id);
           }
         });
-        console.log("triggered :");
         setActiveMeals(activeMeals);
       }
     }
   }, [meals, updateMeals]);
 
   const handleActiveMeals = (mealId?: string) => {
-    console.log("mealId :", mealId);
     if (typeof mealId !== "undefined") {
       let tempActiveMeals = [...activeMeals];
       let active = false;
@@ -66,22 +64,26 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
         {meals.map((meal: iMeal) => {
           return (
             <div key={meal.id}>
-              <h3>{meal.name}</h3>
-              <div>
-                Actief?
-                <input
-                  type="checkbox"
-                  checked={activeMeals.some(
-                    (mealId: any) => mealId === meal.id
-                  )}
-                  onChange={() => handleActiveMeals(meal.id)}
-                />
-              </div>
-              <div>{meal.price}</div>
-              <div>{meal.ingredients}</div>
-              <div>Is Hallal: {meal.isHallal ? <>Ja</> : <>Nee</>}</div>
-              <div>Is Vegan: {meal.isVegan ? <>Ja</> : <>Nee</>}</div>
-              <div>Is Vegetarian: {meal.isVegetarian ? <>Ja</> : <>Nee</>}</div>
+              <Link to={"meal/" + meal.id}>
+                <h3>{meal.name}</h3>
+                <div>
+                  Actief?
+                  <input
+                    type="checkbox"
+                    checked={activeMeals.some(
+                      (mealId: any) => mealId === meal.id
+                    )}
+                    onChange={() => handleActiveMeals(meal.id)}
+                  />
+                </div>
+                <div>{meal.price}</div>
+                <div>{meal.ingredients}</div>
+                <div>Is Hallal: {meal.isHallal ? <>Ja</> : <>Nee</>}</div>
+                <div>Is Vegan: {meal.isVegan ? <>Ja</> : <>Nee</>}</div>
+                <div>
+                  Is Vegetarian: {meal.isVegetarian ? <>Ja</> : <>Nee</>}
+                </div>
+              </Link>
             </div>
           );
         })}

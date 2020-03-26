@@ -71,10 +71,10 @@ const mapStateToProps = (state: any) => {
   }
 };
 const mapDispatchToProps = (dispatch: any) => {
-  // return {
-  //   EditMeal: (meal: any, profile: any, id: string, docId: string) =>
-  //     dispatch(EditMeal(meal, profile, id, docId))
-  // };
+  return {
+    EditMeal: (meal: any, profile: any, id: string, docId: string) =>
+      dispatch(EditMeal(meal, profile, id, docId))
+  };
 };
 
 export default compose(

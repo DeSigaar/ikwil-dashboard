@@ -25,10 +25,16 @@ const Meal: React.FC<Props> = ({ meal, link }) => {
       }
     };
     if (!redirect) {
+      console.log("meal :", meal);
       return (
         <div>
-          <h2>Regel</h2>
+          <h2>Meal</h2>
           <p>{meal.name}</p>
+          <p>{meal.price}</p>
+          <p>{meal.ingredients}</p>
+          <div>Is Hallal: {meal.isHallal ? <>Ja</> : <>Nee</>}</div>
+          <div>Is Vegan: {meal.isVegan ? <>Ja</> : <>Nee</>}</div>
+          <div>Is Vegetarian: {meal.isVegetarian ? <>Ja</> : <>Nee</>}</div>
           <p>{meal.createdBy}</p>
 
           <Link to={link.url + "/edit"}>edit</Link>
