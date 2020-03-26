@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../home/index";
 import Activities from "../activities/index";
 import Activity from "../activities/activity/activity";
-import ActivityAdd from "../activities/activity/create"
+import ActivityAdd from "../activities/activity/create";
 import ActivityEdit from "../activities/activity/edit";
 import Login from "../auth/signIn";
 import Nav from "../nav/index";
@@ -33,59 +33,38 @@ const App: React.FC<Props> = ({ loggedIn }) => {
   return (
     <div>
       {loggedIn ? (
-          <>
-            <Route
-              exact
-              path="/activity/add"
-              component={ActivityAdd}
-            />
-            <Route
-              exact
-              path="/rule/add"
-              component={RuleAdd}
-            />
-            <Route
-              exact
-              path="/organizer/add"
-              component={OrganizerAdd}
-            />
-            <Route
-              exact
-              path="/news/add"
-              component={NewsItemAdd}
-            />
-            <Route
-              exact
-              path="/activity/:id/edit"
-              render={({ match }) => <ActivityEdit link={match} />}
-            />
-            <Route
-              exact
-              path="/organizer/:id/edit"
-              render={({ match }) => <OrganizerEdit link={match} />}
-            />
-            <Route
-              exact
-              path="/news/:id/edit"
-              render={({ match }) => <NewsItemEdit link={match} />}
-            />
-            <Route
-              exact
-              path="/rule/:id/edit"
-              render={({ match }) => <RuleEdit link={match} />}
-            />
-            <Route exact path="/add-admin">
-              <AddAdmin />
-            </Route>
-          </>
-        ) : (
-          <>
-            <Route exact path="/login">
-              <Login />
-            </Route> 
-       
-          </>
-        )}
+        <>
+          <Route path="/activity/add" component={ActivityAdd} />
+          <Route path="/rule/add" component={RuleAdd} />
+          <Route path="/organizer/add" component={OrganizerAdd} />
+          <Route path="/news/add" component={NewsItemAdd} />
+          <Route
+            path="/activity/:id/edit"
+            render={({ match }) => <ActivityEdit link={match} />}
+          />
+          <Route
+            path="/organizer/:id/edit"
+            render={({ match }) => <OrganizerEdit link={match} />}
+          />
+          <Route
+            path="/news/:id/edit"
+            render={({ match }) => <NewsItemEdit link={match} />}
+          />
+          <Route
+            path="/rule/:id/edit"
+            render={({ match }) => <RuleEdit link={match} />}
+          />
+          <Route path="/add-admin">
+            <AddAdmin />
+          </Route>
+        </>
+      ) : (
+        <>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+        </>
+      )}
       <Nav />
       <Switch>
         <Route exact path="/">
@@ -123,7 +102,6 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           path="/rule/:id"
           render={({ match }) => <Rule link={match} />}
         />
-        <Redirect to="/" />
       </Switch>
     </div>
   );

@@ -5,7 +5,10 @@ import { compose } from "redux";
 import { EditActivity } from "../../../store/actions/activitiesActions";
 import { Redirect } from "react-router-dom";
 import { getSecondPart } from "../../../functions/stringSplitting";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import Days from "../../common/days/index";
+import days from "../../../models/daysModel";
+
 interface Props {
   link?: any;
   profile?: any;
@@ -23,65 +26,107 @@ const ActivityEdit: React.FC<Props> = ({
   categories,
   organisers
 }) => {
-
   const [name, setName] = useState<string>("");
-  const [startTime, setStartTime] = useState<string>("");
-  const [endTime, setEndTime] = useState<string>("");
   const [room, setRoom] = useState<string>("");
   const [redirect, setRedirect] = useState<boolean>(false);
   const [category, setSelectedCategory] = useState<string>("geen");
   const [activeOrganisers, setActiveOrganisers] = useState<string[]>([]);
+  const [stateDays, setDaysState] = useState<iDay[]>([]);
+  const [date, setDate] = useState<string>("");
+  const [startTime, setStartTime] = useState<string>("");
+  const [endTime, setEndTime] = useState<string>("");
+  const [once, setOnce] = useState<boolean>(false);
+
   useEffect(() => {
     if (typeof activity !== "undefined") {
       setName(activity.name);
-      setStartTime(activity.startTime);
-      setEndTime(activity.endTime);
-      setRoom(activity.name);
+      setRoom(activity.room);
       setSelectedCategory(getSecondPart(activity.category, "/"));
-      let arr:string[] = [];
+      let arr: string[] = [];
       activity.organisers.forEach(organizer => {
-        arr.push(getSecondPart(organizer, "/"))
+        arr.push(getSecondPart(organizer, "/"));
         setActiveOrganisers(arr);
       });
 
+      if (typeof activity.repeats !== "undefined") {
+        if (activity.repeats) {
+          setOnce(!activity.repeats);
+        } else {
+          setOnce(activity.repeats);
+        }
+      }
+      if (typeof activity.day !== "undefined") {
+        setStartTime(activity.day.startTime);
+        setEndTime(activity.day.startTime);
+        setDate(activity.day.date);
+        setOnce(true);
+      }
+      if (typeof activity.days !== "undefined") {
+        setDaysState(activity.days);
+      } else {
+        setDaysState(days);
+      }
     }
   }, [activity]);
 
-  let categoryOptions = [<option key="none" value="geen">Select</option>];
+  const setDays = (day: iDay) => {
+    let arr = [...stateDays];
+    if (arr.filter((tempDay: iDay) => tempDay.name === day.name).length === 0) {
+      arr.push(day);
+    } else {
+      let index = arr.findIndex((tempDay: iDay) => tempDay.name === day.name);
+      arr[index] = day;
+    }
+    setDaysState(arr);
+  };
+  let categoryOptions = [
+    <option key="noKey" value="geen">
+      Select
+    </option>
+  ];
   if (typeof categories !== "undefined") {
-    categories.forEach(category => 
-      <div key={category.id}>
+    categories.forEach(category =>
       categoryOptions.push(
-        <option  value={category.id}>
+        <option key={category.id} value={category.id}>
           {category.name}
         </option>
-      );
-      </div>
+      )
     );
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let organisers: string[] = [];
+    let dayToPush: iOnce | undefined = undefined;
+    let daysToPush: iDay[] | undefined = undefined;
+    let repeats = once;
     activeOrganisers.forEach(ref => {
       organisers.push("organisers/" + ref);
     });
+    if (once) {
+      dayToPush = { date, startTime, endTime };
+      daysToPush = undefined;
+    } else {
+      daysToPush = stateDays;
+      dayToPush = undefined;
+    }
     EditActivity(
-      { name, startTime, endTime, room, category, organisers },
+      { name, room, category, organisers },
       profile,
       auth.uid,
       link.params.id,
-
+      dayToPush,
+      daysToPush,
+      repeats
     );
     setRedirect(true);
   };
 
-
   let organisersOptions: any = [];
   if (typeof organisers !== "undefined") {
     organisers.forEach(organizer => {
-      if(typeof organizer.id !== "undefined"){
-        organisersOptions.push( 
+      if (typeof organizer.id !== "undefined") {
+        organisersOptions.push(
           <div key={organizer.id}>
             <input
               checked={activeOrganisers.includes(organizer.id)}
@@ -90,12 +135,11 @@ const ActivityEdit: React.FC<Props> = ({
             />
             {organizer.name}
           </div>
-          )
+        );
       }
-    })
+    });
   }
-    
-  
+
   const handleActiveOrganisers = (
     e: React.ChangeEvent<HTMLInputElement>,
     id: string | undefined
@@ -128,22 +172,6 @@ const ActivityEdit: React.FC<Props> = ({
               />
             </div>
             <div>
-              Tijden
-              <input
-                required
-                type="time"
-                value={startTime}
-                onChange={e => setStartTime(e.target.value)}
-              />
-              tot
-              <input
-                required
-                type="time"
-                value={endTime}
-                onChange={e => setEndTime(e.target.value)}
-              />
-            </div>
-            <div>
               Locatie
               <input
                 required
@@ -151,10 +179,14 @@ const ActivityEdit: React.FC<Props> = ({
                 onChange={e => setRoom(e.target.value)}
               />
             </div>
-        
-          {organisersOptions.length === 0 ? <div>Er zijn nog geen kartrekkers toegevoegd. Klik <Link to='/organizer'>hier</Link> om ze toe te voegen</div> :   <div> {organisersOptions} </div>}
-    
-       
+            {organisersOptions.length === 0 ? (
+              <div>
+                Er zijn nog geen kartrekkers toegevoegd. Klik{" "}
+                <Link to="/organizer">hier</Link> om ze toe te voegen
+              </div>
+            ) : (
+              <div> {organisersOptions} </div>
+            )}
             <div>
               Categorie
               <select
@@ -165,7 +197,45 @@ const ActivityEdit: React.FC<Props> = ({
                 {categoryOptions}
               </select>
             </div>
-            
+
+            <div>
+              <h3>Tijden</h3>
+              <input
+                checked={once}
+                onChange={() => setOnce(!once)}
+                type="checkbox"
+              />
+              Eenmalig?
+              {once ? (
+                <div>
+                  Datum
+                  <input
+                    type="date"
+                    value={date}
+                    onChange={e => setDate(e.target.value)}
+                  />
+                  <div>
+                    <h3>Tijden</h3>
+                    <input
+                      required
+                      type="time"
+                      value={startTime}
+                      onChange={e => setStartTime(e.target.value)}
+                    />
+                    tot
+                    <input
+                      required
+                      type="time"
+                      value={endTime}
+                      onChange={e => setEndTime(e.target.value)}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <Days stateDays={stateDays} setDays={setDays} />
+              )}
+            </div>
+
             <button>update</button>
           </form>
         </div>
@@ -190,8 +260,28 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    EditActivity: (activity: iActivity, profile: any, id: string, docId: string, organisers: string[]) =>
-      dispatch(EditActivity(activity, profile, id, docId))
+    EditActivity: (
+      activity: iActivity,
+      profile: any,
+      id: string,
+      docId: string,
+
+      dayToPush: iOnce | undefined,
+      daysToPush: iDay[] | undefined,
+      repeats: boolean,
+      organisers: string[]
+    ) =>
+      dispatch(
+        EditActivity(
+          activity,
+          profile,
+          id,
+          docId,
+          dayToPush,
+          daysToPush,
+          repeats
+        )
+      )
   };
 };
 
