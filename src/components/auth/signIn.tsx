@@ -27,7 +27,7 @@ const SignIn: React.FC<Props> = ({ authError }) => {
         <div className="o-inputfield">
           <label className="o-inputfield__label">Emailadres</label>
           <input
-            className="o-inputfield__input"
+            className="o-inputfield__input login"
             required
             value={email}
             onChange={e => setEmail(e.target.value)}
@@ -36,7 +36,7 @@ const SignIn: React.FC<Props> = ({ authError }) => {
         <div className="o-inputfield">
           <label className="o-inputfield__label">Wachtwoord</label>
           <input
-            className="o-inputfield__input"
+            className="o-inputfield__input login"
             required
             type="password"
             value={password}

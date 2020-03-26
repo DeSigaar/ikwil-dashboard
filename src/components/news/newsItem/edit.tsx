@@ -32,25 +32,27 @@ const Edit: React.FC<Props> = ({ newsItem, auth, profile, link }) => {
     if (!redirect) {
       return (
         <>
-          <h2>Edit</h2>
+          <h2>Bewerk Nieuwsbericht</h2>
           <form onSubmit={e => handleSubmit(e)}>
-            <div>
-              Titel
+            <div className="o-inputfield">
+              <label className="o-inputfield__label">Titel</label>
               <input
+                className="o-inputfield__input"
                 required
                 value={title}
                 onChange={e => setTitle(e.target.value)}
               />
             </div>
-            <div>
-              Text
+            <div className="o-inputfield">
+              <label className="o-inputfield__label">Tekst</label>
               <textarea
+                className="o-inputfield__input"
                 required
                 value={text}
                 onChange={e => setText(e.target.value)}
               />
             </div>
-            <button>update</button>
+            <button>update nieuwsbericht</button>
           </form>
         </>
       );

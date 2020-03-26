@@ -18,35 +18,42 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
     createOrganizer({ name, description, place, isAvailable }, profile, userId);
   };
   return (
-    <div>
+    <>
       <h2>Toevoegen</h2>
       <form onSubmit={e => handleSubmit(e)}>
-        <div>
-          Naam
+        <div className="o-inputfield">
+          <label className="o-inputfield__label">Naam</label>
           <input
+            className="o-inputfield__input"
             required
             value={name}
             onChange={e => setName(e.target.value)}
           />
         </div>
-        <div>
-          Beschrijving van je werk
+        <div className="o-inputfield">
+          <label className="o-inputfield__label">
+            Beschrijving van je werkzaamheden
+          </label>
           <input
+            className="o-inputfield__input"
             required
             value={description}
             onChange={e => setDescription(e.target.value)}
           />
         </div>
-        <div>
-          Plaats waar je het meeste bent
+        <div className="o-inputfield">
+          <label className="o-inputfield__label">
+            Plaats waar je het meeste bent
+          </label>
           <input
+            className="o-inputfield__input"
             required
             value={place}
             onChange={e => setPlace(e.target.value)}
           />
         </div>
-        <div>
-          Beschikbaar
+        <div className="o-inputfield">
+          <label className="o-inputfield__label">Beschikbaar</label>
           <input
             required
             type="checkbox"
@@ -56,7 +63,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
         </div>
         <button>submit</button>
       </form>
-    </div>
+    </>
   );
 };
 const mapStateToProps = (state: any) => {

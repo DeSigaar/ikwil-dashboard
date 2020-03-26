@@ -16,29 +16,31 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
     createRule({ name, rule }, profile, userId);
   };
   return (
-    <div>
+    <>
       <h2>Toevoegen</h2>
       <form onSubmit={e => handleSubmit(e)}>
-        <div>
-          Naam
+        <div className="o-inputfield">
+          <label className="o-inputfield__label">Naam</label>
           <input
+            className="o-inputfield__input"
             required
             value={name}
             onChange={e => setName(e.target.value)}
           />
         </div>
-        <div>
-          Regel
+        <div className="o-inputfield">
+          <label className="o-inputfield__label">Regel</label>
           <input
+            className="o-inputfield__input"
             required
             value={rule}
             onChange={e => setRule(e.target.value)}
           />
         </div>
 
-        <button>submit</button>
+        <button>Plaats regel</button>
       </form>
-    </div>
+    </>
   );
 };
 const mapStateToProps = (state: any) => {

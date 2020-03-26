@@ -34,23 +34,25 @@ const Edit: React.FC<Props> = ({ rule, auth, profile, link }) => {
         <>
           <h2>Edit</h2>
           <form onSubmit={e => handleSubmit(e)}>
-            <div>
-              naam
+            <div className="o-inputfield">
+              <label className="o-inputfield__label">Naam</label>
               <input
+                className="o-inputfield__input"
                 required
                 value={name}
                 onChange={e => setName(e.target.value)}
               />
             </div>
-            <div>
-              Regel
+            <div className="o-inputfield">
+              <label className="o-inputfield__label">Regel</label>
               <input
+                className="o-inputfield__input"
                 required
                 value={userRule}
                 onChange={e => setUserRule(e.target.value)}
               />
             </div>
-            <button>update</button>
+            <button>update regel</button>
           </form>
         </>
       );
