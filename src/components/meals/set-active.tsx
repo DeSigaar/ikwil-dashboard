@@ -4,7 +4,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { EditMeal } from "../../store/actions/mealActions";
 import { Link } from "react-router-dom";
-
+import { DeleteMeal } from "../../store/actions/mealActions";
 interface Props {
   meals: iMeal[];
   profile?: any;
@@ -14,6 +14,8 @@ interface Props {
 const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
   const [updateMeals, setUpdateMeals] = useState<any>(undefined);
   const [activeMeals, setActiveMeals] = useState<string[]>([]);
+  const [safeDelete, setSafeDelete] = useState<boolean>(false);
+  const [idToDelete, setIdToDelete] = useState<string | undefined>("");
 
   useEffect(() => {
     if (typeof meals !== "undefined") {
@@ -30,7 +32,14 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
     }
   }, [meals, updateMeals]);
 
-  const handleActiveMeals = (mealId?: string) => {
+  const handleDelete = (mealId: string | undefined) => {
+    if (typeof mealId !== "undefined") {
+      //TO:DO Netter maker
+      DeleteMeal(mealId);
+    }
+  };
+
+  const handleActiveMeals = (mealId?: string | undefined) => {
     if (typeof mealId !== "undefined") {
       let tempActiveMeals = [...activeMeals];
       let active = false;
@@ -66,27 +75,71 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
             <div key={meal.id}>
               <Link to={"meal/" + meal.id}>
                 <h3>{meal.name}</h3>
-                <div>
-                  Actief?
-                  <input
-                    type="checkbox"
-                    checked={activeMeals.some(
-                      (mealId: any) => mealId === meal.id
-                    )}
-                    onChange={() => handleActiveMeals(meal.id)}
-                  />
-                </div>
-                <div>{meal.price}</div>
-                <div>{meal.ingredients}</div>
-                <div>Is Hallal: {meal.isHallal ? <>Ja</> : <>Nee</>}</div>
-                <div>Is Vegan: {meal.isVegan ? <>Ja</> : <>Nee</>}</div>
-                <div>
-                  Is Vegetarian: {meal.isVegetarian ? <>Ja</> : <>Nee</>}
-                </div>
               </Link>
+              <div>
+                Actief?
+                <input
+                  type="checkbox"
+                  checked={activeMeals.some(
+                    (mealId: any) => mealId === meal.id
+                  )}
+                  onChange={() => handleActiveMeals(meal.id)}
+                />
+              </div>
+              <div>{meal.price}</div>
+              <div>{meal.ingredients}</div>
+              <div>Is Hallal: {meal.isHallal ? <>Ja</> : <>Nee</>}</div>
+              <div>Is Vegan: {meal.isVegan ? <>Ja</> : <>Nee</>}</div>
+              <div>Is Vegetarian: {meal.isVegetarian ? <>Ja</> : <>Nee</>}</div>
+              <div>
+                <Link to={"/meal/" + meal.id + "/edit"}>
+                  <button
+                    onChange={e => {
+                      e.preventDefault();
+                    }}
+                  >
+                    Edit
+                  </button>
+                </Link>
+              </div>
+              <div>
+                <button
+                  onClick={() => {
+                    setSafeDelete(true);
+                    setIdToDelete(meal.id);
+                  }}
+                >
+                  delete
+                </button>
+              </div>
             </div>
           );
         })}
+        <div>
+          <Link to={"/meal/add"}>
+            <button
+              onChange={e => {
+                e.preventDefault();
+              }}
+            >
+              Voeg toe!
+            </button>
+          </Link>
+          {safeDelete ? (
+            <div>
+              Are you sure you want to delete it?
+              <button onClick={() => setSafeDelete(false)}>No</button>
+              <button
+                onClick={() => {
+                  handleDelete(idToDelete);
+                  setSafeDelete(false);
+                }}
+              >
+                yes
+              </button>
+            </div>
+          ) : null}
+        </div>
       </div>
     );
   } else {
@@ -105,7 +158,8 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     EditMeal: (meal: any, profile: any, id: string, docId: string) =>
-      dispatch(EditMeal(meal, profile, id, docId))
+      dispatch(EditMeal(meal, profile, id, docId)),
+    DeleteMeal: (docId: string) => dispatch(DeleteMeal(docId))
   };
 };
 

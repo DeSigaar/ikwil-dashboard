@@ -1,43 +1,32 @@
 import React from "react";
-// import { connect } from "react-redux";
-// import { firestoreConnect } from "react-redux-firebase";
-// import { compose } from "redux";
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
 import Summary from "./summary";
-// import Create from "./meal/create";
 
-// interface Props {
-//   data?: iMeal[];
-//   isLoggedIn: boolean;
-// }
+interface Props {
+  meals: iMeal[];
+}
 
-// const Meals: React.FC<Props> = ({ data, isLoggedIn }) => {
-const Meals: React.FC = () => {
+const Meals: React.FC<Props> = ({ meals }) => {
+  console.log("meals :", meals);
   return (
     <div>
-      {/* <Summary data={data} /> */}
-      <Summary />
-      {/* {isLoggedIn ? <Create /> : null} */}
+      <Summary meals={meals} />
     </div>
   );
 };
 
-// const mapStateToProps = (state: any) => {
-//   let isLoggedIn = false;
-//   if (!state.firebase.profile.isEmpty) {
-//     isLoggedIn = true;
-//   }
-//   return {
-//     data: state.firestore.ordered.rules,
-//     isLoggedIn
-//   };
-// };
-// export default compose(
-//   connect(mapStateToProps),
-//   firestoreConnect([
-//     {
-//       collection: "meals"
-//     }
-//   ])
-// )(Meals) as React.FC;
-
-export default Meals as React.FC;
+const mapStateToProps = (state: any) => {
+  return {
+    meals: state.firestore.ordered.meals
+  };
+};
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([
+    {
+      collection: "meals"
+    }
+  ])
+)(Meals) as React.FC;

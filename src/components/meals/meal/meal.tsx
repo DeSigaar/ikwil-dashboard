@@ -25,7 +25,6 @@ const Meal: React.FC<Props> = ({ meal, link }) => {
       }
     };
     if (!redirect) {
-      console.log("meal :", meal);
       return (
         <div>
           <h2>Meal</h2>
