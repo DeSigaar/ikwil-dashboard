@@ -1,14 +1,13 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import "../../scss/index.scss";
+import { connect } from "react-redux";
+
 import Home from "../home/index";
-import Activities from "../activities/index";
-import Activity from "../activities/activity/activity";
-import ActivityAdd from "../activities/activity/create";
-import ActivityEdit from "../activities/activity/edit";
+
+import AddAdmin from "../auth/addAdmin";
 import Login from "../auth/signIn";
 import Nav from "../nav/index";
-import { connect } from "react-redux";
-import AddAdmin from "../auth/addAdmin";
 
 import Organisers from "../organisers/index";
 import Organizer from "../organisers/organizer/organizer";
@@ -20,11 +19,21 @@ import NewsItem from "../news/newsItem/newsItem";
 import NewsItemEdit from "../news/newsItem/edit";
 import NewsItemAdd from "../news/newsItem/create";
 
-import "../../scss/index.scss";
 import Rules from "../rules/index";
 import RuleAdd from "../rules/rule/create";
 import Rule from "../rules/rule/rule";
 import RuleEdit from "../rules/rule/edit";
+
+import Activities from "../activities/index";
+import Activity from "../activities/activity/activity";
+import ActivityAdd from "../activities/activity/create";
+import ActivityEdit from "../activities/activity/edit";
+
+import Meals from "../meals/index";
+import Meal from "../meals/meal/meal";
+import MealAdd from "../meals/meal/create";
+import MealEdit from "../meals/meal/edit";
+import MealSetActive from "../meals/set-active";
 interface Props {
   loggedIn?: boolean;
 }
@@ -34,6 +43,8 @@ const App: React.FC<Props> = ({ loggedIn }) => {
     <div>
       {loggedIn ? (
         <>
+          <Route path="/meal/add" component={MealAdd} />
+          <Route exact path="/active-meals" component={MealSetActive} />
           <Route path="/activity/add" component={ActivityAdd} />
           <Route path="/rule/add" component={RuleAdd} />
           <Route path="/organizer/add" component={OrganizerAdd} />
@@ -41,6 +52,10 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           <Route
             path="/activity/:id/edit"
             render={({ match }) => <ActivityEdit link={match} />}
+          />
+          <Route
+            path="/meal/:id/edit"
+            render={({ match }) => <MealEdit link={match} />}
           />
           <Route
             path="/organizer/:id/edit"
@@ -73,6 +88,10 @@ const App: React.FC<Props> = ({ loggedIn }) => {
         <Route exact path="/activity">
           <Activities />
         </Route>
+        <Route exact path="/meal">
+          <Meals />
+        </Route>
+
         <Route exact path="/organizer">
           <Organisers />
         </Route>
@@ -86,6 +105,11 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           exact
           path="/organizer/:id"
           render={({ match }) => <Organizer link={match} />}
+        />
+        <Route
+          exact
+          path="/meal/:id"
+          render={({ match }) => <Meal link={match} />}
         />
         <Route
           exact

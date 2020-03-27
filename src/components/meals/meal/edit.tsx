@@ -2,40 +2,48 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import { EditRule } from "../../../store/actions/ruleActions";
+import { EditMeal } from "../../../store/actions/mealActions";
 import { Redirect } from "react-router-dom";
 
 interface Props {
   link?: any;
   profile?: any;
-  rule?: iRule;
+  meal?: iMeal;
   auth?: any;
 }
 
-const Edit: React.FC<Props> = ({ rule, auth, profile, link }) => {
+const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
   const [name, setName] = useState<string>("");
-  const [userRule, setUserRule] = useState<string>("");
+  const [price, setPrice] = useState<string>("");
+  const [ingredients, setIngredients] = useState<string>("");
+  const [isHallal, setIsHallal] = useState<boolean>(false);
+  const [isVegan, setIsVegan] = useState<boolean>(false);
+  const [isVegetarian, setisVegetarian] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
   useEffect(() => {
-    if (typeof rule !== "undefined") {
-      setName(rule.name);
-      setUserRule(rule.rule);
+    if (typeof meal !== "undefined") {
+      setName(meal.name);
+      setPrice(meal.price);
+      setIngredients(meal.ingredients);
+      setIsHallal(meal.isHallal);
+      setIsVegan(meal.isVegan);
+      setisVegetarian(meal.isVegetarian);
     }
-  }, [rule]);
+  }, [meal]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    EditRule({ name, rule }, profile, auth.uid, link.params.id);
+    EditMeal({ name, meal }, profile, auth.uid, link.params.id);
     setRedirect(true);
   };
-  if (typeof rule !== "undefined") {
+  if (typeof meal !== "undefined") {
     if (!redirect) {
       return (
         <>
           <h2>Edit</h2>
           <form onSubmit={e => handleSubmit(e)}>
             <div>
-              naam
+              Naam
               <input
                 required
                 value={name}
@@ -43,11 +51,49 @@ const Edit: React.FC<Props> = ({ rule, auth, profile, link }) => {
               />
             </div>
             <div>
-              Regel
+              Prijs
               <input
                 required
-                value={userRule}
-                onChange={e => setUserRule(e.target.value)}
+                value={price}
+                type="number"
+                min="1"
+                step="any"
+                onChange={e => setPrice(e.target.value)}
+              />
+            </div>
+            <div>
+              Ingredienten
+              <input
+                value={ingredients}
+                placeholder={"Sla, Tomaat, Ui"}
+                onChange={e => setIngredients(e.target.value)}
+              />
+            </div>
+            <div>
+              Hallal
+              <input
+                type="checkbox"
+                checked={isHallal}
+                placeholder={"Sla, Tomaat, Ui"}
+                onChange={e => setIsHallal(!isHallal)}
+              />
+            </div>
+            <div>
+              Vegetarisch
+              <input
+                type="checkbox"
+                checked={isVegetarian}
+                placeholder={"Sla, Tomaat, Ui"}
+                onChange={e => setisVegetarian(!isVegetarian)}
+              />
+            </div>
+            <div>
+              Vegan
+              <input
+                type="checkbox"
+                checked={isVegan}
+                placeholder={"Sla, Tomaat, Ui"}
+                onChange={e => setIsVegan(!isVegan)}
               />
             </div>
             <button>update</button>
@@ -55,16 +101,16 @@ const Edit: React.FC<Props> = ({ rule, auth, profile, link }) => {
         </>
       );
     } else {
-      return <Redirect to={"/rule/" + link.params.id} />;
+      return <Redirect to={"/meal/" + link.params.id} />;
     }
   } else {
     return <>Error</>;
   }
 };
 const mapStateToProps = (state: any) => {
-  if (typeof state.firestore.ordered.rules !== "undefined") {
+  if (typeof state.firestore.ordered.meals !== "undefined") {
     return {
-      organizer: state.firestore.ordered.rules[0],
+      meal: state.firestore.ordered.meals[0],
       profile: state.firebase.profile,
       auth: state.firebase.auth
     };
@@ -72,14 +118,14 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    EditRule: (rule: any, profile: any, id: string, docId: string) =>
-      dispatch(EditRule(rule, profile, id, docId))
+    EditMeal: (meal: any, profile: any, id: string, docId: string) =>
+      dispatch(EditMeal(meal, profile, id, docId))
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props: Props) => [
-    { collection: "rules", doc: props.link.params.id }
+    { collection: "meals", doc: props.link.params.id }
   ])
 )(Edit) as React.FC<Props>;

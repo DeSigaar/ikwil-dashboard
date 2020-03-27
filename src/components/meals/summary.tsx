@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "react-multi-carousel/lib/styles.css";
 
 interface Props {
-  // data?: iMeal[] | undefined;
+  meals?: iMeal[] | undefined;
 }
 
 const responsive = {
@@ -25,57 +25,55 @@ const responsive = {
   }
 };
 
-// const Summary: React.FC<Props> = ({ data }) => {
-const Summary: React.FC = () => {
+const Summary: React.FC<Props> = ({ meals }) => {
   const [isMoving, setIsMoving] = useState<boolean>(false);
 
   return (
     <div className="s-card-small" id="meal">
       <h2 className="s-card-small__header">Maaltijd van de dag</h2>
-      {/* {typeof data !== "undefined" ? ( */}
-      <>
-        <Carousel
-          showDots={true}
-          responsive={responsive}
-          infinite={true}
-          autoPlay={true}
-          autoPlaySpeed={20000}
-          containerClass="o-carousel"
-          dotListClass="o-carousel__dots"
-          sliderClass="o-carousel__slider"
-          arrows={false}
-          beforeChange={() => setIsMoving(true)}
-          afterChange={() => setIsMoving(false)}
-        >
-          {/* {data.map(meal => { */}
-          {/* return ( */}
-          <Link
-            className="c-meal__link"
-            key={1}
-            // to={"/meal/" + newsItem.id}
-            to={"/meal/1"}
-            onClick={e => {
-              if (isMoving === true) {
-                e.preventDefault();
-              }
-            }}
+      {typeof meals !== "undefined" ? (
+        <>
+          <Carousel
+            showDots={true}
+            responsive={responsive}
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={20000}
+            containerClass="o-carousel"
+            dotListClass="o-carousel__dots"
+            sliderClass="o-carousel__slider"
+            arrows={false}
+            beforeChange={() => setIsMoving(true)}
+            afterChange={() => setIsMoving(false)}
           >
-            <div className="c-meal">
-              <img
-                src="/yoga.svg"
-                className="c-meal__icon"
-                alt="Maaltijd van de dag"
-              />
-              <h2 className="c-meal__title">Tomatensoep</h2>
-            </div>
-          </Link>
-          {/* ); */}
-          {/* })} */}
-        </Carousel>
-      </>
-      {/* ) : (
+            {meals.map((meal: iMeal) => {
+              return (
+                <Link
+                  className="c-meal__link"
+                  key={1}
+                  to={"/meal/" + meal.id}
+                  onClick={e => {
+                    if (isMoving === true) {
+                      e.preventDefault();
+                    }
+                  }}
+                >
+                  <div className="c-meal">
+                    <img
+                      src="/yoga.svg"
+                      className="c-meal__icon"
+                      alt="Maaltijd van de dag"
+                    />
+                    <h2 className="c-meal__title">{meal.name}</h2>
+                  </div>
+                </Link>
+              );
+            })}
+          </Carousel>
+        </>
+      ) : (
         <></>
-      )} */}
+      )}
     </div>
   );
 };
