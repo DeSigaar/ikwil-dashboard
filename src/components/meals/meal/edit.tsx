@@ -47,7 +47,7 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
       isHallal,
       isVegan,
       isVegetarian,
-      isActive: false
+      isActive: true
     };
     EditMeal(tempMeal, profile, auth.uid, link.params.id, img);
     setRedirect(true);

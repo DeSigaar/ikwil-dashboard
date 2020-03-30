@@ -75,7 +75,7 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
       <div>
         {meals.map((meal: iMeal) => {
           return (
-            <div>
+            <div key={meal.id}>
               <MealItem
                 setSafeDelete={setSafeDelete}
                 setIdToDelete={setIdToDelete}

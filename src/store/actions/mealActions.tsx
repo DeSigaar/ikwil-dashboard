@@ -38,7 +38,7 @@ export const createMeal = (meal: iMeal, profile: any, id: string, img: any) => {
 };
 
 export const EditMeal = (
-  meal: any,
+  meal: iMeal,
   profile: any,
   id: string,
   docId: string,
