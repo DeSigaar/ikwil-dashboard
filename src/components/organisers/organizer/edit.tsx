@@ -49,7 +49,7 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
             <h2 className="s-cms__header">Bewerk bestuurslid</h2>
             <form onSubmit={e => handleSubmit(e)}>
               <div className="o-inputfield">
-                <label className="o-inputfield__label">Naam</label>
+                <label>Naam</label>
                 <input
                   className="o-inputfield__input"
                   required
@@ -58,9 +58,7 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                 />
               </div>
               <div className="o-inputfield">
-                <label className="o-inputfield__label">
-                  Beschrijving van je werkzaamheden
-                </label>
+                <label>Beschrijving van je werkzaamheden</label>
                 <input
                   className="o-inputfield__input"
                   required
@@ -69,9 +67,7 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                 />
               </div>
               <div className="o-inputfield">
-                <label className="o-inputfield__label">
-                  Plaats waar je het meeste bent
-                </label>
+                <label>Plaats waar je het meeste bent</label>
                 <input
                   className="o-inputfield__input"
                   required
@@ -81,7 +77,7 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
               </div>
               <div className="o-inputfield">
                 <label className="checkbox-container">
-                  <label className="o-inputfield__label">Beschikbaar</label>
+                  <label>Beschikbaar</label>
                   <input
                     required
                     type="checkbox"
