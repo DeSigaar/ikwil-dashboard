@@ -5,6 +5,8 @@ import { compose } from "redux";
 import { EditMeal } from "../../store/actions/mealActions";
 import { Link } from "react-router-dom";
 import { DeleteMeal } from "../../store/actions/mealActions";
+import { GetPhoto } from "../../store/actions/imgActions";
+import MealItem from "./mealItem";
 interface Props {
   meals: iMeal[];
   profile?: any;
@@ -72,46 +74,14 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
       <div>
         {meals.map((meal: iMeal) => {
           return (
-            <div key={meal.id}>
-              <Link to={"meal/" + meal.id}>
-                <h3>{meal.name}</h3>
-              </Link>
-              <div>
-                Actief?
-                <input
-                  type="checkbox"
-                  checked={activeMeals.some(
-                    (mealId: any) => mealId === meal.id
-                  )}
-                  onChange={() => handleActiveMeals(meal.id)}
-                />
-              </div>
-              <div>{meal.price}</div>
-              <div>{meal.ingredients}</div>
-              <div>Is Hallal: {meal.isHallal ? <>Ja</> : <>Nee</>}</div>
-              <div>Is Vegan: {meal.isVegan ? <>Ja</> : <>Nee</>}</div>
-              <div>Is Vegetarian: {meal.isVegetarian ? <>Ja</> : <>Nee</>}</div>
-              <div>
-                <Link to={"/meal/" + meal.id + "/edit"}>
-                  <button
-                    onChange={e => {
-                      e.preventDefault();
-                    }}
-                  >
-                    Edit
-                  </button>
-                </Link>
-              </div>
-              <div>
-                <button
-                  onClick={() => {
-                    setSafeDelete(true);
-                    setIdToDelete(meal.id);
-                  }}
-                >
-                  delete
-                </button>
-              </div>
+            <div>
+              <MealItem
+                setSafeDelete={setSafeDelete}
+                setIdToDelete={setIdToDelete}
+                handleActiveMeals={handleActiveMeals}
+                meal={meal}
+                activeMeals={activeMeals}
+              />
             </div>
           );
         })}
@@ -159,7 +129,8 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     EditMeal: (meal: any, profile: any, id: string, docId: string) =>
       dispatch(EditMeal(meal, profile, id, docId)),
-    DeleteMeal: (docId: string) => dispatch(DeleteMeal(docId))
+    DeleteMeal: (docId: string) => dispatch(DeleteMeal(docId)),
+    GetPhoto: (path: string) => dispatch(GetPhoto(path))
   };
 };
 

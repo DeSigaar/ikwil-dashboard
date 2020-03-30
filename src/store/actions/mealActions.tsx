@@ -3,7 +3,12 @@ import firebase from "firebase/app";
 import { uploadPhoto } from "./imgActions";
 
 export const createMeal = (meal: iMeal, profile: any, id: string, img: any) => {
-  let imgRef = uploadPhoto(img, "meals/" + meal.name);
+  console.log("img :", img);
+  let imgRef = { fullPath: "images/meals/default.png" };
+  if (typeof img !== "undefined") {
+    imgRef = uploadPhoto(img, "meals/" + img.name);
+  }
+
   const ref = firebase
     .firestore()
     .collection("meals")
