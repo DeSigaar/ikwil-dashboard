@@ -58,15 +58,16 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
     }
   };
   const setMealActive = (id: string, active: boolean) => {
-    let mealToSet = {
+    let mealToSet: any = {
       ...meals.find((meal: any) => meal.id === id),
       isActive: false
     };
     if (typeof mealToSet?.isActive !== "undefined") {
       mealToSet.isActive = active;
     }
-    console.log("mealToSet :", mealToSet);
-    EditMeal(mealToSet, profile, auth.uid, id);
+    let imgRef = mealToSet.img;
+
+    EditMeal(mealToSet, profile, auth.uid, id, null, imgRef);
   };
 
   if (typeof meals !== "undefined") {
@@ -127,8 +128,14 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    EditMeal: (meal: any, profile: any, id: string, docId: string) =>
-      dispatch(EditMeal(meal, profile, id, docId)),
+    EditMeal: (
+      meal: any,
+      profile: any,
+      id: string,
+      docId: string,
+      img: any,
+      imgRef: string
+    ) => dispatch(EditMeal(meal, profile, id, docId, img, imgRef)),
     DeleteMeal: (docId: string) => dispatch(DeleteMeal(docId)),
     GetPhoto: (path: string) => dispatch(GetPhoto(path))
   };

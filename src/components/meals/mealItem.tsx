@@ -18,25 +18,14 @@ const MealItem: React.FC<Props> = ({
   handleActiveMeals,
   activeMeals
 }) => {
-  // let imgSource = undefined;
-  // if (typeof meal.img !== "undefined") {
-  //   if (!isRendered) {
-  //
-  //     });
-  //   }
-  // }
   const [img, setImg] = useState<string>(
     "https://firebasestorage.googleapis.com/v0/b/stichting-ik-wil.appspot.com/o/images%2Fmeals%2Fdefault.png?alt=media&token=5886c40a-8030-4d7a-b644-c80acb185837"
   );
 
   useEffect(() => {
-    console.log("useeffect :");
     if (typeof meal !== "undefined") {
-      console.log("meal :", meal);
       if (typeof meal.img !== "undefined") {
-        console.log("img :");
         GetPhoto(meal.img)?.then((res: any) => {
-          console.log("res :", res);
           setImg(res);
         });
       }

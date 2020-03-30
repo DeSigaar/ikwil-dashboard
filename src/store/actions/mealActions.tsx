@@ -3,7 +3,6 @@ import firebase from "firebase/app";
 import { uploadPhoto } from "./imgActions";
 
 export const createMeal = (meal: iMeal, profile: any, id: string, img: any) => {
-  console.log("img :", img);
   let imgRef = { fullPath: "images/meals/default.png" };
   if (typeof img !== "undefined") {
     imgRef = uploadPhoto(img, "meals/" + img.name);
@@ -42,23 +41,33 @@ export const EditMeal = (
   meal: any,
   profile: any,
   id: string,
-  docId: string
+  docId: string,
+  img?: any,
+  imgRef?: string | undefined
 ) => {
+  let dataToSet: any = {
+    name: meal.name,
+    price: meal.price,
+    ingredients: meal.ingredients,
+    isHallal: meal.isHallal,
+    isVegan: meal.isVegan,
+    isActive: meal.isActive,
+    isVegetarian: meal.isVegetarian,
+    createdBy: profile.firstName + " " + profile.lastName,
+    creatorID: id
+  };
+  if (typeof imgRef !== "undefined") {
+    dataToSet.img = imgRef;
+  }
+  if (typeof img !== "undefined") {
+    dataToSet.img = uploadPhoto(img, "meals/" + img.name).fullPath;
+  }
+  console.log("dataToSet :", dataToSet);
   firebase
     .firestore()
     .collection("meals")
     .doc(docId)
-    .set({
-      name: meal.name,
-      price: meal.price,
-      ingredients: meal.ingredients,
-      isHallal: meal.isHallal,
-      isVegan: meal.isVegan,
-      isActive: meal.isActive,
-      isVegetarian: meal.isVegetarian,
-      createdBy: profile.firstName + " " + profile.lastName,
-      creatorID: id
-    })
+    .set(dataToSet)
     .then(() => store.dispatch({ type: "EDIT_MEAL_SUCCESS" }))
     .catch(err => store.dispatch({ type: "EDIT_MEAL_ERROR", err }));
 };

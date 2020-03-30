@@ -29,7 +29,6 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
   const handleImageUpload = (e: any) => {
     e.preventDefault();
     if (typeof e.target.files[0] !== "undefined") {
-      console.log("e.target.files :", e.target.files);
       setImgPreview(URL.createObjectURL(e.target.files[0]));
       setImg(e.target.files[0]);
     }
@@ -99,7 +98,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
             onChange={e => handleImageUpload(e)}
           />
         </div>
-        <img src={imgPreview} />
+        <img src={imgPreview} alt="preview" />
         <button>submit</button>
       </form>
     </div>
