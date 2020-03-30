@@ -47,27 +47,31 @@ const Summary: React.FC<Props> = ({ meals }) => {
             afterChange={() => setIsMoving(false)}
           >
             {meals.map((meal: iMeal) => {
-              return (
-                <Link
-                  className="c-meal__link"
-                  key={1}
-                  to={"/meal/" + meal.id}
-                  onClick={e => {
-                    if (isMoving === true) {
-                      e.preventDefault();
-                    }
-                  }}
-                >
-                  <div className="c-meal">
-                    <img
-                      src="/yoga.svg"
-                      className="c-meal__icon"
-                      alt="Maaltijd van de dag"
-                    />
-                    <h2 className="c-meal__title">{meal.name}</h2>
-                  </div>
-                </Link>
-              );
+              if (meal.isActive) {
+                return (
+                  <Link
+                    className="c-meal__link"
+                    key={1}
+                    to={"/meal/" + meal.id}
+                    onClick={e => {
+                      if (isMoving === true) {
+                        e.preventDefault();
+                      }
+                    }}
+                  >
+                    <div className="c-meal">
+                      <img
+                        src="/yoga.svg"
+                        className="c-meal__icon"
+                        alt="Maaltijd van de dag"
+                      />
+                      <h2 className="c-meal__title">{meal.name}</h2>
+                    </div>
+                  </Link>
+                );
+              } else {
+                return null;
+              }
             })}
           </Carousel>
         </>
