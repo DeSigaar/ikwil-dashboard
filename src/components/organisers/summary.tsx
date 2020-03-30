@@ -1,36 +1,10 @@
 import React from "react";
-// import { Link } from "react-router-dom";
-import Modal from "react-modal";
-// import organisers from ".";
+
 interface Props {
   data?: iOrganizer[] | undefined;
 }
+
 const Summary: React.FC<Props> = ({ data }) => {
-  
-  Modal.setAppElement('#root')
-
-  const [modalIsOpen, setIsOpen] = React.useState<boolean>(false);
-  const [modelContent, setModelContent] = React.useState<any>(false);
-  
-  const openModal = () => {
-    setIsOpen(true);
-  }
-
-  const afterOpenModal = () => {
-    // references are now sync'd and can be accessed.
-    // subtitle.style.color = '#f00';
-  }
- 
-  const closeModal = () => {
-    setIsOpen(false);
-  }
-
-  const onClick = (organizer: iOrganizer) => {
-    openModal()
-    setModelContent(organizer)
- }
- 
-
   return (
     <>
       <h2 className="s-card-small__header">Aanwezig bestuur</h2>
@@ -42,8 +16,6 @@ const Summary: React.FC<Props> = ({ data }) => {
                 <div
                   className="c-organiser__link"
                   key={organisor.id}
-                  // to={"/organizer/" + organisor.id}
-                  onClick={() => onClick(organisor) }
                 >
                   <div className="c-organiser">
                     <img
@@ -63,18 +35,7 @@ const Summary: React.FC<Props> = ({ data }) => {
           </>
         ) : (
           <></>
-          )}
-              {/* <button onClick={openModal}>Open Modal</button> */}
-
-<Modal
-    isOpen={modalIsOpen}
-    onAfterOpen={afterOpenModal}
-    onRequestClose={closeModal}
-    // style={customStyles}
-  contentLabel="title"
-  >
-  {modelContent.name}
-  </Modal>
+        )}
       </div>
     </>
   );
