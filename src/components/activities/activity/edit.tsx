@@ -253,7 +253,7 @@ const ActivityEdit: React.FC<Props> = ({
                 )}
               </div>
 
-              <button>Update maaltijd</button>
+              <button>Update Activiteit</button>
             </form>
           </div>
         </div>

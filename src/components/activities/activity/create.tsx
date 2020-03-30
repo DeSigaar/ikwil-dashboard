@@ -221,7 +221,7 @@ const Create: React.FC<Props> = ({
             )}
           </div>
 
-          <button>Maaltijd toevoegen</button>
+          <button>Activiteit toevoegen</button>
         </form>
       </div>
     </div>
