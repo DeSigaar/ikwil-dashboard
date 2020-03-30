@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
 import { Link } from "react-router-dom";
 import "react-multi-carousel/lib/styles.css";
+import ActiveMealItem from "./meal/activeMealItem";
 
 interface Props {
   meals?: iMeal[] | undefined;
@@ -27,12 +28,14 @@ const responsive = {
 
 const Summary: React.FC<Props> = ({ meals }) => {
   const [isMoving, setIsMoving] = useState<boolean>(false);
+  const [noneActive, setNoneActive] = useState<boolean>(false);
 
   return (
     <div className="s-card-small" id="meal">
       <h2 className="s-card-small__header">Maaltijd van de dag</h2>
       {typeof meals !== "undefined" ? (
         <>
+          {noneActive ? <div>Er is geen maaltijd vandaag ofzo</div> : null}
           <Carousel
             showDots={true}
             responsive={responsive}
@@ -49,28 +52,12 @@ const Summary: React.FC<Props> = ({ meals }) => {
             {meals.map((meal: iMeal) => {
               if (meal.isActive) {
                 return (
-                  <Link
-                    className="c-meal__link"
-                    key={1}
-                    to={"/meal/" + meal.id}
-                    onClick={e => {
-                      if (isMoving === true) {
-                        e.preventDefault();
-                      }
-                    }}
-                  >
-                    <div className="c-meal">
-                      <img
-                        src="/yoga.svg"
-                        className="c-meal__icon"
-                        alt="Maaltijd van de dag"
-                      />
-                      <h2 className="c-meal__title">{meal.name}</h2>
-                    </div>
-                  </Link>
+                  <div key={meal.id}>
+                    <ActiveMealItem meal={meal} isMoving={isMoving} />
+                  </div>
                 );
               } else {
-                return null;
+                return !noneActive ? setNoneActive(true) : null;
               }
             })}
           </Carousel>

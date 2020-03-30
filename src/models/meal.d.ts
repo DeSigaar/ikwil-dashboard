@@ -9,4 +9,5 @@ interface iMeal {
   createdBy?: string;
   creatorId?: string;
   isActive?: boolean;
+  img?: string;
 }
