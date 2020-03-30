@@ -44,45 +44,57 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
   if (typeof organizer !== "undefined") {
     if (!redirect) {
       return (
-        <>
-          <h2>Edit</h2>
-          <form onSubmit={e => handleSubmit(e)}>
-            <div>
-              naam
-              <input
-                required
-                value={name}
-                onChange={e => setName(e.target.value)}
-              />
-            </div>
-            <div>
-              Beschrijving van je werk
-              <input
-                required
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-              />
-            </div>
-            <div>
-              Plaats waar je het meeste bent
-              <input
-                required
-                value={place}
-                onChange={e => setPlace(e.target.value)}
-              />
-            </div>
-            <div>
-              Beschikbaar
-              <input
-                required
-                type="checkbox"
-                checked={isAvailable}
-                onChange={e => setIsAvailable(!isAvailable)}
-              />
-            </div>
-            <button>update</button>
-          </form>
-        </>
+        <div className="s-cms">
+          <div className="s-cms__form-conatiner">
+            <h2 className="s-cms__header">Bewerk bestuurslid</h2>
+            <form onSubmit={e => handleSubmit(e)}>
+              <div className="o-inputfield">
+                <label className="o-inputfield__label">Naam</label>
+                <input
+                  className="o-inputfield__input"
+                  required
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
+              </div>
+              <div className="o-inputfield">
+                <label className="o-inputfield__label">
+                  Beschrijving van je werkzaamheden
+                </label>
+                <input
+                  className="o-inputfield__input"
+                  required
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                />
+              </div>
+              <div className="o-inputfield">
+                <label className="o-inputfield__label">
+                  Plaats waar je het meeste bent
+                </label>
+                <input
+                  className="o-inputfield__input"
+                  required
+                  value={place}
+                  onChange={e => setPlace(e.target.value)}
+                />
+              </div>
+              <div className="o-inputfield">
+                <label className="checkbox-container">
+                  <label className="o-inputfield__label">Beschikbaar</label>
+                  <input
+                    required
+                    type="checkbox"
+                    checked={isAvailable}
+                    onChange={e => setIsAvailable(!isAvailable)}
+                  />
+                  <span className="checkmark"></span>
+                </label>
+              </div>
+              <button>update bestuurslid</button>
+            </form>
+          </div>
+        </div>
       );
     } else {
       return <Redirect to={"/organizer/" + link.params.id} />;

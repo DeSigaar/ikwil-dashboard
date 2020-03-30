@@ -31,28 +31,32 @@ const Edit: React.FC<Props> = ({ rule, auth, profile, link }) => {
   if (typeof rule !== "undefined") {
     if (!redirect) {
       return (
-        <>
-          <h2>Edit</h2>
-          <form onSubmit={e => handleSubmit(e)}>
-            <div>
-              naam
-              <input
-                required
-                value={name}
-                onChange={e => setName(e.target.value)}
-              />
-            </div>
-            <div>
-              Regel
-              <input
-                required
-                value={userRule}
-                onChange={e => setUserRule(e.target.value)}
-              />
-            </div>
-            <button>update</button>
-          </form>
-        </>
+        <div className="s-cms">
+          <div className="s-cms__form-conatiner">
+            <h2 className="s-cms__header">Bewerk regel</h2>
+            <form onSubmit={e => handleSubmit(e)}>
+              <div className="o-inputfield">
+                <label className="o-inputfield__label">Naam</label>
+                <input
+                  className="o-inputfield__input"
+                  required
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
+              </div>
+              <div className="o-inputfield">
+                <label className="o-inputfield__label">Regel</label>
+                <input
+                  className="o-inputfield__input"
+                  required
+                  value={userRule}
+                  onChange={e => setUserRule(e.target.value)}
+                />
+              </div>
+              <button>update regel</button>
+            </form>
+          </div>
+        </div>
       );
     } else {
       return <Redirect to={"/rule/" + link.params.id} />;

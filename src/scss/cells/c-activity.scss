@@ -5,6 +5,10 @@
   display: block;
   overflow: auto;
 
+  &:first-child {
+    margin-top: 0px;
+  }
+
   &__top-content {
     display: flex;
     align-items: center;

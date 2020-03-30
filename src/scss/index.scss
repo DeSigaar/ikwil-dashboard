@@ -7,14 +7,18 @@
 @import "./cells/c-organiser";
 @import "./cells/c-rule";
 @import "./cells/c-meal";
+@import "./cells/c-dayChanger";
 
 //Organs
 @import "./organs/o-carousel";
+@import "./organs/o-inputfield";
 
 //Species
 @import "./species/s-home";
 @import "./species/s-card";
 @import "./species/s-nav";
+@import "./species/s-login";
+@import "./species/s-cms";
 
 //DNA
 @import "./dna/dna.scss";

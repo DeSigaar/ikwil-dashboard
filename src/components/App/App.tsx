@@ -1,9 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import Home from "../home/index";
 import "../../scss/index.scss";
 import { connect } from "react-redux";
-
-import Home from "../home/index";
 
 import AddAdmin from "../auth/addAdmin";
 import Login from "../auth/signIn";

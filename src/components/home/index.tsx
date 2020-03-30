@@ -8,11 +8,11 @@ import Meals from "../meals/index";
 const Nav: React.FC = () => {
   return (
     <div className="s-home">
-      <Organisers />
+      <Meals />
       <News />
       <Activities />
+      <Organisers />
       <Rules />
-      <Meals />
     </div>
   );
 };

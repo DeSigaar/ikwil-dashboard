@@ -136,6 +136,15 @@ const Summary: React.FC<Props> = ({ activities }) => {
     <>
       <h2 className="s-card-big__header">Activiteiten</h2>
       <div className="s-card-big__scrollable-container">{renderDays}</div>
+      <div className="c-dayChanger">
+        <Link id="back" to={"#"} className="c-dayChanger__arrow">
+          <img src="./chevron-left-solid.svg" alt="left chevron" />
+        </Link>
+        <h3 className="c-dayChanger__date">Vandaag</h3>
+        <Link id="forward" to={"#"} className="c-dayChanger__arrow">
+          <img src="./chevron-right-solid.svg" alt="right chevron" />
+        </Link>
+      </div>
     </>
   );
 };
