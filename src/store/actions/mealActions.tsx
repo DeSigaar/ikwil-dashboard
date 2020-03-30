@@ -1,7 +1,9 @@
 import { store } from "../../index";
 import firebase from "firebase/app";
+import { uploadPhoto } from "./imgActions";
 
-export const createMeal = (meal: iMeal, profile: any, id: string) => {
+export const createMeal = (meal: iMeal, profile: any, id: string, img: any) => {
+  let imgRef = uploadPhoto(img, "meals/" + meal.name);
   const ref = firebase
     .firestore()
     .collection("meals")
@@ -17,7 +19,8 @@ export const createMeal = (meal: iMeal, profile: any, id: string) => {
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id,
       id: ref.id,
-      isActive: false
+      isActive: false,
+      img: imgRef.fullPath
     })
     .then(() => {
       store.dispatch({ type: "CREATE_MEAL_SUCCESS", meal });

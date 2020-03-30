@@ -14,13 +14,25 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
   const [isHallal, setIsHallal] = useState<boolean>(false);
   const [isVegan, setIsVegan] = useState<boolean>(false);
   const [isVegetarian, setisVegetarian] = useState<boolean>(false);
+  const [img, setImg] = useState<any>(undefined);
+  const [imgPreview, setImgPreview] = useState<any>(undefined);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createMeal(
       { name, price, ingredients, isHallal, isVegan, isVegetarian },
       profile,
-      userId
+      userId,
+      img
     );
+  };
+  const handleImageUpload = (e: any) => {
+    e.preventDefault();
+    if (typeof e.target.files[0] !== "undefined") {
+      console.log("e.target.files :", e.target.files);
+      setImgPreview(URL.createObjectURL(e.target.files[0]));
+      setImg(e.target.files[0]);
+    }
   };
   return (
     <div>
@@ -58,7 +70,6 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
           <input
             type="checkbox"
             checked={isHallal}
-            placeholder={"Sla, Tomaat, Ui"}
             onChange={e => setIsHallal(!isHallal)}
           />
         </div>
@@ -67,7 +78,6 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
           <input
             type="checkbox"
             checked={isVegetarian}
-            placeholder={"Sla, Tomaat, Ui"}
             onChange={e => setisVegetarian(!isVegetarian)}
           />
         </div>
@@ -80,6 +90,16 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
             onChange={e => setIsVegan(!isVegan)}
           />
         </div>
+        <div>
+          Fototje
+          <input
+            type="file"
+            name="imgToUpload"
+            id="imgToUplaod"
+            onChange={e => handleImageUpload(e)}
+          />
+        </div>
+        <img src={imgPreview} />
         <button>submit</button>
       </form>
     </div>
@@ -93,8 +113,8 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createMeal: (meal: any, profile: any, userId: string) =>
-      dispatch(createMeal(meal, profile, userId))
+    createMeal: (meal: any, profile: any, userId: string, img: any) =>
+      dispatch(createMeal(meal, profile, userId, img))
   };
 };
 
