@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import Modal from "react-modal";
 import "react-multi-carousel/lib/styles.css";
@@ -12,17 +11,6 @@ const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 1,
-    slidesToSlide: 1 // optional, default to 1.
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 1,
-    slidesToSlide: 1 // optional, default to 1.
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-    slidesToSlide: 1 // optional, default to 1.
   }
 };
 
@@ -32,21 +20,12 @@ const Summary: React.FC<Props> = ({ data }) => {
   const [modalContent, setModalContent] = React.useState<any>(false);
   Modal.setAppElement('#root')
 
-  const openModal = () => {
-    setIsOpen(true);
-  }
-
-  const afterOpenModal = () => {
-    // references are now sync'd and can be accessed.
-    // subtitle.style.color = '#f00';
-  }
-
   const closeModal = () => {
     setIsOpen(false);
   }
 
   const onClick = (newsItem: iNewsItem) => {
-    openModal()
+    setIsOpen(true);
     setModalContent(newsItem)
   }
 
@@ -98,9 +77,7 @@ const Summary: React.FC<Props> = ({ data }) => {
       )}
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        contentLabel="title"
         style={{
           overlay: {
             backgroundColor: "rgba(0, 0, 0, .75)"
