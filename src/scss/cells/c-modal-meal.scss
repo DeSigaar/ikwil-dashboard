@@ -1,0 +1,23 @@
+.c-modal-meal {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: $spacing-small;
+  padding-bottom: $spacing-small;
+  border-bottom: 1px solid $color-grey;
+
+  &__title{
+    display: block;
+    flex-basis: 100%;
+    flex-shrink: 0;
+  }
+  &__left-wrapper{
+    width: 65%;
+  }
+  &__price{}
+  &__ingredients-title{}
+  &__ingredients{}
+  &__characteristics{}
+  &__halal{}
+  &__vegan{}
+  &__vegetarian{}
+}
