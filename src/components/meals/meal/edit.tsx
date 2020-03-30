@@ -40,9 +40,19 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    EditMeal(meal, profile, auth.uid, link.params.id, img);
+    let tempMeal = {
+      name,
+      price,
+      ingredients,
+      isHallal,
+      isVegan,
+      isVegetarian,
+      isActive: false
+    };
+    EditMeal(tempMeal, profile, auth.uid, link.params.id, img);
     setRedirect(true);
   };
+
   const handleImageUpload = (e: any) => {
     e.preventDefault();
     if (typeof e.target.files[0] !== "undefined") {
