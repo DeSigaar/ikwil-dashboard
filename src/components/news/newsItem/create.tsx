@@ -21,7 +21,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
         <h2 className="s-cms__header">Nieuw nieuwsbericht</h2>
         <form onSubmit={e => handleSubmit(e)}>
           <div className="o-inputfield">
-            <label className="o-inputfield__label">Titel</label>
+            <label>Titel</label>
             <input
               className="o-inputfield__input"
               required
@@ -30,7 +30,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
             />
           </div>
           <div className="o-inputfield">
-            <label className="o-inputfield__label">Bericht</label>
+            <label>Bericht</label>
             <textarea
               className="o-inputfield__input"
               required

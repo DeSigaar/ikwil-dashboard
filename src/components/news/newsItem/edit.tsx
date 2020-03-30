@@ -36,7 +36,7 @@ const Edit: React.FC<Props> = ({ newsItem, auth, profile, link }) => {
             <h2 className="s-cms__header">Bewerk nieuwsbericht</h2>
             <form onSubmit={e => handleSubmit(e)}>
               <div className="o-inputfield">
-                <label className="o-inputfield__label">Titel</label>
+                <label>Titel</label>
                 <input
                   className="o-inputfield__input"
                   required
@@ -45,7 +45,7 @@ const Edit: React.FC<Props> = ({ newsItem, auth, profile, link }) => {
                 />
               </div>
               <div className="o-inputfield">
-                <label className="o-inputfield__label">Bericht</label>
+                <label>Bericht</label>
                 <textarea
                   className="o-inputfield__input"
                   required

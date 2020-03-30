@@ -16,11 +16,11 @@ const Day: React.FC<Props> = ({
   const [endTime, setEndTime] = useState<string>(initialEndTime);
 
   return (
-    <div>
-      <h3>{name}</h3>
-      <div>
-        Van
+    <div className="o-inputfield">
+      <label className="o-inputfield__sublabel">{name}</label>
+      <div className="o-inputfield__times">
         <input
+          className="o-inputfield__input"
           type="time"
           value={startTime}
           onChange={e => {
@@ -28,10 +28,9 @@ const Day: React.FC<Props> = ({
             setStartTime(e.target.value);
           }}
         />
-      </div>
-      <div>
         Tot
         <input
+          className="o-inputfield__input"
           type="time"
           value={endTime}
           onChange={e => {

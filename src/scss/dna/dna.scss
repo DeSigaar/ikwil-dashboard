@@ -71,12 +71,21 @@ input {
   }
 }
 
-textarea {
+select {
   border-style: solid;
   border-radius: 8px;
   border: none;
   box-shadow: $shadow-card;
   width: 800px;
+  height: 35px;
+  padding-left: 15px;
+}
+
+textarea {
+  border-style: solid;
+  border-radius: 8px;
+  border: none;
+  box-shadow: $shadow-card;
   height: 150px;
   padding-left: 15px;
 }
@@ -126,16 +135,15 @@ button {
   width: 25px;
   background-color: $color-light-gray;
   border-radius: 5px;
-  ;
 }
 
 /* On mouse-over, add a grey background color */
-.checkbox-container:hover input~.checkmark {
+.checkbox-container:hover input ~ .checkmark {
   background-color: $color-light-gray;
 }
 
 /* When the checkbox is checked, add a blue background */
-.checkbox-container input:checked~.checkmark {
+.checkbox-container input:checked ~ .checkmark {
   background-color: $color-green;
 }
 
@@ -147,7 +155,7 @@ button {
 }
 
 /* Show the checkmark when checked */
-.checkbox-container input:checked~.checkmark:after {
+.checkbox-container input:checked ~ .checkmark:after {
   display: block;
 }
 
@@ -239,7 +247,7 @@ img {
 }
 
 /* Natural flow and rhythm in articles by default */
-article>*+* {
+article > * + * {
   margin-top: 1em;
 }
 

@@ -25,7 +25,7 @@ const SignIn: React.FC<Props> = ({ authError }) => {
       />
       <form onSubmit={e => handleSubmit(e)}>
         <div className="o-inputfield">
-          <label className="o-inputfield__label">Emailadres</label>
+          <label>Emailadres</label>
           <input
             className="o-inputfield__input login"
             required
@@ -34,7 +34,7 @@ const SignIn: React.FC<Props> = ({ authError }) => {
           />
         </div>
         <div className="o-inputfield">
-          <label className="o-inputfield__label">Wachtwoord</label>
+          <label>Wachtwoord</label>
           <input
             className="o-inputfield__input login"
             required

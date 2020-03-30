@@ -128,12 +128,16 @@ const ActivityEdit: React.FC<Props> = ({
       if (typeof organizer.id !== "undefined") {
         organisersOptions.push(
           <div key={organizer.id}>
-            <input
-              checked={activeOrganisers.includes(organizer.id)}
-              onChange={e => handleActiveOrganisers(e, organizer.id)}
-              type="checkbox"
-            />
-            {organizer.name}
+            <label className="checkbox-container">
+              <label className="o-inputfield__sublabel">{organizer.name}</label>
+              <input
+                required
+                type="checkbox"
+                checked={activeOrganisers.includes(organizer.id)}
+                onChange={e => handleActiveOrganisers(e, organizer.id)}
+              />
+              <span className="checkmark"></span>
+            </label>
           </div>
         );
       }
@@ -160,84 +164,98 @@ const ActivityEdit: React.FC<Props> = ({
   if (typeof activity !== "undefined") {
     if (!redirect) {
       return (
-        <div>
-          <h2>Edit</h2>
-          <form onSubmit={e => handleSubmit(e)}>
-            <div>
-              naam
-              <input
-                required
-                value={name}
-                onChange={e => setName(e.target.value)}
-              />
-            </div>
-            <div>
-              Locatie
-              <input
-                required
-                value={room}
-                onChange={e => setRoom(e.target.value)}
-              />
-            </div>
-            {organisersOptions.length === 0 ? (
-              <div>
-                Er zijn nog geen kartrekkers toegevoegd. Klik{" "}
-                <Link to="/organizer">hier</Link> om ze toe te voegen
+        <div className="s-cms">
+          <div className="s-cms__form-conatiner">
+            <h2 className="s-cms__header">Bewerken</h2>
+            <form onSubmit={e => handleSubmit(e)}>
+              <div className="o-inputfield">
+                <label className="o-inputfield__label">Naam</label>
+                <input
+                  className="o-inputfield__input"
+                  required
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
               </div>
-            ) : (
-              <div> {organisersOptions} </div>
-            )}
-            <div>
-              Categorie
-              <select
-                required
-                value={category}
-                onChange={e => setSelectedCategory(e.target.value)}
-              >
-                {categoryOptions}
-              </select>
-            </div>
-
-            <div>
-              <h3>Tijden</h3>
-              <input
-                checked={once}
-                onChange={() => setOnce(!once)}
-                type="checkbox"
-              />
-              Eenmalig?
-              {once ? (
+              <div className="o-inputfield">
+                <label className="o-inputfield__label">Locatie</label>
+                <input
+                  className="o-inputfield__input"
+                  required
+                  value={room}
+                  onChange={e => setRoom(e.target.value)}
+                />
+              </div>
+              {organisersOptions.length === 0 ? (
                 <div>
-                  Datum
-                  <input
-                    type="date"
-                    value={date}
-                    onChange={e => setDate(e.target.value)}
-                  />
-                  <div>
-                    <h3>Tijden</h3>
-                    <input
-                      required
-                      type="time"
-                      value={startTime}
-                      onChange={e => setStartTime(e.target.value)}
-                    />
-                    tot
-                    <input
-                      required
-                      type="time"
-                      value={endTime}
-                      onChange={e => setEndTime(e.target.value)}
-                    />
-                  </div>
+                  Er zijn nog geen kartrekkers toegevoegd. Klik
+                  <Link to="/organizer">hier</Link> om ze toe te voegen
                 </div>
               ) : (
-                <Days stateDays={stateDays} setDays={setDays} />
+                <div> {organisersOptions} </div>
               )}
-            </div>
+              <div className="o-inputfield">
+                <label>Categorie</label>
+                <select
+                  required
+                  value={category}
+                  onChange={e => setSelectedCategory(e.target.value)}
+                >
+                  {categoryOptions}
+                </select>
+              </div>
 
-            <button>update</button>
-          </form>
+              <div className="o-inputfield">
+                <label>Tijden</label>
+                <label className="checkbox-container">
+                  <label className="o-inputfield__sublabel">Eenmalig?</label>
+                  <input
+                    type="checkbox"
+                    checked={once}
+                    onChange={() => setOnce(!once)}
+                  />
+                  <span className="checkmark"></span>
+                </label>
+                {once ? (
+                  <>
+                    <div className="o-inputfield">
+                      <label>Datum</label>
+                      <input
+                        className="o-inputfield__input"
+                        type="date"
+                        value={date}
+                        onChange={e => setDate(e.target.value)}
+                      />
+                    </div>
+                    <div className="o-inputfield">
+                      <label>Tijden</label>
+                      <div className="o-inputfield__times">
+                        <input
+                          className="o-inputfield__input"
+                          required
+                          type="time"
+                          value={startTime}
+                          onChange={e => setStartTime(e.target.value)}
+                        />
+                        tot
+                        <input
+                          className="o-inputfield__input"
+                          required
+                          type="time"
+                          value={endTime}
+                          onChange={e => setEndTime(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <Days stateDays={stateDays} setDays={setDays} />
+                )}
+              </div>
+
+              <button>Update maaltijd</button>
+            </form>
+          </div>
         </div>
       );
     } else {
