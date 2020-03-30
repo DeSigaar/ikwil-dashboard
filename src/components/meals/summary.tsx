@@ -51,7 +51,7 @@ const Summary: React.FC<Props> = ({ meals }) => {
           >
             {meals.map((meal: iMeal) => {
               if (meal.isActive) {
-                return <ActiveMealItem isMoving={isMoving} />;
+                return <ActiveMealItem meal={meal} isMoving={isMoving} />;
               } else {
                 return !noneActive ? setNoneActive(true) : null;
               }

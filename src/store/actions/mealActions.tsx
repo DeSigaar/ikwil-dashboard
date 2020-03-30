@@ -59,7 +59,7 @@ export const EditMeal = (
   if (typeof imgRef !== "undefined") {
     dataToSet.img = imgRef;
   }
-  if (typeof img !== "undefined") {
+  if (typeof img !== "undefined" && img !== null) {
     dataToSet.img = uploadPhoto(img, "meals/" + img.name).fullPath;
   }
   console.log("dataToSet :", dataToSet);
