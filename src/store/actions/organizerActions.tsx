@@ -1,11 +1,17 @@
 import { store } from "../../index";
 import firebase from "firebase/app";
+import { uploadPhoto } from "./imgActions";
 
 export const createOrganizer = (
   organizer: iOrganizer,
   profile: any,
-  id: string
+  id: string,
+  img: any
 ) => {
+  let imgRef = { fullPath: "images/organisers/default.png" };
+  if (typeof img !== "undefined") {
+    imgRef = uploadPhoto(img, "organisers/" + img.name);
+  }
   const ref = firebase
     .firestore()
     .collection("organisers")
@@ -18,7 +24,8 @@ export const createOrganizer = (
       isAvailable: organizer.isAvailable,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id,
-      id: ref.id
+      id: ref.id,
+      img: imgRef.fullPath
     })
     .then(() => {
       store.dispatch({ type: "CREATE_ORGANISERS_SUCCESS", organizer });
@@ -35,8 +42,17 @@ export const EditOrganizer = (
   organizer: any,
   profile: any,
   id: string,
-  docId: string
+  docId: string,
+  imgPath: string,
+  img?: any
 ) => {
+  let imgRef = { fullPath: "images/organisers/default.jpg" };
+  if (typeof imgPath !== "undefined") {
+    imgRef.fullPath = imgPath;
+  }
+  if (typeof img !== "undefined") {
+    imgRef = uploadPhoto(img, "organisers/" + img.name);
+  }
   firebase
     .firestore()
     .collection("organisers")
@@ -47,7 +63,8 @@ export const EditOrganizer = (
       place: organizer.place,
       isAvailable: organizer.isAvailable,
       createdBy: profile.firstName + " " + profile.lastName,
-      creatorID: id
+      creatorID: id,
+      img: imgRef.fullPath
     })
     .then(() => store.dispatch({ type: "EDIT_ORGANIZER_SUCCESS" }))
     .catch(err => store.dispatch({ type: "EDIT_ORGANIZER_ERROR", err }));

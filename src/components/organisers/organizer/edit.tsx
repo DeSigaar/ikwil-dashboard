@@ -4,6 +4,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { EditOrganizer } from "../../../store/actions/organizerActions";
 import { Redirect } from "react-router-dom";
+import { GetPhoto } from "../../../store/actions/imgActions";
 
 interface Props {
   link?: any;
@@ -18,6 +19,10 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
   const [place, setPlace] = useState<string>("");
   const [isAvailable, setIsAvailable] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
+  const [img, setImg] = useState<any>(undefined);
+  const [imgPreview, setImgPreview] = useState<any>(undefined);
+  const [imgRef, setImgRef] = useState<string>("");
+
   useEffect(() => {
     if (typeof organizer !== "undefined") {
       setName(organizer.name);
@@ -28,6 +33,12 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
       if (typeof organizer.isAvailable !== "undefined") {
         setIsAvailable(organizer.isAvailable);
       }
+      if (typeof organizer.img !== "undefined") {
+        setImgRef(organizer.img);
+      }
+      GetPhoto(organizer.img)?.then((res: any) => {
+        setImgPreview(res);
+      });
     }
   }, [organizer]);
 
@@ -37,9 +48,18 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
       { name, description, place, isAvailable },
       profile,
       auth.uid,
-      link.params.id
+      link.params.id,
+      imgRef,
+      img
     );
     setRedirect(true);
+  };
+  const handleImageUpload = (e: any) => {
+    e.preventDefault();
+    if (typeof e.target.files[0] !== "undefined") {
+      setImgPreview(URL.createObjectURL(e.target.files[0]));
+      setImg(e.target.files[0]);
+    }
   };
   if (typeof organizer !== "undefined") {
     if (!redirect) {
@@ -87,6 +107,16 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                   <span className="checkmark"></span>
                 </label>
               </div>
+              <div className="o-inputfield">
+                <label>Afbeelding toevoegen</label>
+                <input
+                  type="file"
+                  name="imgToUpload"
+                  id="imgToUplaod"
+                  onChange={e => handleImageUpload(e)}
+                />
+                <img src={imgPreview} alt="preview" />
+              </div>
               <button>update bestuurslid</button>
             </form>
           </div>
@@ -112,8 +142,15 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    EditOrganizer: (organizer: any, profile: any, id: string, docId: string) =>
-      dispatch(EditOrganizer(organizer, profile, id, docId))
+    EditOrganizer: (
+      organizer: any,
+      profile: any,
+      id: string,
+      docId: string,
+      imgPath: string,
+      img?: any
+    ) => dispatch(EditOrganizer(organizer, profile, id, docId, imgPath, img)),
+    GetPhoto: (path: string) => dispatch(GetPhoto(path))
   };
 };
 
