@@ -3,11 +3,7 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
-import {
-  DeleteMeal,
-  setActiveMeal,
-  EditMeal
-} from "../../store/actions/mealActions";
+import { DeleteMeal, setActiveMeal } from "../../store/actions/mealActions";
 import { GetPhoto } from "../../store/actions/imgActions";
 import MealItem from "./mealItem";
 interface Props {
@@ -121,15 +117,6 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    EditMeal: (
-      meal: any,
-      profile: any,
-      id: string,
-      docId: string,
-      img: any,
-      imgRef: string
-    ) => dispatch(EditMeal(meal, profile, id, docId, img, imgRef)),
-
     DeleteMeal: (docId: string) => dispatch(DeleteMeal(docId)),
     GetPhoto: (path: string) => dispatch(GetPhoto(path)),
     SetActiveMeal: (id: string, active: boolean) =>
