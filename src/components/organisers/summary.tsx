@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 interface Props {
   data?: iOrganizer[] | undefined;
 }
+
 const Summary: React.FC<Props> = ({ data }) => {
   return (
     <>
@@ -13,10 +13,9 @@ const Summary: React.FC<Props> = ({ data }) => {
           <>
             {data.map(organisor => {
               return (
-                <Link
+                <div
                   className="c-organiser__link"
                   key={organisor.id}
-                  to={"/organizer/" + organisor.id}
                 >
                   <div className="c-organiser">
                     <img
@@ -30,7 +29,7 @@ const Summary: React.FC<Props> = ({ data }) => {
                     </p>
                     <p className="c-organiser__place">{organisor.place}</p>
                   </div>
-                </Link>
+                </div>
               );
             })}
           </>

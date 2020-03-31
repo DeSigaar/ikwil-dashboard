@@ -1,0 +1,74 @@
+.ReactModal__Content{
+  &--after-open{
+    border: none!important;
+    width: 60%;
+    height: 60%;
+    top: 50%!important;
+    left: 50%!important;
+    transform: translate(-50%, -50%);
+    border-radius: 0!important;
+  }
+  
+  &__close-icon{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 30px 20px;
+    z-index: 10;;
+    transition: .3s ease all;
+    cursor: pointer;
+    
+    &::before{
+      content: '';
+      display: block;
+      position: relative;
+      width: 16px;
+      height: 2px;
+      background-color: $color-black;
+      transform: rotate(45deg);
+      transition: .3s ease all;
+      top: 2px;
+    }
+    &::after{
+      content: '';
+      display: block;
+      position: relative;
+      width: 16px;
+      height: 2px;
+      background-color: $color-black;
+      transform: rotate(-45deg);
+      transition: .3s ease all;
+    }
+
+    &:hover{
+      &::before, &::after{
+        background-color: $color-grey;
+      }
+    }
+  }
+  &__image-wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    overflow: hidden;
+  }
+  &__image{
+    height: 100%;
+    max-width: initial;
+    transform: translateX(-40%);
+  }
+  &__wrapper{
+    width: 70%;
+    right: 0;
+    position: absolute;
+    padding: 15px 30px;
+  }
+  &__title{
+    margin-bottom: $spacing-small-tiny;
+  }
+  &__text{
+
+  }
+}

@@ -22,10 +22,9 @@ const ActiveMealItem: React.FC<Props> = ({ meal, isMoving }) => {
   });
   if (typeof meal !== "undefined") {
     return (
-      <Link
+      <div
         className="c-meal__link"
         key={1}
-        to={"/meal/" + meal.id}
         onClick={e => {
           if (isMoving === true) {
             e.preventDefault();
@@ -36,7 +35,7 @@ const ActiveMealItem: React.FC<Props> = ({ meal, isMoving }) => {
           <img src={img} className="c-meal__icon" alt="Maaltijd van de dag" />
           <h2 className="c-meal__title">{meal.name}</h2>
         </div>
-      </Link>
+      </div>
     );
   } else {
     return <div>oopsie</div>;

@@ -8,6 +8,7 @@
 @import "./cells/c-rule";
 @import "./cells/c-meal";
 @import "./cells/c-dayChanger";
+@import "./cells/c-modal-meal";
 
 //Organs
 @import "./organs/o-carousel";
@@ -19,6 +20,7 @@
 @import "./species/s-nav";
 @import "./species/s-login";
 @import "./species/s-cms";
+@import "./species/s-modal";
 
 //DNA
 @import "./dna/dna.scss";

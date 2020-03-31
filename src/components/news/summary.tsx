@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
+import Modal from "react-modal";
 import "react-multi-carousel/lib/styles.css";
 
 interface Props {
@@ -11,22 +11,23 @@ const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 1,
-    slidesToSlide: 1 // optional, default to 1.
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 1,
-    slidesToSlide: 1 // optional, default to 1.
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-    slidesToSlide: 1 // optional, default to 1.
   }
 };
 
 const Summary: React.FC<Props> = ({ data }) => {
   const [isMoving, setIsMoving] = useState<boolean>(false);
+  const [modalIsOpen, setIsOpen] = React.useState<boolean>(false);
+  const [modalContent, setModalContent] = React.useState<any>(false);
+  Modal.setAppElement('#root')
+
+  const closeModal = () => {
+    setIsOpen(false);
+  }
+
+  const onClick = (newsItem: iNewsItem) => {
+    setIsOpen(true);
+    setModalContent(newsItem)
+  }
 
   return (
     <>
@@ -48,13 +49,12 @@ const Summary: React.FC<Props> = ({ data }) => {
           >
             {data.map(newsItem => {
               return (
-                <Link
+                <div
                   className="c-newsItem__link"
                   key={newsItem.id}
-                  to={"/news/" + newsItem.id}
                   onClick={e => {
-                    if (isMoving === true) {
-                      e.preventDefault();
+                    if (isMoving !== true) {
+                      onClick(newsItem)
                     }
                   }}
                 >
@@ -67,7 +67,7 @@ const Summary: React.FC<Props> = ({ data }) => {
                     <h3 className="c-newsItem__title">{newsItem.title}</h3>
                     <p className="c-newsItem__text">{newsItem.text}</p>
                   </div>
-                </Link>
+                </div>
               );
             })}
           </Carousel>
@@ -75,6 +75,28 @@ const Summary: React.FC<Props> = ({ data }) => {
       ) : (
         <></>
       )}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, .75)"
+          }
+        }}
+      >
+        <div className="ReactModal__Content__close-icon" onClick={closeModal}></div>
+        <div className="ReactModal__Content__image-wrapper">
+          <img
+            className="ReactModal__Content__image"
+            src="https://images.unsplash.com/photo-1584556812952-905ffd0c611a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+            alt="toiletrolls-Coronavirus"
+            />
+        </div>
+        <div className="ReactModal__Content__wrapper">
+          <h2 className="ReactModal__Content__title">{modalContent.title}</h2>
+          <p className="ReactModal__Content__text">{modalContent.text}</p>
+        </div>
+      </Modal>
     </>
   );
 };
