@@ -111,18 +111,19 @@ const Summary: React.FC<Props> = ({ activities }) => {
               <Link to={"/activity/" + activity.id} className="c-activity">
                 <div className="c-activity__top-content">
                   <img
-                    className="c-activity__icon"
+                    className="c-activity__top-content__icon"
                     src="/yoga.svg"
                     alt="activity icon"
                   />
                   <h3>{activity.name}</h3>
                 </div>
                 <div className="c-activity__bottom-content">
-                  <div className="c-activity__time">
-                    <div>starttijd: {times.startTime}</div>
-                    <div>eindtijd: {times.endTime}</div>
+                  <div className="c-activity__bottom-content__time">
+                    {times.startTime} - {times.endTime}
                   </div>
-                  <div className="c-activity__room">{activity.room}</div>
+                  <div className="c-activity__bottom-content__room">
+                    {activity.room}
+                  </div>
                 </div>
               </Link>
             </div>

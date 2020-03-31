@@ -48,7 +48,7 @@ const ActivityEdit: React.FC<Props> = ({
         setActiveOrganisers(arr);
       });
 
-      if (typeof activity.days !== "undefined") {
+      if (typeof activity.days === "undefined") {
         setOnce(true);
       } else {
         setOnce(false);
