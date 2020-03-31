@@ -4,6 +4,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { EditMeal } from "../../../store/actions/mealActions";
 import { Redirect } from "react-router-dom";
+import { GetPhoto } from "../../../store/actions/imgActions";
 
 interface Props {
   link?: any;
@@ -20,6 +21,9 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
   const [isVegan, setIsVegan] = useState<boolean>(false);
   const [isVegetarian, setisVegetarian] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
+  const [img, setImg] = useState<any>(undefined);
+  const [imgPreview, setImgPreview] = useState<any>(undefined);
+
   useEffect(() => {
     if (typeof meal !== "undefined") {
       setName(meal.name);
@@ -28,80 +32,124 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
       setIsHallal(meal.isHallal);
       setIsVegan(meal.isVegan);
       setisVegetarian(meal.isVegetarian);
+      GetPhoto(meal.img)?.then((res: any) => {
+        setImgPreview(res);
+      });
     }
   }, [meal]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    EditMeal({ name, meal }, profile, auth.uid, link.params.id);
+    let tempMeal = {
+      name,
+      price,
+      ingredients,
+      isHallal,
+      isVegan,
+      isVegetarian,
+      isActive: true
+    };
+    EditMeal(tempMeal, profile, auth.uid, link.params.id, img);
     setRedirect(true);
+  };
+
+  const handleImageUpload = (e: any) => {
+    e.preventDefault();
+    if (typeof e.target.files[0] !== "undefined") {
+      setImgPreview(URL.createObjectURL(e.target.files[0]));
+      setImg(e.target.files[0]);
+    }
   };
   if (typeof meal !== "undefined") {
     if (!redirect) {
       return (
-        <>
-          <h2>Edit</h2>
-          <form onSubmit={e => handleSubmit(e)}>
-            <div>
-              Naam
-              <input
-                required
-                value={name}
-                onChange={e => setName(e.target.value)}
-              />
-            </div>
-            <div>
-              Prijs
-              <input
-                required
-                value={price}
-                type="number"
-                min="1"
-                step="any"
-                onChange={e => setPrice(e.target.value)}
-              />
-            </div>
-            <div>
-              Ingredienten
-              <input
-                value={ingredients}
-                placeholder={"Sla, Tomaat, Ui"}
-                onChange={e => setIngredients(e.target.value)}
-              />
-            </div>
-            <div>
-              Hallal
-              <input
-                type="checkbox"
-                checked={isHallal}
-                placeholder={"Sla, Tomaat, Ui"}
-                onChange={e => setIsHallal(!isHallal)}
-              />
-            </div>
-            <div>
-              Vegetarisch
-              <input
-                type="checkbox"
-                checked={isVegetarian}
-                placeholder={"Sla, Tomaat, Ui"}
-                onChange={e => setisVegetarian(!isVegetarian)}
-              />
-            </div>
-            <div>
-              Vegan
-              <input
-                type="checkbox"
-                checked={isVegan}
-                placeholder={"Sla, Tomaat, Ui"}
-                onChange={e => setIsVegan(!isVegan)}
-              />
-            </div>
-            <button>update</button>
-          </form>
-        </>
+        <div className="s-cms">
+          <div className="s-cms__form-conatiner">
+            <h2 className="s-cms__header">Bewerken</h2>
+            <form onSubmit={e => handleSubmit(e)}>
+              <div className="o-inputfield">
+                <label>Naam</label>
+                <input
+                  className="o-inputfield__input"
+                  required
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
+              </div>
+              <div className="o-inputfield">
+                <label>Prijs</label>
+                <input
+                  className="o-inputfield__input"
+                  required
+                  value={price}
+                  type="number"
+                  min="1"
+                  step="any"
+                  onChange={e => setPrice(e.target.value)}
+                />
+              </div>
+              <div className="o-inputfield">
+                <label>Ingredienten</label>
+                <input
+                  className="o-inputfield__input"
+                  value={ingredients}
+                  placeholder={"Sla, Tomaat, Ui"}
+                  onChange={e => setIngredients(e.target.value)}
+                />
+              </div>
+              <div className="o-inputfield">
+                <label className="checkbox-container">
+                  <label className="o-inputfield__sublabel">Hallal</label>
+                  <input
+                    required
+                    type="checkbox"
+                    checked={isHallal}
+                    onChange={e => setIsHallal(!isHallal)}
+                  />
+                  <span className="checkmark"></span>
+                </label>
+              </div>
+              <div className="o-inputfield">
+                <label className="checkbox-container">
+                  <label className="o-inputfield__sublabel">Vegetarisch</label>
+                  <input
+                    required
+                    type="checkbox"
+                    checked={isVegetarian}
+                    onChange={e => setisVegetarian(!isVegetarian)}
+                  />
+                  <span className="checkmark"></span>
+                </label>
+              </div>
+              <div className="o-inputfield">
+                <label className="checkbox-container">
+                  <label className="o-inputfield__sublabel">Vegan</label>
+                  <input
+                    required
+                    type="checkbox"
+                    checked={isVegan}
+                    onChange={e => setIsVegan(!isVegan)}
+                  />
+                  <span className="checkmark"></span>
+                </label>
+              </div>
+              <div className="o-inputfield">
+                <label>Afbeelding toevoegen</label>
+                <input
+                  type="file"
+                  name="imgToUpload"
+                  id="imgToUplaod"
+                  onChange={e => handleImageUpload(e)}
+                />
+                <img src={imgPreview} alt="preview" />
+              </div>
+              <button>Update Maaltijd</button>
+            </form>
+          </div>
+        </div>
       );
     } else {
-      return <Redirect to={"/meal/" + link.params.id} />;
+      return <Redirect to={"/active-meals"} />;
     }
   } else {
     return <>Error</>;
@@ -118,8 +166,15 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    EditMeal: (meal: any, profile: any, id: string, docId: string) =>
-      dispatch(EditMeal(meal, profile, id, docId))
+    EditMeal: (
+      meal: any,
+      profile: any,
+      id: string,
+      docId: string,
+      img: any,
+      imgRef: string
+    ) => dispatch(EditMeal(meal, profile, id, docId, img, imgRef)),
+    GetPhoto: (path: string) => dispatch(GetPhoto(path))
   };
 };
 
