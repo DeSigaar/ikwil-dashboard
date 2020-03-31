@@ -57,7 +57,7 @@ const Edit: React.FC<Props> = ({ newsItem, auth, profile, link }) => {
       return (
         <div className="s-cms">
           <div className="s-cms__form-conatiner">
-            <h2 className="s-cms__header">Bewerk nieuwsbericht</h2>
+            <h2 className="s-cms__header">Bewerken</h2>
             <form onSubmit={e => handleSubmit(e)}>
               <div className="o-inputfield">
                 <label>Titel</label>
