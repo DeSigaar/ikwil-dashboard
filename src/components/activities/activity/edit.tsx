@@ -269,6 +269,8 @@ const mapStateToProps = (state: any) => {
       categories: state.firestore.ordered.categories,
       organisers: state.firestore.ordered.organisers
     };
+  } else {
+    return {};
   }
 };
 const mapDispatchToProps = (dispatch: any) => {

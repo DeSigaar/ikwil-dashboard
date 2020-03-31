@@ -52,6 +52,8 @@ const Rule: React.FC<Props> = ({ rule, link }) => {
 const mapStateToProps = (state: any) => {
   if (typeof state.firestore.ordered.rules !== "undefined") {
     return { rule: state.firestore.ordered.rules[0] };
+  } else {
+    return {};
   }
 };
 

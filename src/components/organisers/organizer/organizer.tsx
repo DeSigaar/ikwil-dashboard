@@ -54,6 +54,8 @@ const Organizer: React.FC<Props> = ({ organizer, link }) => {
 const mapStateToProps = (state: any) => {
   if (typeof state.firestore.ordered.organisers !== "undefined") {
     return { organizer: state.firestore.ordered.organisers[0] };
+  } else {
+    return {};
   }
 };
 
