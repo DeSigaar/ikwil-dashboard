@@ -15,9 +15,7 @@ interface Props {
 const NewsItem: React.FC<Props> = ({ newsItem, link }) => {
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
-  const [img, setImg] = useState<any>(undefined);
   const [imgPreview, setImgPreview] = useState<any>(undefined);
-  const [imgRef, setImgRef] = useState<string>("");
 
   useEffect(() => {
     if (typeof newsItem !== "undefined") {
