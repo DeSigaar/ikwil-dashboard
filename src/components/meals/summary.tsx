@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Modal from "react-modal";
@@ -19,7 +19,7 @@ const responsive = {
 const Summary: React.FC<Props> = ({ meals }) => {
   const [isMoving, setIsMoving] = useState<boolean>(false);
   const [modalIsOpen, setIsOpen] = React.useState<boolean>(false);
-  const [noneActive, setNoneActive] = useState<boolean>(false);
+  const [noneActive, setNoneActive] = useState<boolean>(true);
 
   Modal.setAppElement("#root");
 
@@ -30,13 +30,22 @@ const Summary: React.FC<Props> = ({ meals }) => {
   const openModal = () => {
     setIsOpen(true);
   };
-
+  useEffect(() => {
+    if (typeof meals !== "undefined") {
+      meals.forEach(meal => {
+        if (meal.isActive) {
+          setNoneActive(false);
+        }
+      });
+    }
+  }, [meals]);
   return (
     <div className="s-card-small" id="meal">
       <h2 className="s-card-small__header">Maaltijd van de dag</h2>
+      {noneActive ? <div>Er is geen maaltijd vandaag ofzo</div> : <></>}
+
       {typeof meals !== "undefined" ? (
         <>
-          {noneActive ? <div>Er is geen maaltijd vandaag ofzo</div> : null}
           <Carousel
             showDots={true}
             responsive={responsive}
@@ -51,22 +60,22 @@ const Summary: React.FC<Props> = ({ meals }) => {
             afterChange={() => setIsMoving(false)}
           >
             {meals.map((meal: iMeal) => {
-              if (meal.isActive) {
-                return (
-                  <div
-                    key={meal.id}
-                    onClick={e => {
-                      if (isMoving !== true) {
-                        openModal();
-                      }
-                    }}
-                  >
-                    <ActiveMealItem meal={meal} isMoving={isMoving} />
-                  </div>
-                );
-              } else {
-                return !noneActive ? setNoneActive(true) : null;
-              }
+              return (
+                <div>
+                  {meal.isActive ? (
+                    <div
+                      key={meal.id}
+                      onClick={e => {
+                        if (isMoving !== true) {
+                          openModal();
+                        }
+                      }}
+                    >
+                      <ActiveMealItem meal={meal} isMoving={isMoving} />
+                    </div>
+                  ) : null}
+                </div>
+              );
             })}
           </Carousel>
         </>
