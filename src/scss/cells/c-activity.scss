@@ -1,17 +1,15 @@
 .c-activity {
-  margin-top: $spacing-small-medium;
+  margin: $spacing-small-tiny 0px;
   text-decoration: none;
   color: $color-black;
   display: block;
   overflow: auto;
 
-  &:first-child {
-    margin-top: 0px;
-  }
-
   &__top-content {
     display: flex;
     align-items: center;
+    font-size: $font-size-activity-title;
+    font-weight: $font-weight-activity-title;
 
     &__icon {
       padding-right: $spacing-small-tiny;
@@ -20,10 +18,15 @@
 
   &__bottom-content {
     display: flex;
+    color: $color-grey;
     margin-top: $spacing-tiny;
 
     &__time {
       padding-right: $spacing-medium-small;
+    }
+
+    &__room {
+      font-weight: $font-weight-activity-title;
     }
   }
 }
