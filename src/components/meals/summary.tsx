@@ -60,22 +60,18 @@ const Summary: React.FC<Props> = ({ meals }) => {
             afterChange={() => setIsMoving(false)}
           >
             {meals.map((meal: iMeal) => {
-              return (
-                <div>
-                  {meal.isActive ? (
-                    <div
-                      key={meal.id}
-                      onClick={e => {
-                        if (isMoving !== true) {
-                          openModal();
-                        }
-                      }}
-                    >
-                      <ActiveMealItem meal={meal} isMoving={isMoving} />
-                    </div>
-                  ) : null}
+              return meal.isActive ? (
+                <div
+                  key={meal.id}
+                  onClick={e => {
+                    if (isMoving !== true) {
+                      openModal();
+                    }
+                  }}
+                >
+                  <ActiveMealItem meal={meal} isMoving={isMoving} />
                 </div>
-              );
+              ) : null;
             })}
           </Carousel>
         </>
