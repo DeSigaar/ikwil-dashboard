@@ -6,8 +6,7 @@ export const createActivity = (
   profile: any,
   id: string,
   dayToPush: iOnce | undefined,
-  daysToPush: iDay[] | undefined,
-  repeats: boolean
+  daysToPush: iDay[] | undefined
 ) => {
   let dateToSet: any = {
     name: activity.name,
@@ -15,8 +14,7 @@ export const createActivity = (
     category: "categories/" + activity.category,
     organisers: activity.organisers,
     createdBy: profile.firstName + " " + profile.lastName,
-    creatorID: id,
-    repeats: repeats
+    creatorID: id
   };
   if (typeof dayToPush !== "undefined") {
     dateToSet.day = dayToPush;
@@ -47,8 +45,7 @@ export const EditActivity = (
   id: string,
   docId: string,
   dayToPush: iOnce | undefined,
-  daysToPush: iDay[] | undefined,
-  repeats: boolean
+  daysToPush: iDay[] | undefined
 ) => {
   let dateToSet: any = {
     name: activity.name,
@@ -56,8 +53,7 @@ export const EditActivity = (
     category: "categories/" + activity.category,
     organisers: activity.organisers,
     createdBy: profile.firstName + " " + profile.lastName,
-    creatorID: id,
-    repeats: repeats
+    creatorID: id
   };
   if (typeof dayToPush !== "undefined") {
     dateToSet.day = dayToPush;

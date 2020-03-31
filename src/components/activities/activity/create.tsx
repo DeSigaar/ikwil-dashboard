@@ -53,7 +53,6 @@ const Create: React.FC<Props> = ({
     let organisers: string[] = [];
     let dayToPush: iOnce | undefined = undefined;
     let daysToPush: iDay[] | undefined = undefined;
-    let repeats = !once;
     activeOrganisers.forEach(ref => {
       organisers.push("organisers/" + ref);
     });
@@ -70,8 +69,7 @@ const Create: React.FC<Props> = ({
       profile,
       userId,
       dayToPush,
-      daysToPush,
-      repeats
+      daysToPush
     );
     setRedirect(true);
   };
@@ -245,19 +243,9 @@ const mapDispatchToProps = (dispatch: any) => {
       profile: any,
       userId: string,
       dayToPush: iOnce | undefined,
-      daysToPush: iDay[] | undefined,
-      repeats: boolean
+      daysToPush: iDay[] | undefined
     ) =>
-      dispatch(
-        createActivity(
-          activity,
-          profile,
-          userId,
-          dayToPush,
-          daysToPush,
-          repeats
-        )
-      )
+      dispatch(createActivity(activity, profile, userId, dayToPush, daysToPush))
   };
 };
 

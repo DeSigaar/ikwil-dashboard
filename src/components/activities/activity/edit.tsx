@@ -48,13 +48,12 @@ const ActivityEdit: React.FC<Props> = ({
         setActiveOrganisers(arr);
       });
 
-      if (typeof activity.repeats !== "undefined") {
-        if (activity.repeats) {
-          setOnce(!activity.repeats);
-        } else {
-          setOnce(activity.repeats);
-        }
+      if (typeof activity.days !== "undefined") {
+        setOnce(true);
+      } else {
+        setOnce(false);
       }
+
       if (typeof activity.day !== "undefined") {
         setStartTime(activity.day.startTime);
         setEndTime(activity.day.startTime);
@@ -99,7 +98,7 @@ const ActivityEdit: React.FC<Props> = ({
     let organisers: string[] = [];
     let dayToPush: iOnce | undefined = undefined;
     let daysToPush: iDay[] | undefined = undefined;
-    let repeats = once;
+
     activeOrganisers.forEach(ref => {
       organisers.push("organisers/" + ref);
     });
@@ -116,8 +115,7 @@ const ActivityEdit: React.FC<Props> = ({
       auth.uid,
       link.params.id,
       dayToPush,
-      daysToPush,
-      repeats
+      daysToPush
     );
     setRedirect(true);
   };
@@ -131,7 +129,6 @@ const ActivityEdit: React.FC<Props> = ({
             <label className="checkbox-container">
               <label className="o-inputfield__sublabel">{organizer.name}</label>
               <input
-                required
                 type="checkbox"
                 checked={activeOrganisers.includes(organizer.id)}
                 onChange={e => handleActiveOrganisers(e, organizer.id)}
@@ -232,7 +229,6 @@ const ActivityEdit: React.FC<Props> = ({
                       <div className="o-inputfield__times">
                         <input
                           className="o-inputfield__input"
-                          required
                           type="time"
                           value={startTime}
                           onChange={e => setStartTime(e.target.value)}
@@ -240,7 +236,6 @@ const ActivityEdit: React.FC<Props> = ({
                         tot
                         <input
                           className="o-inputfield__input"
-                          required
                           type="time"
                           value={endTime}
                           onChange={e => setEndTime(e.target.value)}
@@ -283,22 +278,12 @@ const mapDispatchToProps = (dispatch: any) => {
       profile: any,
       id: string,
       docId: string,
-
       dayToPush: iOnce | undefined,
       daysToPush: iDay[] | undefined,
-      repeats: boolean,
       organisers: string[]
     ) =>
       dispatch(
-        EditActivity(
-          activity,
-          profile,
-          id,
-          docId,
-          dayToPush,
-          daysToPush,
-          repeats
-        )
+        EditActivity(activity, profile, id, docId, dayToPush, daysToPush)
       )
   };
 };
