@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createRule } from "../../../store/actions/ruleActions";
+import { Redirect } from "react-router-dom";
 
 interface Props {
   profile: any;
@@ -10,10 +11,12 @@ interface Props {
 const Create: React.FC<Props> = ({ profile, userId }) => {
   const [name, setName] = useState<string>("");
   const [rule, setRule] = useState<string>("");
+  const [redirect, setRedirect] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createRule({ name, rule }, profile, userId);
+    setRedirect(true);
   };
   return (
     <div className="s-cms">
@@ -42,6 +45,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
           <button>Plaats regel</button>
         </form>
       </div>
+      {redirect ? <Redirect to="/rule" /> : null}
     </div>
   );
 };

@@ -6,6 +6,8 @@ import { firestoreConnect } from "react-redux-firebase";
 import { Link } from "react-router-dom";
 import Days from "../../common/days/index";
 import days from "../../../models/daysModel";
+import { Redirect } from "react-router-dom";
+
 interface Props {
   profile: any;
   userId: string;
@@ -28,6 +30,7 @@ const Create: React.FC<Props> = ({
   const [date, setDate] = useState<string>("");
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("");
+  const [redirect, setRedirect] = useState<boolean>(false);
 
   const setDays = (day: iDay) => {
     let arr = stateDays;
@@ -70,6 +73,7 @@ const Create: React.FC<Props> = ({
       daysToPush,
       repeats
     );
+    setRedirect(true);
   };
 
   let categoryOptions = [
@@ -96,7 +100,6 @@ const Create: React.FC<Props> = ({
             <label className="checkbox-container">
               <label className="o-inputfield__sublabel">{organizer.name}</label>
               <input
-                required
                 type="checkbox"
                 checked={activeOrganisers.includes(organizer.id)}
                 onChange={e => handleActiveOrganisers(e, organizer.id)}
@@ -177,7 +180,6 @@ const Create: React.FC<Props> = ({
             <label className="checkbox-container">
               <label className="o-inputfield__sublabel">Eenmalig?</label>
               <input
-                required
                 type="checkbox"
                 checked={once}
                 onChange={() => setOnce(!once)}
@@ -224,6 +226,7 @@ const Create: React.FC<Props> = ({
           <button>Activiteit toevoegen</button>
         </form>
       </div>
+      {redirect ? <Redirect to="/activity" /> : null}
     </div>
   );
 };
