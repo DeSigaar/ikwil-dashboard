@@ -37,6 +37,16 @@ export const createMeal = (meal: iMeal, profile: any, id: string, img: any) => {
   return store.dispatch({ type: "CREATE_MEAL_SUCCESS", meal });
 };
 
+export const setActiveMeal = (id: string, active: boolean) => {
+  firebase
+    .firestore()
+    .collection("meals")
+    .doc(id)
+    .update({ isActive: active })
+    .then(() => store.dispatch({ type: "EDIT_MEAL_SUCCESS" }))
+    .catch(err => store.dispatch({ type: "EDIT_MEAL_ERROR", err }));
+};
+
 export const EditMeal = (
   meal: iMeal,
   profile: any,
@@ -57,12 +67,13 @@ export const EditMeal = (
     creatorID: id
   };
   if (typeof imgRef !== "undefined") {
+    console.log("imgRef :", imgRef);
     dataToSet.img = imgRef;
   }
   if (typeof img !== "undefined" && img !== null) {
+    console.log("img :", img);
     dataToSet.img = uploadPhoto(img, "meals/" + img.name).fullPath;
   }
-  console.log("dataToSet :", dataToSet);
   firebase
     .firestore()
     .collection("meals")

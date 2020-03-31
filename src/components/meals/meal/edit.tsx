@@ -39,6 +39,7 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
   }, [meal]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("called ");
     e.preventDefault();
     let tempMeal = {
       name,
@@ -49,7 +50,7 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
       isVegetarian,
       isActive: true
     };
-    EditMeal(tempMeal, profile, auth.uid, link.params.id, img);
+    EditMeal(tempMeal, profile, auth.uid, link.params.id, null, img);
     setRedirect(true);
   };
 
