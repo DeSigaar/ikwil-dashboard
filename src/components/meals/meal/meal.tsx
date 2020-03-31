@@ -34,8 +34,6 @@ const Meal: React.FC<Props> = ({ meal, link }) => {
         //TO:DO Netter maker
         DeleteMeal(meal.id);
         setRedirect(true);
-      } else {
-        alert("oeps");
       }
     };
     if (!redirect) {
