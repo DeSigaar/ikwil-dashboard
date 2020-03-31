@@ -53,6 +53,8 @@ const NewsItem: React.FC<Props> = ({ newsItem, link }) => {
 const mapStateToProps = (state: any) => {
   if (typeof state.firestore.ordered.news !== "undefined") {
     return { newsItem: state.firestore.ordered.news[0] };
+  } else {
+    return {};
   }
 };
 

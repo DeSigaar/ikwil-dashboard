@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createOrganizer } from "../../../store/actions/organizerActions";
+import { Redirect } from "react-router-dom";
 
 interface Props {
   profile: any;
@@ -12,10 +13,12 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
   const [description, setDescription] = useState<string>("");
   const [place, setPlace] = useState<string>("");
   const [isAvailable, setIsAvailable] = useState<boolean>(true);
+  const [redirect, setRedirect] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createOrganizer({ name, description, place, isAvailable }, profile, userId);
+    setRedirect(true);
   };
   return (
     <div className="s-cms">
@@ -64,6 +67,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
           <button>Plaats bestuurslid</button>
         </form>
       </div>
+      {redirect ? <Redirect to="/organizer" /> : null}
     </div>
   );
 };

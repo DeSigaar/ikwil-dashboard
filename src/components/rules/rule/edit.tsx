@@ -72,6 +72,8 @@ const mapStateToProps = (state: any) => {
       profile: state.firebase.profile,
       auth: state.firebase.auth
     };
+  } else {
+    return {};
   }
 };
 const mapDispatchToProps = (dispatch: any) => {

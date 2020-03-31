@@ -37,37 +37,49 @@ export const createMeal = (meal: iMeal, profile: any, id: string, img: any) => {
   return store.dispatch({ type: "CREATE_MEAL_SUCCESS", meal });
 };
 
+export const setActiveMeal = (id: string, active: boolean) => {
+  firebase
+    .firestore()
+    .collection("meals")
+    .doc(id)
+    .update({ isActive: active })
+    .then(() => store.dispatch({ type: "EDIT_MEAL_SUCCESS" }))
+    .catch(err => store.dispatch({ type: "EDIT_MEAL_ERROR", err }));
+};
+
 export const EditMeal = (
-  meal: iMeal,
+  meal: any,
   profile: any,
   id: string,
   docId: string,
-  img?: any,
-  imgRef?: string | undefined
+  imgPath: string,
+  img?: any
 ) => {
-  let dataToSet: any = {
-    name: meal.name,
-    price: meal.price,
-    ingredients: meal.ingredients,
-    isHallal: meal.isHallal,
-    isVegan: meal.isVegan,
-    isActive: meal.isActive,
-    isVegetarian: meal.isVegetarian,
-    createdBy: profile.firstName + " " + profile.lastName,
-    creatorID: id
-  };
-  if (typeof imgRef !== "undefined") {
-    dataToSet.img = imgRef;
+  console.log("img, imgPath :", img, imgPath);
+  let imgRef = { fullPath: "images/meals/default.png" };
+  if (typeof imgPath !== "undefined") {
+    imgRef.fullPath = imgPath;
   }
-  if (typeof img !== "undefined" && img !== null) {
-    dataToSet.img = uploadPhoto(img, "meals/" + img.name).fullPath;
+  if (typeof img !== "undefined") {
+    imgRef = uploadPhoto(img, "meals/" + img.name);
   }
-  console.log("dataToSet :", dataToSet);
+  console.log("meal :", meal);
   firebase
     .firestore()
     .collection("meals")
     .doc(docId)
-    .set(dataToSet)
+    .set({
+      name: meal.name,
+      price: meal.price,
+      ingredients: meal.ingredients,
+      isHallal: meal.isHallal,
+      isVegan: meal.isVegan,
+      isActive: meal.isActive,
+      isVegetarian: meal.isVegetarian,
+      createdBy: profile.firstName + " " + profile.lastName,
+      creatorID: id,
+      img: imgRef.fullPath
+    })
     .then(() => store.dispatch({ type: "EDIT_MEAL_SUCCESS" }))
     .catch(err => store.dispatch({ type: "EDIT_MEAL_ERROR", err }));
 };

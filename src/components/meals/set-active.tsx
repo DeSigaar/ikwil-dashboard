@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import { EditMeal } from "../../store/actions/mealActions";
 import { Link } from "react-router-dom";
-import { DeleteMeal } from "../../store/actions/mealActions";
+import { DeleteMeal, setActiveMeal } from "../../store/actions/mealActions";
 import { GetPhoto } from "../../store/actions/imgActions";
 import MealItem from "./mealItem";
 interface Props {
@@ -15,7 +14,7 @@ interface Props {
 
 const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
   const [updateMeals, setUpdateMeals] = useState<any>(undefined);
-  const [activeMeals, setActiveMeals] = useState<string[]>([]);
+  const [activeMealsLocal, setActiveMealsLocal] = useState<string[]>([]);
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [idToDelete, setIdToDelete] = useState<string | undefined>("");
 
@@ -29,7 +28,7 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
             activeMeals.push(meal.id);
           }
         });
-        setActiveMeals(activeMeals);
+        setActiveMealsLocal(activeMeals);
       }
     }
   }, [meals, updateMeals]);
@@ -43,9 +42,11 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
 
   const handleActiveMeals = (mealId?: string | undefined) => {
     if (typeof mealId !== "undefined") {
-      let tempActiveMeals = [...activeMeals];
+      let tempActiveMeals = [...activeMealsLocal];
       let active = false;
-      let index = activeMeals.findIndex((mealID: any) => mealID === mealId);
+      let index = activeMealsLocal.findIndex(
+        (mealID: any) => mealID === mealId
+      );
       if (index !== -1) {
         tempActiveMeals.splice(index, 1);
         active = false;
@@ -53,21 +54,9 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
         tempActiveMeals.push(mealId);
         active = true;
       }
-      setMealActive(mealId, active);
-      setActiveMeals(tempActiveMeals);
+      setActiveMealsLocal(tempActiveMeals);
+      setActiveMeal(mealId, active);
     }
-  };
-  const setMealActive = (id: string, active: boolean) => {
-    let mealToSet: any = {
-      ...meals.find((meal: any) => meal.id === id),
-      isActive: false
-    };
-    if (typeof mealToSet?.isActive !== "undefined") {
-      mealToSet.isActive = active;
-    }
-    let imgRef = mealToSet.img;
-
-    EditMeal(mealToSet, profile, auth.uid, id, null, imgRef);
   };
 
   if (typeof meals !== "undefined") {
@@ -81,7 +70,7 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
                 setIdToDelete={setIdToDelete}
                 handleActiveMeals={handleActiveMeals}
                 meal={meal}
-                activeMeals={activeMeals}
+                activeMeals={activeMealsLocal}
               />
             </div>
           );
@@ -128,16 +117,10 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    EditMeal: (
-      meal: any,
-      profile: any,
-      id: string,
-      docId: string,
-      img: any,
-      imgRef: string
-    ) => dispatch(EditMeal(meal, profile, id, docId, img, imgRef)),
     DeleteMeal: (docId: string) => dispatch(DeleteMeal(docId)),
-    GetPhoto: (path: string) => dispatch(GetPhoto(path))
+    GetPhoto: (path: string) => dispatch(GetPhoto(path)),
+    SetActiveMeal: (id: string, active: boolean) =>
+      dispatch(setActiveMeal(id, active))
   };
 };
 

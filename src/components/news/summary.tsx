@@ -10,7 +10,7 @@ interface Props {
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 1,
+    items: 1
   }
 };
 
@@ -18,16 +18,16 @@ const Summary: React.FC<Props> = ({ data }) => {
   const [isMoving, setIsMoving] = useState<boolean>(false);
   const [modalIsOpen, setIsOpen] = React.useState<boolean>(false);
   const [modalContent, setModalContent] = React.useState<any>(false);
-  Modal.setAppElement('#root')
+  Modal.setAppElement("#root");
 
   const closeModal = () => {
     setIsOpen(false);
-  }
+  };
 
   const onClick = (newsItem: iNewsItem) => {
     setIsOpen(true);
-    setModalContent(newsItem)
-  }
+    setModalContent(newsItem);
+  };
 
   return (
     <>
@@ -54,7 +54,7 @@ const Summary: React.FC<Props> = ({ data }) => {
                   key={newsItem.id}
                   onClick={e => {
                     if (isMoving !== true) {
-                      onClick(newsItem)
+                      onClick(newsItem);
                     }
                   }}
                 >
@@ -84,13 +84,16 @@ const Summary: React.FC<Props> = ({ data }) => {
           }
         }}
       >
-        <div className="ReactModal__Content__close-icon" onClick={closeModal}></div>
+        <div
+          className="ReactModal__Content__close-icon"
+          onClick={closeModal}
+        ></div>
         <div className="ReactModal__Content__image-wrapper">
           <img
             className="ReactModal__Content__image"
             src="https://images.unsplash.com/photo-1584556812952-905ffd0c611a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
             alt="toiletrolls-Coronavirus"
-            />
+          />
         </div>
         <div className="ReactModal__Content__wrapper">
           <h2 className="ReactModal__Content__title">{modalContent.title}</h2>

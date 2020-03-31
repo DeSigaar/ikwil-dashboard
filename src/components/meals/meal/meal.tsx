@@ -73,6 +73,8 @@ const Meal: React.FC<Props> = ({ meal, link }) => {
 const mapStateToProps = (state: any) => {
   if (typeof state.firestore.ordered.meals !== "undefined") {
     return { meal: state.firestore.ordered.meals[0] };
+  } else {
+    return {};
   }
 };
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createNewsItem } from "../../../store/actions/newsItemActions";
+import { Redirect } from "react-router-dom";
 
 interface Props {
   profile: any;
@@ -10,10 +11,12 @@ interface Props {
 const Create: React.FC<Props> = ({ profile, userId }) => {
   const [title, setTitle] = useState<string>("");
   const [text, setText] = useState<string>("");
+  const [redirect, setRedirect] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createNewsItem({ title, text }, profile, userId);
+    setRedirect(true);
   };
   return (
     <div className="s-cms">
@@ -41,6 +44,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
           <button>Plaats nieuwsbericht</button>
         </form>
       </div>
+      {redirect ? <Redirect to="/news" /> : null}
     </div>
   );
 };

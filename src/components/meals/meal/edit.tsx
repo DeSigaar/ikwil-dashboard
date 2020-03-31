@@ -23,6 +23,7 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
   const [redirect, setRedirect] = useState<boolean>(false);
   const [img, setImg] = useState<any>(undefined);
   const [imgPreview, setImgPreview] = useState<any>(undefined);
+  const [imgRef, setImgRef] = useState<string>("");
 
   useEffect(() => {
     if (typeof meal !== "undefined") {
@@ -32,6 +33,9 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
       setIsHallal(meal.isHallal);
       setIsVegan(meal.isVegan);
       setisVegetarian(meal.isVegetarian);
+      if (typeof meal.img !== "undefined") {
+        setImgRef(meal.img);
+      }
       GetPhoto(meal.img)?.then((res: any) => {
         setImgPreview(res);
       });
@@ -39,6 +43,7 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
   }, [meal]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("called ");
     e.preventDefault();
     let tempMeal = {
       name,
@@ -47,9 +52,11 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
       isHallal,
       isVegan,
       isVegetarian,
-      isActive: true
+      isActive: true,
+      img: imgRef
     };
-    EditMeal(tempMeal, profile, auth.uid, link.params.id, img);
+    console.log("tempMeal :", tempMeal);
+    EditMeal(tempMeal, profile, auth.uid, link.params.id, imgRef, img);
     setRedirect(true);
   };
 
@@ -101,7 +108,6 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Hallal</label>
                   <input
-                    required
                     type="checkbox"
                     checked={isHallal}
                     onChange={e => setIsHallal(!isHallal)}
@@ -113,7 +119,6 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Vegetarisch</label>
                   <input
-                    required
                     type="checkbox"
                     checked={isVegetarian}
                     onChange={e => setisVegetarian(!isVegetarian)}
@@ -125,7 +130,6 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Vegan</label>
                   <input
-                    required
                     type="checkbox"
                     checked={isVegan}
                     onChange={e => setIsVegan(!isVegan)}
@@ -162,6 +166,8 @@ const mapStateToProps = (state: any) => {
       profile: state.firebase.profile,
       auth: state.firebase.auth
     };
+  } else {
+    return {};
   }
 };
 const mapDispatchToProps = (dispatch: any) => {
@@ -171,9 +177,9 @@ const mapDispatchToProps = (dispatch: any) => {
       profile: any,
       id: string,
       docId: string,
-      img: any,
-      imgRef: string
-    ) => dispatch(EditMeal(meal, profile, id, docId, img, imgRef)),
+      imgRef: string,
+      img: any
+    ) => dispatch(EditMeal(meal, profile, id, docId, imgRef, img)),
     GetPhoto: (path: string) => dispatch(GetPhoto(path))
   };
 };

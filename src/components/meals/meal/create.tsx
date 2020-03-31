@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createMeal } from "../../../store/actions/mealActions";
+import { Redirect } from "react-router-dom";
 
 interface Props {
   profile: any;
@@ -17,6 +18,8 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
   const [img, setImg] = useState<any>(undefined);
   const [imgPreview, setImgPreview] = useState<any>(undefined);
 
+  const [redirect, setRedirect] = useState<boolean>(false);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createMeal(
@@ -25,6 +28,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
       userId,
       img
     );
+    setRedirect(true);
   };
   const handleImageUpload = (e: any) => {
     e.preventDefault();
@@ -117,6 +121,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
           <button>Maaltijd toevoegen</button>
         </form>
       </div>
+      {redirect ? <Redirect to="/active-meals" /> : null}
     </div>
   );
 };
