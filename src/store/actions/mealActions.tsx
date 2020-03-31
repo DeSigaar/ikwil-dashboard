@@ -55,7 +55,6 @@ export const EditMeal = (
   imgPath: string,
   img?: any
 ) => {
-  console.log("img, imgPath :", img, imgPath);
   let imgRef = { fullPath: "images/meals/default.png" };
   if (typeof imgPath !== "undefined") {
     imgRef.fullPath = imgPath;
@@ -63,7 +62,7 @@ export const EditMeal = (
   if (typeof img !== "undefined") {
     imgRef = uploadPhoto(img, "meals/" + img.name);
   }
-  console.log("meal :", meal);
+
   firebase
     .firestore()
     .collection("meals")

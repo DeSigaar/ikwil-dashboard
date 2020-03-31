@@ -4,4 +4,5 @@ interface iNewsItem {
   text: string;
   createdBy?: string;
   creatorId?: string;
+  img?: any;
 }
