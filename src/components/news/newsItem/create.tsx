@@ -12,11 +12,20 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
   const [title, setTitle] = useState<string>("");
   const [text, setText] = useState<string>("");
   const [redirect, setRedirect] = useState<boolean>(false);
+  const [img, setImg] = useState<any>(undefined);
+  const [imgPreview, setImgPreview] = useState<any>(undefined);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createNewsItem({ title, text }, profile, userId);
+    createNewsItem({ title, text }, profile, userId, img);
     setRedirect(true);
+  };
+  const handleImageUpload = (e: any) => {
+    e.preventDefault();
+    if (typeof e.target.files[0] !== "undefined") {
+      setImgPreview(URL.createObjectURL(e.target.files[0]));
+      setImg(e.target.files[0]);
+    }
   };
   return (
     <div className="s-cms">
@@ -41,6 +50,16 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
               onChange={e => setText(e.target.value)}
             />
           </div>
+          <div className="o-inputfield">
+            <label>Afbeelding toevoegen</label>
+            <input
+              type="file"
+              name="imgToUpload"
+              id="imgToUplaod"
+              onChange={e => handleImageUpload(e)}
+            />
+            <img src={imgPreview} alt="preview" />
+          </div>
           <button>Plaats nieuwsbericht</button>
         </form>
       </div>
@@ -56,8 +75,8 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createNewsItem: (newsItem: any, profile: any, userId: string) =>
-      dispatch(createNewsItem(newsItem, profile, userId))
+    createNewsItem: (newsItem: any, profile: any, userId: string, img: any) =>
+      dispatch(createNewsItem(newsItem, profile, userId, img))
   };
 };
 

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
 import { DeleteNewsItem } from "../../../store/actions/newsItemActions";
 import { Redirect } from "react-router-dom";
+import { GetPhoto } from "../../../store/actions/imgActions";
+
 interface Props {
   link: any;
   newsItem?: iNewsItem;
@@ -13,15 +15,23 @@ interface Props {
 const NewsItem: React.FC<Props> = ({ newsItem, link }) => {
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
+  const [img, setImg] = useState<any>(undefined);
+  const [imgPreview, setImgPreview] = useState<any>(undefined);
+  const [imgRef, setImgRef] = useState<string>("");
+
+  useEffect(() => {
+    if (typeof newsItem !== "undefined") {
+      GetPhoto(newsItem.img)?.then((res: any) => {
+        setImgPreview(res);
+      });
+    }
+  }, [newsItem]);
 
   if (typeof newsItem !== "undefined") {
     const handleDelete = () => {
       if (typeof newsItem.id !== "undefined") {
-        //TO:DO Netter maker
         DeleteNewsItem(newsItem.id);
         setRedirect(true);
-      } else {
-        alert("oeps");
       }
     };
     if (!redirect) {
@@ -31,7 +41,7 @@ const NewsItem: React.FC<Props> = ({ newsItem, link }) => {
           <p>{newsItem.title}</p>
           <p>{newsItem.text}</p>
           <p>{newsItem.createdBy}</p>
-
+          <img src={imgPreview} alt="preview" />
           <Link to={link.url + "/edit"}>edit</Link>
           <button onClick={() => setSafeDelete(true)}>delete</button>
           {safeDelete ? (
@@ -60,7 +70,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    DeleteNewsItem: (docId: string) => dispatch(DeleteNewsItem(docId))
+    DeleteNewsItem: (docId: string) => dispatch(DeleteNewsItem(docId)),
+    GetPhoto: (path: string) => dispatch(GetPhoto(path))
   };
 };
 

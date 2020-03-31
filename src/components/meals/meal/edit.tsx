@@ -55,7 +55,6 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
       isActive: true,
       img: imgRef
     };
-    console.log("tempMeal :", tempMeal);
     EditMeal(tempMeal, profile, auth.uid, link.params.id, imgRef, img);
     setRedirect(true);
   };
