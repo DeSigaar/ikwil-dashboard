@@ -37,7 +37,7 @@ const ActiveMealItem: React.FC<Props> = ({ meal, isMoving }) => {
       </div>
     );
   } else {
-    return <div>oopsie</div>;
+    return null;
   }
 };
 const mapDispatchToProps = (dispatch: any) => {

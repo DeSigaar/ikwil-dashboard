@@ -1,4 +1,5 @@
 import React from "react";
+import ActiveOrganizer from "./activeOrganizer";
 
 interface Props {
   data?: iOrganizer[] | undefined;
@@ -12,25 +13,7 @@ const Summary: React.FC<Props> = ({ data }) => {
         {typeof data !== "undefined" ? (
           <>
             {data.map(organisor => {
-              return (
-                <div
-                  className="c-organiser__link"
-                  key={organisor.id}
-                >
-                  <div className="c-organiser">
-                    <img
-                      className="c-organiser__image"
-                      src="https://images.unsplash.com/photo-1584556812952-905ffd0c611a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-                      alt="toiletrolls-Coronavirus"
-                    />
-                    <h3 className="c-organiser__name">{organisor.name}</h3>
-                    <p className="c-organiser__description">
-                      {organisor.description}
-                    </p>
-                    <p className="c-organiser__place">{organisor.place}</p>
-                  </div>
-                </div>
-              );
+              return <ActiveOrganizer organizer={organisor} />;
             })}
           </>
         ) : (

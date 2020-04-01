@@ -14,11 +14,25 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
   const [place, setPlace] = useState<string>("");
   const [isAvailable, setIsAvailable] = useState<boolean>(true);
   const [redirect, setRedirect] = useState<boolean>(false);
+  const [img, setImg] = useState<any>(undefined);
+  const [imgPreview, setImgPreview] = useState<any>(undefined);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createOrganizer({ name, description, place, isAvailable }, profile, userId);
+    createOrganizer(
+      { name, description, place, isAvailable },
+      profile,
+      userId,
+      img
+    );
     setRedirect(true);
+  };
+  const handleImageUpload = (e: any) => {
+    e.preventDefault();
+    if (typeof e.target.files[0] !== "undefined") {
+      setImgPreview(URL.createObjectURL(e.target.files[0]));
+      setImg(e.target.files[0]);
+    }
   };
   return (
     <div className="s-cms">
@@ -64,6 +78,21 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
               <span className="checkmark"></span>
             </label>
           </div>
+          <div className="o-inputfield">
+            <label>Afbeelding toevoegen</label>
+            <img
+              className="o-inputfield__upload-preview"
+              src={imgPreview}
+              alt="preview"
+            />
+            <input
+              className="o-inputfield__file-upload"
+              type="file"
+              name="imgToUpload"
+              id="imgToUplaod"
+              onChange={e => handleImageUpload(e)}
+            />
+          </div>
           <button>Plaats bestuurslid</button>
         </form>
       </div>
@@ -79,8 +108,8 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createOrganizer: (organizer: any, profile: any, userId: string) =>
-      dispatch(createOrganizer(organizer, profile, userId))
+    createOrganizer: (organizer: any, profile: any, userId: string, img: any) =>
+      dispatch(createOrganizer(organizer, profile, userId, img))
   };
 };
 
