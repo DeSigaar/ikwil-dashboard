@@ -3,7 +3,23 @@
   flex-wrap: wrap;
   margin-bottom: $spacing-small;
   padding-bottom: $spacing-small;
-  border-bottom: 1px solid $color-grey;
+  position: relative;
+
+  &::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-60%);
+    width: 80%;
+    height: 1px;
+    background-color: $color-grey;
+    opacity: .5;
+  }
+
+  &:last-child::after{
+    display: none;
+  }
 
   &__title{
     display: block;
@@ -13,11 +29,19 @@
   &__left-wrapper{
     width: 65%;
   }
-  &__price{}
-  &__ingredients-title{}
-  &__ingredients{}
-  &__characteristics{}
-  &__halal{}
-  &__vegan{}
-  &__vegetarian{}
+  &__price{
+    font-size: 20px;
+  }
+  &__ingredients-title{
+    margin-top: 15px;
+  }
+  &__characteristics{
+    &__item{
+      display: flex;
+      margin-bottom: $spacing-tiny;
+      &__img{
+        margin-right: $spacing-tiny;
+      }
+    }
+  }
 }

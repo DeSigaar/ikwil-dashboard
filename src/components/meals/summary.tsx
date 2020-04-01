@@ -112,14 +112,17 @@ const Summary: React.FC<Props> = ({ meals }) => {
                       </div>
                     </div>
                     <div className="c-modal-meal__characteristics">
-                      <div className="c-modal-meal__characteristics__halal">
-                        {meal.isHallal ? "yes" : "no"}
+                      <div className="c-modal-meal__characteristics__item">
+                        {meal.isHallal ? <img src="/check.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is halal"/> : <img src="/close.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is niet halal"/>}
+                        Halal
                       </div>
-                      <div className="c-modal-meal__characteristics__vegan">
-                        {meal.isVegan ? "yes" : "no"}
+                      <div className="c-modal-meal__characteristics__item">
+                        {meal.isVegetarian ? <img src="/check.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is vegetarisch"/> : <img src="/close.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is niet vegetarisch"/>}
+                        Vegetarisch
                       </div>
-                      <div className="c-modal-meal__characteristics__vegetarian">
-                        {meal.isVegetarian ? "yes" : "no"}
+                      <div className="c-modal-meal__characteristics__item">
+                        {meal.isVegan ? <img src="/check.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is vegan"/> : <img src="/close.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is niet vegan"/>}
+                        Vegan
                       </div>
                     </div>
                   </div>
@@ -130,8 +133,6 @@ const Summary: React.FC<Props> = ({ meals }) => {
         ) : (
           <></>
         )}
-        {/* <h2 className="ReactModal__Content__title">{modalContent.title}</h2>
-        <p className="ReactModal__Content__text">{modalContent.text}</p> */}
       </Modal>
     </div>
   );
