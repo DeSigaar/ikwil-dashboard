@@ -6,3 +6,14 @@
     height: 86%;
   }
 }
+
+.s-card-big {
+  .o-carousel {
+    align-items: flex-start;
+    height: calc(100vh - 85px);
+
+    &__slider {
+      height: 100%;
+    }
+  }
+}

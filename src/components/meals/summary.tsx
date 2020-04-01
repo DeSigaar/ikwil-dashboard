@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Modal from "react-modal";
-import "react-multi-carousel/lib/styles.css";
 import ActiveMealItem from "./meal/activeMealItem";
 
 interface Props {

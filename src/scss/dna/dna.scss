@@ -99,6 +99,7 @@ button {
   transition: 0.3s;
   background-color: $color-background;
   float: right;
+  outline: none;
 
   &:hover {
     color: $color-background;
@@ -140,12 +141,12 @@ button {
 }
 
 /* On mouse-over, add a grey background color */
-.checkbox-container:hover input ~ .checkmark {
+.checkbox-container:hover input~.checkmark {
   background-color: $color-light-gray;
 }
 
 /* When the checkbox is checked, add a blue background */
-.checkbox-container input:checked ~ .checkmark {
+.checkbox-container input:checked~.checkmark {
   background-color: $color-green;
 }
 
@@ -157,7 +158,7 @@ button {
 }
 
 /* Show the checkmark when checked */
-.checkbox-container input:checked ~ .checkmark:after {
+.checkbox-container input:checked~.checkmark:after {
   display: block;
 }
 
@@ -249,7 +250,7 @@ img {
 }
 
 /* Natural flow and rhythm in articles by default */
-article > * + * {
+article>*+* {
   margin-top: 1em;
 }
 
