@@ -76,7 +76,6 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
             <label className="checkbox-container">
               <label className="o-inputfield__sublabel">Hallal</label>
               <input
-                required
                 type="checkbox"
                 checked={isHallal}
                 onChange={e => setIsHallal(!isHallal)}
@@ -88,7 +87,6 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
             <label className="checkbox-container">
               <label className="o-inputfield__sublabel">Vegetarisch</label>
               <input
-                required
                 type="checkbox"
                 checked={isVegetarian}
                 onChange={e => setisVegetarian(!isVegetarian)}
@@ -100,7 +98,6 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
             <label className="checkbox-container">
               <label className="o-inputfield__sublabel">Vegan</label>
               <input
-                required
                 type="checkbox"
                 checked={isVegan}
                 onChange={e => setIsVegan(!isVegan)}

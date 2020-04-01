@@ -90,7 +90,6 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                 <label>Plaats waar je het meeste bent</label>
                 <input
                   className="o-inputfield__input"
-                  required
                   value={place}
                   onChange={e => setPlace(e.target.value)}
                 />
@@ -99,7 +98,6 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                 <label className="checkbox-container">
                   <label>Beschikbaar</label>
                   <input
-                    required
                     type="checkbox"
                     checked={isAvailable}
                     onChange={e => setIsAvailable(!isAvailable)}
