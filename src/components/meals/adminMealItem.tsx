@@ -6,15 +6,11 @@ import { GetPhoto } from "../../store/actions/imgActions";
 
 interface Props {
   meal?: iMeal;
-  setSafeDelete: (safeDelete: boolean) => void;
-  setIdToDelete: (id: string) => void;
   handleActiveMeals: (id: string) => void;
   activeMeals: string[];
 }
 const MealItem: React.FC<Props> = ({
   meal,
-  setSafeDelete,
-  setIdToDelete,
   handleActiveMeals,
   activeMeals
 }) => {
@@ -66,17 +62,6 @@ const MealItem: React.FC<Props> = ({
         </div>
         <div>
           <img src={img} alt="food" />
-        </div>
-
-        <div>
-          <button
-            onClick={() => {
-              setSafeDelete(true);
-              setIdToDelete(typeof meal.id !== "undefined" ? meal.id : "");
-            }}
-          >
-            delete
-          </button>
         </div>
       </div>
     );
