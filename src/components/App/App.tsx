@@ -7,32 +7,39 @@ import { connect } from "react-redux";
 import AddAdmin from "../auth/addAdmin";
 import Login from "../auth/signIn";
 import Nav from "../nav/index";
+// import AdminNav from "../nav/admin";
 
 import Organisers from "../organisers/index";
 import Organizer from "../organisers/organizer/organizer";
 import OrganizerEdit from "../organisers/organizer/edit";
 import OrganizerAdd from "../organisers/organizer/create";
+import OrganizerAdmin from "../organisers/admin";
 
 import News from "../news/index";
 import NewsItem from "../news/newsItem/newsItem";
 import NewsItemEdit from "../news/newsItem/edit";
 import NewsItemAdd from "../news/newsItem/create";
+import NewsAdmin from "../news/admin";
 
 import Rules from "../rules/index";
 import RuleAdd from "../rules/rule/create";
 import Rule from "../rules/rule/rule";
 import RuleEdit from "../rules/rule/edit";
+import RuleAdmin from "../rules/admin";
 
 import Activities from "../activities/index";
 import Activity from "../activities/activity/activity";
 import ActivityAdd from "../activities/activity/create";
 import ActivityEdit from "../activities/activity/edit";
+import ActivityAdmin from "../activities/admin";
+
+import Admin from "../admin/index";
 
 import Meals from "../meals/index";
 import Meal from "../meals/meal/meal";
 import MealAdd from "../meals/meal/create";
 import MealEdit from "../meals/meal/edit";
-import MealSetActive from "../meals/set-active";
+import MealAdmin from "../meals/admin";
 interface Props {
   loggedIn?: boolean;
 }
@@ -42,35 +49,44 @@ const App: React.FC<Props> = ({ loggedIn }) => {
     <div>
       {loggedIn ? (
         <>
-          <Route path="/meal/add" component={MealAdd} />
-          <Route exact path="/active-meals" component={MealSetActive} />
-          <Route path="/activity/add" component={ActivityAdd} />
-          <Route path="/rule/add" component={RuleAdd} />
-          <Route path="/organizer/add" component={OrganizerAdd} />
-          <Route path="/news/add" component={NewsItemAdd} />
+          <Route path="/admin">
+            <Admin />
+            {/* <AdminNav /> */}
+          </Route>
+          <Route path="/admin/meal/add" component={MealAdd} />
+          <Route path="/admin/activity/add" component={ActivityAdd} />
+          <Route path="/admin/rule/add" component={RuleAdd} />
+          <Route path="/admin/organizer/add" component={OrganizerAdd} />
+          <Route path="/admin/news/add" component={NewsItemAdd} />
+
           <Route
-            path="/activity/:id/edit"
+            path="/admin/activity/:id/edit"
             render={({ match }) => <ActivityEdit link={match} />}
           />
           <Route
-            path="/meal/:id/edit"
+            path="/admin/meal/:id/edit"
             render={({ match }) => <MealEdit link={match} />}
           />
           <Route
-            path="/organizer/:id/edit"
+            path="/admin/organizer/:id/edit"
             render={({ match }) => <OrganizerEdit link={match} />}
           />
           <Route
-            path="/news/:id/edit"
+            path="/admin/news/:id/edit"
             render={({ match }) => <NewsItemEdit link={match} />}
           />
           <Route
-            path="/rule/:id/edit"
+            path="/admin/rule/:id/edit"
             render={({ match }) => <RuleEdit link={match} />}
           />
-          <Route path="/add-admin">
+          <Route path="/admin/add-admin">
             <AddAdmin />
           </Route>
+          <Route exact path="/admin/meals" component={MealAdmin} />
+          <Route exact path="/admin/activities" component={ActivityAdmin} />
+          <Route exact path="/admin/news" component={NewsAdmin} />
+          <Route exact path="/admin/organizer" component={OrganizerAdmin} />
+          <Route exact path="/admin/rule" component={RuleAdmin} />
         </>
       ) : (
         <>

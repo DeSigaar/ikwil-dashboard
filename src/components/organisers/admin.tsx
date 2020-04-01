@@ -1,0 +1,56 @@
+import React from "react";
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
+import { Link } from "react-router-dom";
+import OrganizerItem from "./adminOrganizer";
+import Organisers from "./index";
+
+interface Props {
+  organisers: iOrganizer[];
+  profile?: any;
+  auth?: any;
+}
+
+const Admin: React.FC<Props> = ({ organisers, profile, auth }) => {
+  if (typeof organisers !== "undefined") {
+    return (
+      <div>
+        <Organisers />
+        {organisers.map((organizer: any) => {
+          return (
+            <div key={organizer.id}>
+              <OrganizerItem organizer={organizer} />
+            </div>
+          );
+        })}
+        <div>
+          <Link to={"/admin/organizer/add"}>
+            <button
+              onChange={e => {
+                e.preventDefault();
+              }}
+            >
+              Voeg toe!
+            </button>
+          </Link>
+        </div>
+      </div>
+    );
+  } else {
+    return <div>No Organisers found!</div>;
+  }
+};
+
+const mapStateToProps = (state: any) => {
+  return {
+    organisers: state.firestore.ordered.organisers,
+    profile: state.firebase.profile,
+    auth: state.firebase.auth
+  };
+};
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: "organisers" }])
+)(Admin) as React.FC<Props>;

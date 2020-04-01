@@ -3,21 +3,19 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
-import { DeleteMeal, setActiveMeal } from "../../store/actions/mealActions";
-import { GetPhoto } from "../../store/actions/imgActions";
-import MealItem from "./mealItem";
+import MealItem from "./adminMealItem";
+import Meals from "./index";
+import { setActiveMeal } from "../../store/actions/mealActions";
+
 interface Props {
   meals: iMeal[];
   profile?: any;
   auth?: any;
 }
 
-const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
+const Admin: React.FC<Props> = ({ meals, profile, auth }) => {
   const [updateMeals, setUpdateMeals] = useState<any>(undefined);
   const [activeMealsLocal, setActiveMealsLocal] = useState<string[]>([]);
-  const [safeDelete, setSafeDelete] = useState<boolean>(false);
-  const [idToDelete, setIdToDelete] = useState<string | undefined>("");
-
   useEffect(() => {
     if (typeof meals !== "undefined") {
       if (meals !== updateMeals) {
@@ -32,13 +30,6 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
       }
     }
   }, [meals, updateMeals]);
-
-  const handleDelete = (mealId: string | undefined) => {
-    if (typeof mealId !== "undefined") {
-      //TO:DO Netter maker
-      DeleteMeal(mealId);
-    }
-  };
 
   const handleActiveMeals = (mealId?: string | undefined) => {
     if (typeof mealId !== "undefined") {
@@ -62,21 +53,20 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
   if (typeof meals !== "undefined") {
     return (
       <div>
-        {meals.map((meal: iMeal) => {
+        <Meals />
+        {meals.map((meal: any) => {
           return (
             <div key={meal.id}>
               <MealItem
-                setSafeDelete={setSafeDelete}
-                setIdToDelete={setIdToDelete}
-                handleActiveMeals={handleActiveMeals}
                 meal={meal}
+                handleActiveMeals={handleActiveMeals}
                 activeMeals={activeMealsLocal}
               />
             </div>
           );
         })}
         <div>
-          <Link to={"/meal/add"}>
+          <Link to={"/admin/meal/add"}>
             <button
               onChange={e => {
                 e.preventDefault();
@@ -85,26 +75,18 @@ const SetMeal: React.FC<Props> = ({ meals, profile, auth }) => {
               Voeg toe!
             </button>
           </Link>
-          {safeDelete ? (
-            <div>
-              Are you sure you want to delete it?
-              <button onClick={() => setSafeDelete(false)}>No</button>
-              <button
-                onClick={() => {
-                  handleDelete(idToDelete);
-                  setSafeDelete(false);
-                }}
-              >
-                yes
-              </button>
-            </div>
-          ) : null}
         </div>
       </div>
     );
   } else {
-    return <div>No meals found!</div>;
+    return <div>No Meals found!</div>;
   }
+};
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    SetActiveMeal: (id: string, active: boolean) =>
+      dispatch(setActiveMeal(id, active))
+  };
 };
 
 const mapStateToProps = (state: any) => {
@@ -115,16 +97,7 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    DeleteMeal: (docId: string) => dispatch(DeleteMeal(docId)),
-    GetPhoto: (path: string) => dispatch(GetPhoto(path)),
-    SetActiveMeal: (id: string, active: boolean) =>
-      dispatch(setActiveMeal(id, active))
-  };
-};
-
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([{ collection: "meals" }])
-)(SetMeal) as React.FC<Props>;
+)(Admin) as React.FC<Props>;
