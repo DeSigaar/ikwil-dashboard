@@ -23,7 +23,7 @@ const ActiveMealItem: React.FC<Props> = ({ meal, isMoving }) => {
     return (
       <div
         className="c-meal__link"
-        key={1}
+        key={meal.id}
         onClick={e => {
           if (isMoving === true) {
             e.preventDefault();
