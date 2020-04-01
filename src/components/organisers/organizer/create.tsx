@@ -61,7 +61,6 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
             <label>Plaats waar je het meeste bent</label>
             <input
               className="o-inputfield__input"
-              required
               value={place}
               onChange={e => setPlace(e.target.value)}
             />
@@ -70,7 +69,6 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
             <label className="checkbox-container">
               <label>Beschikbaar</label>
               <input
-                required
                 type="checkbox"
                 checked={isAvailable}
                 onChange={e => setIsAvailable(!isAvailable)}

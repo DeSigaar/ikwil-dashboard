@@ -2,7 +2,12 @@ import { store } from "../../index";
 import firebase from "firebase/app";
 import { uploadPhoto } from "./imgActions";
 
-export const createMeal = (meal: iMeal, profile: any, id: string, img: any) => {
+export const createMeal = (
+  meal: iMeal,
+  profile: any,
+  id: string,
+  img?: any
+) => {
   let imgRef = { fullPath: "images/meals/default.png" };
   if (typeof img !== "undefined") {
     imgRef = uploadPhoto(img, "meals/" + img.name);
