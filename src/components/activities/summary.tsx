@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { DeleteActivity } from "../../store/actions/activitiesActions";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { GetDayByNumber } from "../../functions/dates";
 interface Props {
   activities?: iActivity[] | undefined;
   next?: any;
@@ -110,43 +111,52 @@ const Summary: React.FC<Props> = ({ activities }) => {
   Object.keys(sortedDays).forEach(function(key) {
     renderDays.push(
       <div key={key}>
-        {sortedDays[key].map((activity: any) => {
-          let times;
-          if (typeof activity.days !== "undefined") {
-            times = activity.days.find((item: any) => item.name === key);
-          }
-          if (typeof activity.day !== "undefined") {
-            times = activity.day;
-          }
-          return (
-            <div key={activity.id + key}>
-              <Link to={"/activity/" + activity.id} className="c-activity">
-                <div className="c-activity__top-content">
-                  <img
-                    className="c-activity__top-content__icon"
-                    src="/yoga.svg"
-                    alt="activity icon"
-                  />
-                  <h3>{activity.name}</h3>
+        {console.log("sortedDays[key] :", sortedDays[key])}
+        {sortedDays[key].length !== 0 ? (
+          <>
+            {sortedDays[key].map((activity: any) => {
+              let times;
+              if (typeof activity.days !== "undefined") {
+                times = activity.days.find((item: any) => item.name === key);
+              }
+              if (typeof activity.day !== "undefined") {
+                times = activity.day;
+              }
+              return (
+                <div key={activity.id + key}>
+                  <Link to={"/activity/" + activity.id} className="c-activity">
+                    <div className="c-activity__top-content">
+                      <img
+                        className="c-activity__top-content__icon"
+                        src="/yoga.svg"
+                        alt="activity icon"
+                      />
+                      <h3>{activity.name}</h3>
+                    </div>
+                    <div className="c-activity__bottom-content">
+                      <div className="c-activity__bottom-content__time">
+                        {times.startTime} - {times.endTime}
+                      </div>
+                      <div className="c-activity__bottom-content__room">
+                        {activity.room}
+                      </div>
+                    </div>
+                  </Link>
                 </div>
-                <div className="c-activity__bottom-content">
-                  <div className="c-activity__bottom-content__time">
-                    {times.startTime} - {times.endTime}
-                  </div>
-                  <div className="c-activity__bottom-content__room">
-                    {activity.room}
-                  </div>
-                </div>
-              </Link>
-            </div>
-          );
-        })}
+              );
+            })}
+          </>
+        ) : (
+          <div>Geen activiteiten vandaag!</div>
+        )}
       </div>
     );
   });
 
   const ButtonGroup: React.FC<Props> = ({ next, previous, carouselState }) => {
     const { currentSlide } = carouselState;
+    const day = GetDayByNumber(currentSlide);
+
     return (
       <div className="c-dayChanger">
         <button
@@ -156,7 +166,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
         >
           <img src="./chevron-left-solid.svg" alt="left chevron" />
         </button>
-        <h3 className="c-dayChanger__date">{currentSlide}</h3>
+        <h3 className="c-dayChanger__date">{day}</h3>
         <button
           id="forward"
           onClick={() => next()}

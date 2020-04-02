@@ -15,8 +15,6 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
   const [isHallal, setIsHallal] = useState<boolean>(false);
   const [isVegan, setIsVegan] = useState<boolean>(false);
   const [isVegetarian, setisVegetarian] = useState<boolean>(false);
-  const [img, setImg] = useState<any>(undefined);
-  const [imgPreview, setImgPreview] = useState<any>(undefined);
 
   const [redirect, setRedirect] = useState<boolean>(false);
 
@@ -25,17 +23,9 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
     createMeal(
       { name, price, ingredients, isHallal, isVegan, isVegetarian },
       profile,
-      userId,
-      img
+      userId
     );
     setRedirect(true);
-  };
-  const handleImageUpload = (e: any) => {
-    e.preventDefault();
-    if (typeof e.target.files[0] !== "undefined") {
-      setImgPreview(URL.createObjectURL(e.target.files[0]));
-      setImg(e.target.files[0]);
-    }
   };
   return (
     <div className="s-cms">
@@ -120,8 +110,8 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createMeal: (meal: any, profile: any, userId: string, img: any) =>
-      dispatch(createMeal(meal, profile, userId, img))
+    createMeal: (meal: any, profile: any, userId: string) =>
+      dispatch(createMeal(meal, profile, userId))
   };
 };
 

@@ -9,7 +9,6 @@ interface Props {
 }
 
 const Meals: React.FC<Props> = ({ meals }) => {
-  console.log("meals :", meals);
   return (
     <div>
       <Summary meals={meals} />
