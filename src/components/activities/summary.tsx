@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import { DeleteActivity } from "../../store/actions/activitiesActions";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { GetDayByNumber } from "../../functions/dates";
+import { GetDayByNumber, isThisWeek } from "../../functions/dates";
 interface Props {
   activities?: iActivity[] | undefined;
   next?: any;
   previous?: any;
   carouselState?: any;
+  goToSlide?: any;
 }
 
 const Summary: React.FC<Props> = ({ activities }) => {
@@ -42,35 +43,41 @@ const Summary: React.FC<Props> = ({ activities }) => {
         if (typeof activity.day !== "undefined") {
           const date = new Date(activity.day.date);
           const dateToday = new Date();
-          if (date > dateToday) {
-            switch (date.getDay()) {
-              case 1:
-                tempSortedDays.Monday.push(activity);
-                break;
-              case 2:
-                tempSortedDays.Tuesday.push(activity);
-                break;
-              case 3:
-                tempSortedDays.Wednesday.push(activity);
-                break;
-              case 4:
-                tempSortedDays.Thursday.push(activity);
-                break;
-              case 5:
-                tempSortedDays.Friday.push(activity);
-                break;
-              case 6:
-                tempSortedDays.Saturday.push(activity);
-                break;
-              case 7:
-                tempSortedDays.Sunday.push(activity);
-                break;
-              default:
-                break;
-            }
-          } else {
-            if (typeof activity.id !== "undefined") {
-              DeleteActivity(activity.id);
+          let thisWeek = isThisWeek(date);
+
+          if (typeof thisWeek !== "undefined") {
+            if (thisWeek) {
+              if (date > dateToday) {
+                switch (date.getDay()) {
+                  case 1:
+                    tempSortedDays.Monday.push(activity);
+                    break;
+                  case 2:
+                    tempSortedDays.Tuesday.push(activity);
+                    break;
+                  case 3:
+                    tempSortedDays.Wednesday.push(activity);
+                    break;
+                  case 4:
+                    tempSortedDays.Thursday.push(activity);
+                    break;
+                  case 5:
+                    tempSortedDays.Friday.push(activity);
+                    break;
+                  case 6:
+                    tempSortedDays.Saturday.push(activity);
+                    break;
+                  case 7:
+                    tempSortedDays.Sunday.push(activity);
+                    break;
+                  default:
+                    break;
+                }
+              } else {
+                if (typeof activity.id !== "undefined") {
+                  DeleteActivity(activity.id);
+                }
+              }
             }
           }
         }
@@ -111,7 +118,6 @@ const Summary: React.FC<Props> = ({ activities }) => {
   Object.keys(sortedDays).forEach(function(key) {
     renderDays.push(
       <div key={key}>
-        {console.log("sortedDays[key] :", sortedDays[key])}
         {sortedDays[key].length !== 0 ? (
           <>
             {sortedDays[key].map((activity: any) => {
@@ -153,9 +159,19 @@ const Summary: React.FC<Props> = ({ activities }) => {
     );
   });
 
-  const ButtonGroup: React.FC<Props> = ({ next, previous, carouselState }) => {
+  const ButtonGroup: React.FC<Props> = ({
+    next,
+    previous,
+    carouselState,
+    goToSlide
+  }) => {
     const { currentSlide } = carouselState;
     const day = GetDayByNumber(currentSlide);
+    let today = new Date();
+
+    useEffect(() => {
+      goToSlide(today.getDay() - 1);
+    });
 
     return (
       <div className="c-dayChanger">
