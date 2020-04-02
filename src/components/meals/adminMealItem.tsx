@@ -14,20 +14,8 @@ const MealItem: React.FC<Props> = ({
   handleActiveMeals,
   activeMeals
 }) => {
-  const [img, setImg] = useState<string>(
-    "https://firebasestorage.googleapis.com/v0/b/stichting-ik-wil.appspot.com/o/images%2Fmeals%2Fdefault.png?alt=media&token=5886c40a-8030-4d7a-b644-c80acb185837"
-  );
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
-  useEffect(() => {
-    if (typeof meal !== "undefined") {
-      if (typeof meal.img !== "undefined") {
-        GetPhoto(meal.img)?.then((res: any) => {
-          setImg(res);
-        });
-      }
-    }
-  });
 
   if (typeof meal !== "undefined") {
     const handleDelete = () => {
@@ -58,9 +46,7 @@ const MealItem: React.FC<Props> = ({
           <div>Is Vegan: {meal.isVegan ? <>Ja</> : <>Nee</>}</div>
           <div>Is Vegetarian: {meal.isVegetarian ? <>Ja</> : <>Nee</>}</div>
 
-          <div>
-            <img src={img} alt="food" />
-          </div>
+          <div>{/* <img src={img} alt="food" /> */}</div>
           <div>
             <Link to={"/admin/meal/" + meal.id + "/edit"}>
               <button
