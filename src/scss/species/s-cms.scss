@@ -3,8 +3,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 80px;
   margin-bottom: 100px;
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 120px);
 
   &__header {
     margin-bottom: $spacing-medium-small;

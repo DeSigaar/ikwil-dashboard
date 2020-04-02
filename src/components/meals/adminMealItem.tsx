@@ -46,7 +46,7 @@ const MealItem: React.FC<Props> = ({
               </div>
             </div>
             <div className="c-adminItem__top__center">
-              <h3>{meal.name}</h3>
+              <h3 className="c-adminItem__title">{meal.name}</h3>
               <div className="c-adminItem__price">€{meal.price}</div>
               <div className="c-adminItem__ingredients">{meal.ingredients}</div>
             </div>

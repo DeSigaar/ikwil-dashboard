@@ -33,22 +33,41 @@ const NewsItem: React.FC<Props> = ({ newsItem }) => {
       return (
         <div className="c-adminItem" key={newsItem.id}>
           <div className="c-adminItem__top">
-            <div className="c-adminItem__top__left"></div>
-          </div>
-          <h2>News item</h2>
-          <p>{newsItem.title}</p>
-          <p>{newsItem.text}</p>
-          <p>{newsItem.createdBy}</p>
-          <img src={imgPreview} alt="preview" />
-          <Link to={"activity/" + newsItem.id + "/edit"}>edit</Link>
-          <button onClick={() => setSafeDelete(true)}>delete</button>
-          {safeDelete ? (
-            <div>
-              Are you sure you want to delete it?
-              <button onClick={() => setSafeDelete(false)}>No</button>
-              <button onClick={() => handleDelete()}>yes</button>
+            <div className="c-adminItem__top__left">
+              <div className="c-adminItem__image">
+                <img src={imgPreview} alt="preview" />
+              </div>
             </div>
-          ) : null}
+            <div className="c-adminItem__top__center">
+              <h3 className="c-adminItem__title">{newsItem.title}</h3>
+              <p className="c-adminItem__text">{newsItem.text}</p>
+              <p className="c-adminItem__createdBy">
+                gepubliceerd door: {newsItem.createdBy}
+              </p>
+            </div>
+          </div>
+          <div className="c-adminItem__bottom">
+            <div></div>
+            <div className="c-adminItem__buttons">
+              <Link to={"news/" + newsItem.id + "/edit"}>
+                <button
+                  onChange={e => {
+                    e.preventDefault();
+                  }}
+                >
+                  Edit
+                </button>
+              </Link>
+              <button onClick={() => setSafeDelete(true)}>delete</button>
+              {safeDelete ? (
+                <div className="c-adminItem__popup">
+                  Are you sure you want to delete it?
+                  <button onClick={() => setSafeDelete(false)}>No</button>
+                  <button onClick={() => handleDelete()}>yes</button>
+                </div>
+              ) : null}
+            </div>
+          </div>
         </div>
       );
     } else {

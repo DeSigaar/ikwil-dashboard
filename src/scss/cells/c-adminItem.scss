@@ -8,15 +8,28 @@
   margin-bottom: $spacing-small;
   box-shadow: $shadow-card;
 
+  &__title {
+    margin-bottom: $spacing-tiny;
+  }
+
+  &__text {
+    height: 149px;
+    overflow: hidden;
+  }
+
+  &__createdBy {
+    color: $color-grey;
+    font-weight: $font-weight-header;
+  }
+
   &__top {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: auto;
 
     &__center {
       align-self: flex-start;
-      width: 30vw;
+      min-width: 30vw;
       padding-right: $spacing-small-tiny;
     }
 
@@ -29,13 +42,16 @@
 
   &__popup {
     display: flex;
+    flex-direction: row;
     align-items: center;
     position: absolute;
+    margin-right: 10px;
     background-color: $color-white;
-    right: 50px;
+    right: -10px;
+    width: 412px;
 
     &>button {
-      margin-left: $spacing-small-tiny;
+      margin-left: $spacing-tiny;
     }
   }
 
@@ -58,6 +74,8 @@
   }
 
   &__buttons {
+    position: relative;
+
     &>button {
       margin-right: $spacing-small-tiny;
     }
