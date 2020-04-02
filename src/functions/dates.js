@@ -1,3 +1,5 @@
+let moment = require("moment");
+
 export function GetDayByNumber(n) {
   let day = "";
   switch (n) {
@@ -26,4 +28,7 @@ export function GetDayByNumber(n) {
       break;
   }
   return day;
+}
+export function isThisWeek(input) {
+  return moment(input).isSame(new Date(), "week");
 }
