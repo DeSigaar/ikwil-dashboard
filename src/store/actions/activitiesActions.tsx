@@ -49,10 +49,8 @@ export const EditActivity = (
   daysToPush: iDay[] | undefined
 ) => {
   let dateToSet: any = {
-    name: activity.name,
-    room: activity.room,
+    ...activity,
     category: "categories/" + activity.category,
-    organisers: activity.organisers,
     createdBy: profile.firstName + " " + profile.lastName,
     creatorID: id,
     __deleted: false
