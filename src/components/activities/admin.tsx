@@ -1,0 +1,56 @@
+import React from "react";
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
+import { Link } from "react-router-dom";
+import Activity from "./adminActivityItem";
+import Activities from "./index";
+
+interface Props {
+  activities: iActivity[];
+  profile?: any;
+  auth?: any;
+}
+
+const Admin: React.FC<Props> = ({ activities, profile, auth }) => {
+  if (typeof activities !== "undefined") {
+    return (
+      <div>
+        <Activities />
+        {activities.map((activity: any) => {
+          return (
+            <div key={activity.id}>
+              <Activity activity={activity} />
+            </div>
+          );
+        })}
+        <div>
+          <Link to={"/admin/activity/add"}>
+            <button
+              onChange={e => {
+                e.preventDefault();
+              }}
+            >
+              Voeg toe!
+            </button>
+          </Link>
+        </div>
+      </div>
+    );
+  } else {
+    return <div>No activities found!</div>;
+  }
+};
+
+const mapStateToProps = (state: any) => {
+  return {
+    activities: state.firestore.ordered.activities,
+    profile: state.firebase.profile,
+    auth: state.firebase.auth
+  };
+};
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: "activities" }])
+)(Admin) as React.FC<Props>;
