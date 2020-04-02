@@ -105,16 +105,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
               <span className="checkmark"></span>
             </label>
           </div>
-          <div className="o-inputfield">
-            <label>Afbeelding toevoegen</label>
-            <input
-              type="file"
-              name="imgToUpload"
-              id="imgToUplaod"
-              onChange={e => handleImageUpload(e)}
-            />
-            <img src={imgPreview} alt="preview" />
-          </div>
+
           <button>Maaltijd toevoegen</button>
         </form>
       </div>

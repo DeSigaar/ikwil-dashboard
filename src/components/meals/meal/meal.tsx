@@ -15,23 +15,10 @@ interface Props {
 const Meal: React.FC<Props> = ({ meal, link }) => {
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
-  const [img, setImg] = useState<string>(
-    "https://firebasestorage.googleapis.com/v0/b/stichting-ik-wil.appspot.com/o/images%2Fmeals%2Fdefault.png?alt=media&token=5886c40a-8030-4d7a-b644-c80acb185837"
-  );
-  useEffect(() => {
-    if (typeof meal !== "undefined") {
-      if (typeof meal.img !== "undefined") {
-        GetPhoto(meal.img)?.then((res: any) => {
-          setImg(res);
-        });
-      }
-    }
-  });
 
   if (typeof meal !== "undefined") {
     const handleDelete = () => {
       if (typeof meal.id !== "undefined") {
-        //TO:DO Netter maker
         DeleteMeal(meal.id);
         setRedirect(true);
       }
@@ -47,9 +34,9 @@ const Meal: React.FC<Props> = ({ meal, link }) => {
           <div>Is Vegan: {meal.isVegan ? <>Ja</> : <>Nee</>}</div>
           <div>Is Vegetarian: {meal.isVegetarian ? <>Ja</> : <>Nee</>}</div>
           <p>{meal.createdBy}</p>
-          <div>
+          {/* <div>
             <img src={img} alt="food" />
-          </div>
+          </div> */}
           <Link to={link.url + "/edit"}>edit</Link>
           <button onClick={() => setSafeDelete(true)}>delete</button>
           {safeDelete ? (
