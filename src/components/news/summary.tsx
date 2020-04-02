@@ -31,7 +31,6 @@ const Summary: React.FC<Props> = ({ data }) => {
   };
 
   const onClick = (newsItem: iNewsItem) => {
-    console.log("newsItem :", newsItem);
     setIsOpen(true);
     if (typeof newsItem.img !== "undefined") {
       GetPhoto(newsItem.img)?.then((res: any) => {
@@ -103,7 +102,6 @@ const Summary: React.FC<Props> = ({ data }) => {
           <h2 className="ReactModal__Content__title">{modalContent.title}</h2>
           <p className="ReactModal__Content__text">{modalContent.text}</p>
         </div>
-        {console.log("modalContent :", modalContent)}
       </Modal>
     </>
   );
