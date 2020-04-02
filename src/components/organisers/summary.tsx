@@ -13,7 +13,7 @@ const Summary: React.FC<Props> = ({ data }) => {
         {typeof data !== "undefined" ? (
           <>
             {data.map(organisor => {
-              return <ActiveOrganizer organizer={organisor} />;
+              return <ActiveOrganizer organizer={organisor} key={organisor.id} />;
             })}
           </>
         ) : (

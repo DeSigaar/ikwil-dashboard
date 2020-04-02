@@ -14,7 +14,8 @@ export const createActivity = (
     category: "categories/" + activity.category,
     organisers: activity.organisers,
     createdBy: profile.firstName + " " + profile.lastName,
-    creatorID: id
+    creatorID: id,
+    __deleted: false
   };
   if (typeof dayToPush !== "undefined") {
     dateToSet.day = dayToPush;
@@ -53,7 +54,8 @@ export const EditActivity = (
     category: "categories/" + activity.category,
     organisers: activity.organisers,
     createdBy: profile.firstName + " " + profile.lastName,
-    creatorID: id
+    creatorID: id,
+    __deleted: false
   };
   if (typeof dayToPush !== "undefined") {
     dateToSet.day = dayToPush;
@@ -75,7 +77,7 @@ export const DeleteActivity = (docId: string) => {
     .firestore()
     .collection("activities")
     .doc(docId)
-    .delete()
+    .update({'__deleted': true})
     .then(() => store.dispatch({ type: "DELETE_ACTIVITY_SUCCESS" }))
     .catch(err => store.dispatch({ type: "DELETE_ACTIVITY_ERROR", err }));
 };

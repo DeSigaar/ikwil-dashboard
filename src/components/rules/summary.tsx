@@ -43,7 +43,7 @@ const Summary: React.FC<Props> = ({ data }) => {
           >
             {data.map(rule => {
               return (
-                <div className="c-rule">
+                <div className="c-rule" key={rule.id}>
                   <h3 className="c-rule__title">{rule.name}</h3>
                   <p className="c-rule__text">{rule.rule}</p>
                 </div>

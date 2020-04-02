@@ -32,7 +32,8 @@ export default compose(
   connect(mapStateToProps),
   firestoreConnect([
     {
-      collection: "activities"
+      collection: "activities",
+      where: [["__deleted", "==", false]]
     }
   ])
 )(Activities) as React.FC;

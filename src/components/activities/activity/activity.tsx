@@ -86,6 +86,7 @@ const Activity: React.FC<Props> = ({ link, data }) => {
           <div>
             <h2>Activity stuff</h2>
             <div>{activity.name}</div>
+            <div>{activity.description}</div>
             <div>{activity.room}</div>
             <div>{activity.createdBy}</div>
             <h3>Wanneer</h3>
