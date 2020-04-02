@@ -22,6 +22,7 @@ const Create: React.FC<Props> = ({
   organisers
 }) => {
   const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const [room, setRoom] = useState<string>("");
   const [category, setSelectedCategory] = useState<string>("geen");
   const [activeOrganisers, setActiveOrganisers] = useState<string[]>([]);
@@ -65,7 +66,7 @@ const Create: React.FC<Props> = ({
     }
 
     createActivity(
-      { name, room, category, organisers },
+      { name, description, room, category, organisers },
       profile,
       userId,
       dayToPush,
@@ -138,6 +139,16 @@ const Create: React.FC<Props> = ({
               required
               value={name}
               onChange={e => setName(e.target.value)}
+            />
+          </div>
+
+          <div className="o-inputfield">
+            <label>Beschrijving</label>
+            <input
+              className="o-inputfield__input"
+              required
+              value={description}
+              onChange={e => setDescription(e.target.value)}
             />
           </div>
 

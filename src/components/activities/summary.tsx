@@ -45,11 +45,6 @@ const Summary: React.FC<Props> = ({ activities }) => {
   const onClick = (activity: iActivity) => {
     console.log("activity :", activity);
     setIsOpen(true);
-    // if (typeof newsItem.img !== "undefined") {
-    //   GetPhoto(newsItem.img)?.then((res: any) => {
-    //     SetImg(res);
-    //   });
-    // }
     setModalContent(activity);
   };
 
@@ -237,7 +232,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
           /> */}
         </div>
         <div className="ReactModal__Content__wrapper">
-          <h2 className="ReactModal__Content__title">{modalContent.title}</h2>
+          <h2 className="ReactModal__Content__title">{modalContent.name}</h2>
           <p className="ReactModal__Content__text">{modalContent.text}</p>
         </div>
       </Modal>

@@ -1,5 +1,6 @@
 interface iActivity {
   name: string;
+  description: string;
   room: string;
   id?: string;
   createdBy?: string;

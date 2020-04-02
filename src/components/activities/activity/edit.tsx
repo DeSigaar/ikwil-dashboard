@@ -27,6 +27,7 @@ const ActivityEdit: React.FC<Props> = ({
   organisers
 }) => {
   const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const [room, setRoom] = useState<string>("");
   const [redirect, setRedirect] = useState<boolean>(false);
   const [category, setSelectedCategory] = useState<string>("geen");
@@ -40,6 +41,7 @@ const ActivityEdit: React.FC<Props> = ({
   useEffect(() => {
     if (typeof activity !== "undefined") {
       setName(activity.name);
+      setDescription(activity.description);
       setRoom(activity.room);
       setSelectedCategory(getSecondPart(activity.category, "/"));
       let arr: string[] = [];
@@ -110,7 +112,7 @@ const ActivityEdit: React.FC<Props> = ({
       dayToPush = undefined;
     }
     EditActivity(
-      { name, room, category, organisers },
+      { name, description, room, category, organisers },
       profile,
       auth.uid,
       link.params.id,
@@ -172,6 +174,15 @@ const ActivityEdit: React.FC<Props> = ({
                   required
                   value={name}
                   onChange={e => setName(e.target.value)}
+                />
+              </div>
+              <div className="o-inputfield">
+                <label className="o-inputfield__label">Beschrijving</label>
+                <input
+                  className="o-inputfield__input"
+                  required
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
                 />
               </div>
               <div className="o-inputfield">
