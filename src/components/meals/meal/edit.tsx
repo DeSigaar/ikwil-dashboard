@@ -157,7 +157,7 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
         </div>
       );
     } else {
-      return <Redirect to={"/active-meals"} />;
+      return <Redirect to={"/admin/meals"} />;
     }
   } else {
     return <>Error</>;

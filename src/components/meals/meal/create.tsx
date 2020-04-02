@@ -123,7 +123,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
           <button>Maaltijd toevoegen</button>
         </form>
       </div>
-      {redirect ? <Redirect to="/active-meals" /> : null}
+      {redirect ? <Redirect to="/admin/meals" /> : null}
     </div>
   );
 };

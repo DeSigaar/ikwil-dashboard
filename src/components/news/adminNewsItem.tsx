@@ -31,7 +31,10 @@ const NewsItem: React.FC<Props> = ({ newsItem }) => {
     };
     if (!redirect) {
       return (
-        <div>
+        <div className="c-adminItem" key={newsItem.id}>
+          <div className="c-adminItem__top">
+            <div className="c-adminItem__top__left"></div>
+          </div>
           <h2>News item</h2>
           <p>{newsItem.title}</p>
           <p>{newsItem.text}</p>

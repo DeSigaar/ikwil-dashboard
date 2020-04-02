@@ -7,28 +7,28 @@ interface Props {
   loggedIn?: boolean;
 }
 
-const Nav: React.FC<Props> = ({ loggedIn }) => {
+const AdminNav: React.FC<Props> = ({ loggedIn }) => {
   return (
-    <div className="s-nav__admin">
+    <div className="s-nav admin">
       <Link to="/">
         <img src="/logo.svg" alt="Stichting Ik Wil Logo" className="c-logo" />
       </Link>
       <nav className="c-nav">
         <ul>
           <li>
-            <Link to="#meal">Maaltijd van de dag</Link>
+            <Link to="/admin/meals">Maaltijd van de dag</Link>
           </li>
           <li>
-            <Link to="#news">Nieuws</Link>
+            <Link to="/admin/news">Nieuws</Link>
           </li>
           <li>
-            <Link to="#activities">Activiteiten</Link>
+            <Link to="/admin/activities">Activiteiten</Link>
           </li>
           <li>
-            <Link to="#organisers">Coördinatoren</Link>
+            <Link to="/admin/organizer">Coördinatoren</Link>
           </li>
           <li>
-            <Link to="#rules">Huisregelementen</Link>
+            <Link to="/admin/rule">Huisregelementen</Link>
           </li>
           {!loggedIn ? (
             <>
@@ -61,4 +61,4 @@ const mapDispatchToProps = (dispatch: any) => {
     signOut: () => dispatch(signOut())
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminNav);

@@ -52,29 +52,39 @@ const Admin: React.FC<Props> = ({ meals, profile, auth }) => {
 
   if (typeof meals !== "undefined") {
     return (
-      <div>
-        <Meals />
-        {meals.map((meal: any) => {
-          return (
-            <div key={meal.id}>
-              <MealItem
-                meal={meal}
-                handleActiveMeals={handleActiveMeals}
-                activeMeals={activeMealsLocal}
-              />
-            </div>
-          );
-        })}
-        <div>
-          <Link to={"/admin/meal/add"}>
-            <button
-              onChange={e => {
-                e.preventDefault();
-              }}
-            >
-              Voeg toe!
-            </button>
-          </Link>
+      <div className="s-admin">
+        <div className="s-admin__preview">
+          <div>
+            <h1>Voorbeeld</h1>
+            <Meals />
+          </div>
+        </div>
+        <div className="s-admin__container">
+          <div className="s-admin__container__top">
+            <h2>Maaltijden</h2>
+            <Link to={"/admin/meal/add"}>
+              <button
+                onChange={e => {
+                  e.preventDefault();
+                }}
+              >
+                Maaltijd toevoegen
+              </button>
+            </Link>
+          </div>
+          <div className="s-admin__container__items">
+            {meals.map((meal: any) => {
+              return (
+                <div key={meal.id}>
+                  <MealItem
+                    meal={meal}
+                    handleActiveMeals={handleActiveMeals}
+                    activeMeals={activeMealsLocal}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
