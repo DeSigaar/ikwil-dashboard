@@ -105,7 +105,6 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
               <span className="checkmark"></span>
             </label>
           </div>
-
           <button>Maaltijd toevoegen</button>
         </form>
       </div>

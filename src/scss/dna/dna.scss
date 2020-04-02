@@ -16,7 +16,7 @@ $shadow-card: 0px 5px 16px 0px rgba(0, 0, 0, 0.06);
 $font-size-header: 34px;
 $font-weight-header: bold;
 
-$font-size-activity-title: 34px;
+$font-size-activity-title: 24px;
 $font-weight-activity-title: 600;
 
 $font-size-nav: 24px;
@@ -49,9 +49,6 @@ body {
   background-color: $color-background;
   padding: $spacing-small;
   color: $color-black;
-  img {
-    max-width: 50px;
-  }
 }
 
 label {
@@ -91,6 +88,7 @@ textarea {
   box-shadow: $shadow-card;
   height: 150px;
   padding-left: 15px;
+  resize: vertical;
 }
 
 button {
@@ -100,6 +98,8 @@ button {
   padding: 5px 15px 5px 15px;
   transition: 0.3s;
   background-color: $color-background;
+  float: right;
+  outline: none;
 
   &:hover {
     color: $color-background;
@@ -133,7 +133,7 @@ button {
 .checkmark {
   position: absolute;
   top: 0;
-  left: 130px;
+  left: 180px;
   height: 25px;
   width: 25px;
   background-color: $color-light-gray;
@@ -141,12 +141,12 @@ button {
 }
 
 /* On mouse-over, add a grey background color */
-.checkbox-container:hover input ~ .checkmark {
+.checkbox-container:hover input~.checkmark {
   background-color: $color-light-gray;
 }
 
 /* When the checkbox is checked, add a blue background */
-.checkbox-container input:checked ~ .checkmark {
+.checkbox-container input:checked~.checkmark {
   background-color: $color-green;
 }
 
@@ -158,7 +158,7 @@ button {
 }
 
 /* Show the checkmark when checked */
-.checkbox-container input:checked ~ .checkmark:after {
+.checkbox-container input:checked~.checkmark:after {
   display: block;
 }
 
@@ -250,7 +250,7 @@ img {
 }
 
 /* Natural flow and rhythm in articles by default */
-article > * + * {
+article>*+* {
   margin-top: 1em;
 }
 

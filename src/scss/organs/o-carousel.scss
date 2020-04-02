@@ -5,4 +5,19 @@
   &__slider {
     height: 86%;
   }
+
+  &__dots {
+    bottom: 15px;
+  }
+}
+
+.s-card-big {
+  .o-carousel {
+    align-items: flex-start;
+    height: calc(100vh - 85px);
+
+    &__slider {
+      height: 100%;
+    }
+  }
 }

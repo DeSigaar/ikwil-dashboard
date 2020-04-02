@@ -7,6 +7,8 @@
     left: 50%!important;
     transform: translate(-50%, -50%);
     border-radius: 0!important;
+    position: fixed!important;
+    overflow: hidden!important;
   }
   
   &__close-icon{
@@ -47,7 +49,7 @@
     }
   }
   &__image-wrapper{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 30%;
@@ -62,8 +64,10 @@
   &__wrapper{
     width: 70%;
     right: 0;
-    position: absolute;
+    position: fixed;
     padding: 15px 30px;
+    overflow: auto;
+    height: 100%;
   }
   &__title{
     margin-bottom: $spacing-small-tiny;

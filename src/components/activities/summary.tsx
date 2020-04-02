@@ -2,9 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { DeleteActivity } from "../../store/actions/activitiesActions";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 interface Props {
   activities?: iActivity[] | undefined;
+  next?: any;
+  previous?: any;
+  carouselState?: any;
 }
+
 const Summary: React.FC<Props> = ({ activities }) => {
   const initSortedDays = {
     Monday: [],
@@ -14,6 +20,13 @@ const Summary: React.FC<Props> = ({ activities }) => {
     Friday: [],
     Saturday: [],
     Sunday: []
+  };
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1
+    }
   };
 
   const [sortedDays, setSortedDays] = useState<any>(initSortedDays);
@@ -97,7 +110,6 @@ const Summary: React.FC<Props> = ({ activities }) => {
   Object.keys(sortedDays).forEach(function(key) {
     renderDays.push(
       <div key={key}>
-        <h2>{key}</h2>
         {sortedDays[key].map((activity: any) => {
           let times;
           if (typeof activity.days !== "undefined") {
@@ -111,18 +123,19 @@ const Summary: React.FC<Props> = ({ activities }) => {
               <Link to={"/activity/" + activity.id} className="c-activity">
                 <div className="c-activity__top-content">
                   <img
-                    className="c-activity__icon"
+                    className="c-activity__top-content__icon"
                     src="/yoga.svg"
                     alt="activity icon"
                   />
                   <h3>{activity.name}</h3>
                 </div>
                 <div className="c-activity__bottom-content">
-                  <div className="c-activity__time">
-                    <div>starttijd: {times.startTime}</div>
-                    <div>eindtijd: {times.endTime}</div>
+                  <div className="c-activity__bottom-content__time">
+                    {times.startTime} - {times.endTime}
                   </div>
-                  <div className="c-activity__room">{activity.room}</div>
+                  <div className="c-activity__bottom-content__room">
+                    {activity.room}
+                  </div>
                 </div>
               </Link>
             </div>
@@ -132,19 +145,45 @@ const Summary: React.FC<Props> = ({ activities }) => {
     );
   });
 
+  const ButtonGroup: React.FC<Props> = ({ next, previous, carouselState }) => {
+    const { currentSlide } = carouselState;
+    return (
+      <div className="c-dayChanger">
+        <button
+          id="back"
+          onClick={() => previous()}
+          className="c-dayChanger__arrow"
+        >
+          <img src="./chevron-left-solid.svg" alt="left chevron" />
+        </button>
+        <h3 className="c-dayChanger__date">{currentSlide}</h3>
+        <button
+          id="forward"
+          onClick={() => next()}
+          className="c-dayChanger__arrow"
+        >
+          <img src="./chevron-right-solid.svg" alt="right chevron" />
+        </button>
+      </div>
+    );
+  };
+
   return (
     <>
       <h2 className="s-card-big__header">Activiteiten</h2>
-      <div className="s-card-big__scrollable-container">{renderDays}</div>
-      <div className="c-dayChanger">
-        <Link id="back" to={"#"} className="c-dayChanger__arrow">
-          <img src="./chevron-left-solid.svg" alt="left chevron" />
-        </Link>
-        <h3 className="c-dayChanger__date">Vandaag</h3>
-        <Link id="forward" to={"#"} className="c-dayChanger__arrow">
-          <img src="./chevron-right-solid.svg" alt="right chevron" />
-        </Link>
-      </div>
+      <Carousel
+        responsive={responsive}
+        infinite={false}
+        containerClass="o-carousel"
+        dotListClass="o-carousel__dots"
+        sliderClass="o-carousel__slider"
+        renderButtonGroupOutside={true}
+        arrows={false}
+        customButtonGroup={<ButtonGroup />}
+      >
+        {/* s-card-big__scrollable-container */}
+        {renderDays}
+      </Carousel>
     </>
   );
 };

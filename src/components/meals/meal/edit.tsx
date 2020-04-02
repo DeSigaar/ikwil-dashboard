@@ -138,13 +138,18 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
               </div>
               <div className="o-inputfield">
                 <label>Afbeelding toevoegen</label>
+                <img
+                  className="o-inputfield__upload-preview"
+                  src={imgPreview}
+                  alt="preview"
+                />
                 <input
+                  className="o-inputfield__file-upload"
                   type="file"
                   name="imgToUpload"
                   id="imgToUplaod"
                   onChange={e => handleImageUpload(e)}
                 />
-                <img src={imgPreview} alt="preview" />
               </div>
               <button>Update Maaltijd</button>
             </form>

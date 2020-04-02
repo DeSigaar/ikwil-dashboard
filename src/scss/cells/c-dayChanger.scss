@@ -3,13 +3,51 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding-top: $spacing-small;
+  padding-top: $spacing-small-tiny;
 
   &__date {
     padding: 0 $spacing-small;
   }
 
-  &__arrow>img {
-    width: 15px;
+  &__arrow {
+    border-radius: 0px;
+    border: 0px;
+    background-color: transparent;
+    float: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    &>img {
+      width: 15px;
+    }
+  }
+}
+
+.react-multiple-carousel {
+  &__arrow {
+    align-self: flex-end;
+    background: none;
+    bottom: 50px;
+
+    &:hover {
+      background: none;
+    }
+
+    &::before {
+      font-size: $font-size-nav;
+      font-weight: $font-weight-title;
+      color: $color-black;
+    }
+
+    &--left {
+      left: 31%;
+    }
+
+    &--right {
+      right: 31%;
+    }
   }
 }

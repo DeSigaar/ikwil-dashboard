@@ -18,4 +18,50 @@
       width: 380px;
     }
   }
+
+  &__upload-preview {
+    border-style: solid;
+    border-radius: 8px;
+    border: none;
+    box-shadow: $shadow-card;
+    width: 400px;
+    height: 200px;
+    background-color: $color-white;
+    object-fit: cover;
+  }
+
+  &__file-upload {
+    margin-top: $spacing-small;
+    padding-left: 0px;
+    color: transparent;
+    border: none;
+    width: 216px;
+    height: auto;
+    box-shadow: none;
+    outline: none;
+
+    &::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+
+    &::before {
+      content: "upload een afbeelding";
+      display: inline-block;
+      border: 2px solid $color-green;
+      border-radius: 25px;
+      padding: 5px 15px 5px 15px;
+      color: $color-green;
+      outline: none;
+      white-space: nowrap;
+      -webkit-user-select: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    &:hover::before {
+      color: $color-background;
+      background-color: $color-green;
+      outline: none;
+    }
+  }
 }

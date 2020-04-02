@@ -57,7 +57,7 @@ const Edit: React.FC<Props> = ({ newsItem, auth, profile, link }) => {
       return (
         <div className="s-cms">
           <div className="s-cms__form-conatiner">
-            <h2 className="s-cms__header">Bewerk nieuwsbericht</h2>
+            <h2 className="s-cms__header">Bewerken</h2>
             <form onSubmit={e => handleSubmit(e)}>
               <div className="o-inputfield">
                 <label>Titel</label>
@@ -79,13 +79,18 @@ const Edit: React.FC<Props> = ({ newsItem, auth, profile, link }) => {
               </div>
               <div className="o-inputfield">
                 <label>Afbeelding toevoegen</label>
+                <img
+                  className="o-inputfield__upload-preview"
+                  src={imgPreview}
+                  alt="preview"
+                />
                 <input
+                  className="o-inputfield__file-upload"
                   type="file"
                   name="imgToUpload"
                   id="imgToUplaod"
                   onChange={e => handleImageUpload(e)}
                 />
-                <img src={imgPreview} alt="preview" />
               </div>
               <button>update nieuwsbericht</button>
             </form>
