@@ -10,6 +10,7 @@ interface Props {
   next?: any;
   previous?: any;
   carouselState?: any;
+  goToSlide?: any;
 }
 
 const Summary: React.FC<Props> = ({ activities }) => {
@@ -153,9 +154,19 @@ const Summary: React.FC<Props> = ({ activities }) => {
     );
   });
 
-  const ButtonGroup: React.FC<Props> = ({ next, previous, carouselState }) => {
+  const ButtonGroup: React.FC<Props> = ({
+    next,
+    previous,
+    carouselState,
+    goToSlide
+  }) => {
     const { currentSlide } = carouselState;
     const day = GetDayByNumber(currentSlide);
+    let today = new Date();
+
+    useEffect(() => {
+      goToSlide(today.getDay() - 1);
+    });
 
     return (
       <div className="c-dayChanger">
