@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import AddAdmin from "../auth/addAdmin";
 import Login from "../auth/signIn";
 import Nav from "../nav/index";
-// import AdminNav from "../nav/admin";
+import AdminNav from "../nav/admin";
 
 import Organisers from "../organisers/index";
 import Organizer from "../organisers/organizer/organizer";
@@ -95,7 +95,7 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           </Route>
         </>
       )}
-      <Nav />
+      {window.location.href.indexOf("/admin") < 0 ? <Nav /> : <AdminNav />}
       <Switch>
         <Route exact path="/">
           <Home />

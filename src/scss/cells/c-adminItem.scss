@@ -1,0 +1,75 @@
+.c-adminItem {
+  display: flex;
+  flex-direction: column;
+  width: 97%;
+  height: auto;
+  background-color: $color-white;
+  padding: $spacing-small-tiny;
+  margin-bottom: $spacing-small;
+  box-shadow: $shadow-card;
+
+  &__top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: auto;
+
+    &__center {
+      align-self: flex-start;
+      width: 30vw;
+      padding-right: $spacing-small-tiny;
+    }
+
+    &__right {
+      height: auto;
+      width: 140px;
+      align-self: flex-end;
+    }
+  }
+
+  &__popup {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    background-color: $color-white;
+    right: 50px;
+
+    &>button {
+      margin-left: $spacing-small-tiny;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $spacing-small-tiny;
+  }
+
+  &__activeBox {
+    &>.checkbox-container {
+      margin-bottom: 0px;
+
+      &>.checkmark {
+        left: 80px;
+      }
+    }
+  }
+
+  &__buttons {
+    &>button {
+      margin-right: $spacing-small-tiny;
+    }
+  }
+
+  &__image {
+    &>img {
+      max-width: none;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-right: $spacing-small-tiny;
+    }
+  }
+}

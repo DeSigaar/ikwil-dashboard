@@ -15,25 +15,35 @@ interface Props {
 const Admin: React.FC<Props> = ({ news, profile, auth }) => {
   if (typeof news !== "undefined") {
     return (
-      <div>
-        <News />
-        {news.map((newsitem: any) => {
-          return (
-            <div key={newsitem.id}>
-              <NewsItem newsItem={newsitem} />
-            </div>
-          );
-        })}
-        <div>
-          <Link to={"/admin/news/add"}>
-            <button
-              onChange={e => {
-                e.preventDefault();
-              }}
-            >
-              Voeg toe!
-            </button>
-          </Link>
+      <div className="s-admin">
+        <div className="s-admin__preview">
+          <div>
+            <h1>Voorbeeld</h1>
+            <News />
+          </div>
+        </div>
+        <div className="s-admin__container">
+          <div className="s-admin__container__top">
+            <h2>Nieuwsberichten</h2>
+            <Link to={"/admin/news/add"}>
+              <button
+                onChange={e => {
+                  e.preventDefault();
+                }}
+              >
+                Nieuwsbericht toevoegen
+              </button>
+            </Link>
+          </div>
+          <div className="s-admin__container__items">
+            {news.map((newsitem: any) => {
+              return (
+                <div key={newsitem.id}>
+                  <NewsItem newsItem={newsitem} />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
