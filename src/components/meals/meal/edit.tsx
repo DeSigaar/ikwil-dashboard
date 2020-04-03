@@ -43,7 +43,6 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
   }, [meal]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("called ");
     e.preventDefault();
     let tempMeal = {
       name,

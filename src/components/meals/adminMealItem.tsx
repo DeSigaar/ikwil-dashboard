@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { GetPhoto } from "../../store/actions/imgActions";
@@ -14,20 +14,8 @@ const MealItem: React.FC<Props> = ({
   handleActiveMeals,
   activeMeals
 }) => {
-  const [img, setImg] = useState<string>(
-    "https://firebasestorage.googleapis.com/v0/b/stichting-ik-wil.appspot.com/o/images%2Fmeals%2Fdefault.png?alt=media&token=5886c40a-8030-4d7a-b644-c80acb185837"
-  );
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
-  useEffect(() => {
-    if (typeof meal !== "undefined") {
-      if (typeof meal.img !== "undefined") {
-        GetPhoto(meal.img)?.then((res: any) => {
-          setImg(res);
-        });
-      }
-    }
-  });
 
   if (typeof meal !== "undefined") {
     const handleDelete = () => {
@@ -40,11 +28,6 @@ const MealItem: React.FC<Props> = ({
       return (
         <div className="c-adminItem" key={meal.id}>
           <div className="c-adminItem__top">
-            <div className="c-adminItem__top__left">
-              <div className="c-adminItem__image">
-                <img src={img} alt="food" />
-              </div>
-            </div>
             <div className="c-adminItem__top__center">
               <h3 className="c-adminItem__title">{meal.name}</h3>
               <p className="c-adminItem__price">€{meal.price}</p>

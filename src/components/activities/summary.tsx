@@ -4,12 +4,14 @@ import { DeleteActivity } from "../../store/actions/activitiesActions";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Modal from "react-modal";
-import "react-multi-carousel/lib/styles.css";
+import { Link } from "react-router-dom";
+import { GetDayByNumber, isThisWeek } from "../../functions/dates";
 interface Props {
   activities?: iActivity[] | undefined;
   next?: any;
   previous?: any;
   carouselState?: any;
+  goToSlide?: any;
 }
 
 const Summary: React.FC<Props> = ({ activities }) => {
@@ -57,35 +59,41 @@ const Summary: React.FC<Props> = ({ activities }) => {
         if (typeof activity.day !== "undefined") {
           const date = new Date(activity.day.date);
           const dateToday = new Date();
-          if (date > dateToday) {
-            switch (date.getDay()) {
-              case 1:
-                tempSortedDays.Monday.push(activity);
-                break;
-              case 2:
-                tempSortedDays.Tuesday.push(activity);
-                break;
-              case 3:
-                tempSortedDays.Wednesday.push(activity);
-                break;
-              case 4:
-                tempSortedDays.Thursday.push(activity);
-                break;
-              case 5:
-                tempSortedDays.Friday.push(activity);
-                break;
-              case 6:
-                tempSortedDays.Saturday.push(activity);
-                break;
-              case 7:
-                tempSortedDays.Sunday.push(activity);
-                break;
-              default:
-                break;
-            }
-          } else {
-            if (typeof activity.id !== "undefined") {
-              DeleteActivity(activity.id);
+          let thisWeek = isThisWeek(date);
+
+          if (typeof thisWeek !== "undefined") {
+            if (thisWeek) {
+              if (date > dateToday) {
+                switch (date.getDay()) {
+                  case 1:
+                    tempSortedDays.Monday.push(activity);
+                    break;
+                  case 2:
+                    tempSortedDays.Tuesday.push(activity);
+                    break;
+                  case 3:
+                    tempSortedDays.Wednesday.push(activity);
+                    break;
+                  case 4:
+                    tempSortedDays.Thursday.push(activity);
+                    break;
+                  case 5:
+                    tempSortedDays.Friday.push(activity);
+                    break;
+                  case 6:
+                    tempSortedDays.Saturday.push(activity);
+                    break;
+                  case 7:
+                    tempSortedDays.Sunday.push(activity);
+                    break;
+                  default:
+                    break;
+                }
+              } else {
+                if (typeof activity.id !== "undefined") {
+                  DeleteActivity(activity.id);
+                }
+              }
             }
           }
         }
@@ -126,52 +134,61 @@ const Summary: React.FC<Props> = ({ activities }) => {
   Object.keys(sortedDays).forEach(function(key) {
     renderDays.push(
       <div key={key}>
-        {sortedDays[key].map((activity: any) => {
-          let times;
-          if (typeof activity.days !== "undefined") {
-            times = activity.days.find((item: any) => item.name === key);
-          }
-          if (typeof activity.day !== "undefined") {
-            times = activity.day;
-          }
-          return (
-            <div
-              key={activity.id + key}
-              onClick={e => {
-                if (isMoving !== true) {
-                  onClick(activity);
-                }
-              }}
-            >
-              {/* <Link to={"/activity/" + activity.id} className="c-activity"> */}
-              {/* <div to={"/activity/" + activity.id} className="c-activity"> */}
-              <div className="c-activity__top-content">
-                <img
-                  className="c-activity__top-content__icon"
-                  src="/yoga.svg"
-                  alt="activity icon"
-                />
-                <h3>{activity.name}</h3>
-              </div>
-              <div className="c-activity__bottom-content">
-                <div className="c-activity__bottom-content__time">
-                  {times.startTime} - {times.endTime}
+        {sortedDays[key].length !== 0 ? (
+          <>
+            {sortedDays[key].map((activity: any) => {
+              let times;
+              if (typeof activity.days !== "undefined") {
+                times = activity.days.find((item: any) => item.name === key);
+              }
+              if (typeof activity.day !== "undefined") {
+                times = activity.day;
+              }
+              return (
+                <div key={activity.id + key}>
+                  <Link to={"/activity/" + activity.id} className="c-activity">
+                    <div className="c-activity__top-content">
+                      <img
+                        className="c-activity__top-content__icon"
+                        src="/yoga.svg"
+                        alt="activity icon"
+                      />
+                      <h3>{activity.name}</h3>
+                    </div>
+                    <div className="c-activity__bottom-content">
+                      <div className="c-activity__bottom-content__time">
+                        {times.startTime} - {times.endTime}
+                      </div>
+                      <div className="c-activity__bottom-content__room">
+                        {activity.room}
+                      </div>
+                    </div>
+                  </Link>
                 </div>
-                <div className="c-activity__bottom-content__room">
-                  {activity.room}
-                </div>
-              </div>
-            </div>
-            // {/* </Link> */}
-            // </div>
-          );
-        })}
+              );
+            })}
+          </>
+        ) : (
+          <div>Geen activiteiten vandaag!</div>
+        )}
       </div>
     );
   });
 
-  const ButtonGroup: React.FC<Props> = ({ next, previous, carouselState }) => {
+  const ButtonGroup: React.FC<Props> = ({
+    next,
+    previous,
+    carouselState,
+    goToSlide
+  }) => {
     const { currentSlide } = carouselState;
+    const day = GetDayByNumber(currentSlide);
+    let today = new Date();
+
+    useEffect(() => {
+      goToSlide(today.getDay() - 1);
+    });
+
     return (
       <div className="c-dayChanger">
         <button
@@ -181,7 +198,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
         >
           <img src="../chevron-left-solid.svg" alt="left chevron" />
         </button>
-        <h3 className="c-dayChanger__date">{currentSlide}</h3>
+        <h3 className="c-dayChanger__date">{day}</h3>
         <button
           id="forward"
           onClick={() => next()}
