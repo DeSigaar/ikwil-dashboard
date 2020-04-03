@@ -13,12 +13,13 @@
   }
 
   &__text {
-    height: 149px;
+    max-height: 149px;
     overflow: hidden;
   }
 
-  &__createdBy {
+  &__bold {
     color: $color-grey;
+    margin-top: $spacing-tiny;
     font-weight: $font-weight-header;
   }
 

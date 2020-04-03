@@ -41,7 +41,7 @@ const NewsItem: React.FC<Props> = ({ newsItem }) => {
             <div className="c-adminItem__top__center">
               <h3 className="c-adminItem__title">{newsItem.title}</h3>
               <p className="c-adminItem__text">{newsItem.text}</p>
-              <p className="c-adminItem__createdBy">
+              <p className="c-adminItem__bold">
                 gepubliceerd door: {newsItem.createdBy}
               </p>
             </div>

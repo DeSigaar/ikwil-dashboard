@@ -15,25 +15,35 @@ interface Props {
 const Admin: React.FC<Props> = ({ activities, profile, auth }) => {
   if (typeof activities !== "undefined") {
     return (
-      <div>
-        <Activities />
-        {activities.map((activity: any) => {
-          return (
-            <div key={activity.id}>
-              <Activity activity={activity} />
-            </div>
-          );
-        })}
-        <div>
-          <Link to={"/admin/activity/add"}>
-            <button
-              onChange={e => {
-                e.preventDefault();
-              }}
-            >
-              Voeg toe!
-            </button>
-          </Link>
+      <div className="s-admin">
+        <div className="s-admin__preview">
+          <div>
+            <h1>Voorbeeld</h1>
+            <Activities />
+          </div>
+        </div>
+        <div className="s-admin__container">
+          <div className="s-admin__container__top">
+            <h2>Activiteiten</h2>
+            <Link to={"/admin/activity/add"}>
+              <button
+                onChange={e => {
+                  e.preventDefault();
+                }}
+              >
+                Activitiet toevoegen
+              </button>
+            </Link>
+          </div>
+          <div className="s-admin__container__items">
+            {activities.map((activity: any) => {
+              return (
+                <div key={activity.id}>
+                  <Activity activity={activity} />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     );

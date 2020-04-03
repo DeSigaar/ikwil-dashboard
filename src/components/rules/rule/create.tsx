@@ -45,7 +45,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
           <button>Plaats regel</button>
         </form>
       </div>
-      {redirect ? <Redirect to="/rule" /> : null}
+      {redirect ? <Redirect to="/admin/rule" /> : null}
     </div>
   );
 };

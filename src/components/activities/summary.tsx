@@ -145,24 +145,24 @@ const Summary: React.FC<Props> = ({ activities }) => {
             >
               {/* <Link to={"/activity/" + activity.id} className="c-activity"> */}
               {/* <div to={"/activity/" + activity.id} className="c-activity"> */}
-                <div className="c-activity__top-content">
-                  <img
-                    className="c-activity__top-content__icon"
-                    src="/yoga.svg"
-                    alt="activity icon"
-                  />
-                  <h3>{activity.name}</h3>
+              <div className="c-activity__top-content">
+                <img
+                  className="c-activity__top-content__icon"
+                  src="/yoga.svg"
+                  alt="activity icon"
+                />
+                <h3>{activity.name}</h3>
+              </div>
+              <div className="c-activity__bottom-content">
+                <div className="c-activity__bottom-content__time">
+                  {times.startTime} - {times.endTime}
                 </div>
-                <div className="c-activity__bottom-content">
-                  <div className="c-activity__bottom-content__time">
-                    {times.startTime} - {times.endTime}
-                  </div>
-                  <div className="c-activity__bottom-content__room">
-                    {activity.room}
-                  </div>
+                <div className="c-activity__bottom-content__room">
+                  {activity.room}
                 </div>
               </div>
-              // {/* </Link> */}
+            </div>
+            // {/* </Link> */}
             // </div>
           );
         })}
@@ -179,7 +179,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
           onClick={() => previous()}
           className="c-dayChanger__arrow"
         >
-          <img src="./chevron-left-solid.svg" alt="left chevron" />
+          <img src="../chevron-left-solid.svg" alt="left chevron" />
         </button>
         <h3 className="c-dayChanger__date">{currentSlide}</h3>
         <button
@@ -187,7 +187,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
           onClick={() => next()}
           className="c-dayChanger__arrow"
         >
-          <img src="./chevron-right-solid.svg" alt="right chevron" />
+          <img src="../chevron-right-solid.svg" alt="right chevron" />
         </button>
       </div>
     );

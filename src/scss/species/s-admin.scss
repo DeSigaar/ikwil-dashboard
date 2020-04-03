@@ -15,6 +15,11 @@
     width: 50%;
     height: 100%;
 
+    &>div>.s-card-big {
+      margin-bottom: 0px;
+      height: calc(100vh - 200px);
+    }
+
     &>div>h1 {
       margin-bottom: $spacing-tiny;
     }

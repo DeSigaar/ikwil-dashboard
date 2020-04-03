@@ -15,25 +15,35 @@ interface Props {
 const Admin: React.FC<Props> = ({ organisers, profile, auth }) => {
   if (typeof organisers !== "undefined") {
     return (
-      <div>
-        <Organisers />
-        {organisers.map((organizer: any) => {
-          return (
-            <div key={organizer.id}>
-              <OrganizerItem organizer={organizer} />
-            </div>
-          );
-        })}
-        <div>
-          <Link to={"/admin/organizer/add"}>
-            <button
-              onChange={e => {
-                e.preventDefault();
-              }}
-            >
-              Voeg toe!
-            </button>
-          </Link>
+      <div className="s-admin">
+        <div className="s-admin__preview">
+          <div>
+            <h1>Voorbeeld</h1>
+            <Organisers />
+          </div>
+        </div>
+        <div className="s-admin__container">
+          <div className="s-admin__container__top">
+            <h2>Bestuur</h2>
+            <Link to={"/admin/organizer/add"}>
+              <button
+                onChange={e => {
+                  e.preventDefault();
+                }}
+              >
+                Bestuurslid toevoegen
+              </button>
+            </Link>
+          </div>
+          <div className="s-admin__container__items">
+            {organisers.map((organizer: any) => {
+              return (
+                <div key={organizer.id}>
+                  <OrganizerItem organizer={organizer} />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     );

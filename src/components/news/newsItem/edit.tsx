@@ -98,7 +98,7 @@ const Edit: React.FC<Props> = ({ newsItem, auth, profile, link }) => {
         </div>
       );
     } else {
-      return <Redirect to={"/news/" + link.params.id} />;
+      return <Redirect to={"/admin/news/"} />;
     }
   } else {
     return <>Error</>;

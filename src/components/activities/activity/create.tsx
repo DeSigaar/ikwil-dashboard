@@ -235,7 +235,7 @@ const Create: React.FC<Props> = ({
           <button>Activiteit toevoegen</button>
         </form>
       </div>
-      {redirect ? <Redirect to="/activity" /> : null}
+      {redirect ? <Redirect to="/admin/activities/" /> : null}
     </div>
   );
 };

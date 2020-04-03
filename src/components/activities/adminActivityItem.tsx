@@ -81,74 +81,43 @@ const Activity: React.FC<Props> = ({ activity }) => {
 
     if (!redirect) {
       return (
-        <div className={count.toString()}>
-          <div>
-            <h2>Activity stuff</h2>
-            <div>{activity.name}</div>
-            <div>{activity.room}</div>
-            <div>{activity.createdBy}</div>
-            <h3>Wanneer</h3>
-            {time.date !== "" ? (
-              <div>
-                <div>{time.date}</div>
-                <div>
-                  Van
-                  <div>{time.startTime}</div>
-                  Tot
-                  <div>{time.endTime}</div>
-                </div>
+        <div className="c-adminItem" key={activity.id}>
+          <div className="c-adminItem__top">
+            <div className="c-adminItem__top__left">
+              <div className="c-adminItem__image">
+                {typeof category !== "undefined" ? (
+                  <img src={category.icon} alt="preview" />
+                ) : null}
               </div>
-            ) : null}
-            {typeof daysState !== "undefined" ? (
-              <div>
-                {daysState.map((day: iDay) => {
-                  return (
-                    <div key={day.name}>
-                      {day.startTime !== "" && day.endTime !== "" ? (
-                        <div>
-                          <h5>{day.name}</h5>
-                          <div>{day.startTime}</div>tot<div>{day.endTime}</div>
-                        </div>
-                      ) : null}
-                    </div>
-                  );
-                })}
-              </div>
-            ) : null}
+            </div>
+            <div className="c-adminItem__top__center">
+              <h3 className="c-adminItem__title">{activity.name}</h3>
+              <p className="c-adminItem__text">{activity.description}</p>
+              <p className="c-adminItem__bold">{activity.room}</p>
+            </div>
           </div>
-          {typeof category !== "undefined" ? (
-            <div>
-              <h2>Category stuff</h2>
-              <div>{category.name}</div>
-              <div>{category.bio}</div>
-              <div>{category.color}</div>
-              <div>{category.icon}</div>
+          <div className="c-adminItem__bottom">
+            <div></div>
+            <div className="c-adminItem__buttons">
+              <Link to={"activity/" + activity.id + "/edit"}>
+                <button
+                  onChange={e => {
+                    e.preventDefault();
+                  }}
+                >
+                  Edit
+                </button>
+              </Link>
+              <button onClick={() => setSafeDelete(true)}>delete</button>
+              {safeDelete ? (
+                <div className="c-adminItem__popup">
+                  Are you sure you want to delete it?
+                  <button onClick={() => setSafeDelete(false)}>No</button>
+                  <button onClick={() => handleDelte()}>yes</button>
+                </div>
+              ) : null}
             </div>
-          ) : null}
-
-          {typeof organisers !== "undefined" ? (
-            <div>
-              <h2>Organizer stuff</h2>
-              {organisers.length === 0 ? (
-                <>Er zijn geen kartrekkers toegevoegd</>
-              ) : (
-                <>
-                  {organisers.map((organizer: iOrganizer) => {
-                    return <div key={organizer.id}>{organizer.name}</div>;
-                  })}
-                </>
-              )}
-            </div>
-          ) : null}
-          <Link to={"activity/" + activity.id + "/edit"}>edit</Link>
-          <button onClick={() => setSafeDelete(true)}>delete</button>
-          {safeDelete ? (
-            <div>
-              Are you sure you want to delete it?
-              <button onClick={() => setSafeDelete(false)}>No</button>
-              <button onClick={() => handleDelte()}>yes</button>
-            </div>
-          ) : null}
+          </div>
         </div>
       );
     } else {

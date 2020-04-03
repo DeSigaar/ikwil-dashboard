@@ -197,7 +197,8 @@ const ActivityEdit: React.FC<Props> = ({
               {organisersOptions.length === 0 ? (
                 <div>
                   Er zijn nog geen kartrekkers toegevoegd. Klik
-                  <Link to="/organizer">hier</Link> om ze toe te voegen
+                  <Link to="/admin/organizer/add">hier</Link> om ze toe te
+                  voegen
                 </div>
               ) : (
                 <div> {organisersOptions} </div>
@@ -265,7 +266,7 @@ const ActivityEdit: React.FC<Props> = ({
         </div>
       );
     } else {
-      return <Redirect to={"/activity/" + link.params.id} />;
+      return <Redirect to={"/admin/activities/"} />;
     }
   } else {
     return <>Error</>;

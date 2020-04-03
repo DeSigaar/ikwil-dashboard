@@ -20,20 +20,38 @@ const Rule: React.FC<Props> = ({ rule }) => {
     };
     if (!redirect) {
       return (
-        <div>
-          <h2>Regel</h2>
-          <p>{rule.name}</p>
-          <p>{rule.createdBy}</p>
-
-          <Link to={"rule/" + rule.id + "/edit"}>edit</Link>
-          <button onClick={() => setSafeDelete(true)}>delete</button>
-          {safeDelete ? (
-            <div>
-              Are you sure you want to delete it?
-              <button onClick={() => setSafeDelete(false)}>No</button>
-              <button onClick={() => handleDelete()}>yes</button>
+        <div className="c-adminItem" key={rule.id}>
+          <div className="c-adminItem__top">
+            <div className="c-adminItem__top__left">
+              <h3 className="c-adminItem__title">{rule.name}</h3>
+              <p className="c-adminItem__text">{rule.rule}</p>
+              <p className="c-adminItem__bold">
+                gepubliceerd door: {rule.createdBy}
+              </p>
             </div>
-          ) : null}
+          </div>
+          <div className="c-adminItem__bottom">
+            <div></div>
+            <div className="c-adminItem__buttons">
+              <Link to={"rule/" + rule.id + "/edit"}>
+                <button
+                  onChange={e => {
+                    e.preventDefault();
+                  }}
+                >
+                  Edit
+                </button>
+              </Link>
+              <button onClick={() => setSafeDelete(true)}>delete</button>
+              {safeDelete ? (
+                <div className="c-adminItem__popup">
+                  Are you sure you want to delete it?
+                  <button onClick={() => setSafeDelete(false)}>No</button>
+                  <button onClick={() => handleDelete()}>yes</button>
+                </div>
+              ) : null}
+            </div>
+          </div>
         </div>
       );
     } else {

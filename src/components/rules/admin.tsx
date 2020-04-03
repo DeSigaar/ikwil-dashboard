@@ -15,25 +15,35 @@ interface Props {
 const Admin: React.FC<Props> = ({ rules, profile, auth }) => {
   if (typeof rules !== "undefined") {
     return (
-      <div>
-        <Rules />
-        {rules.map((rule: any) => {
-          return (
-            <div key={rule.id}>
-              <RuleItem rule={rule} />
-            </div>
-          );
-        })}
-        <div>
-          <Link to={"/admin/rules/add"}>
-            <button
-              onChange={e => {
-                e.preventDefault();
-              }}
-            >
-              Voeg toe!
-            </button>
-          </Link>
+      <div className="s-admin">
+        <div className="s-admin__preview">
+          <div>
+            <h1>Voorbeeld</h1>
+            <Rules />
+          </div>
+        </div>
+        <div className="s-admin__container">
+          <div className="s-admin__container__top">
+            <h2>Huisregels</h2>
+            <Link to={"/admin/rule/add"}>
+              <button
+                onChange={e => {
+                  e.preventDefault();
+                }}
+              >
+                Huisregel toevoegen
+              </button>
+            </Link>
+          </div>
+          <div className="s-admin__container__items">
+            {rules.map((rule: any) => {
+              return (
+                <div key={rule.id}>
+                  <RuleItem rule={rule} />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
