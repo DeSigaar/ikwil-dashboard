@@ -25,10 +25,10 @@ const AdminNav: React.FC<Props> = ({ loggedIn }) => {
             <Link to="/admin/activities">Activiteiten</Link>
           </li>
           <li>
-            <Link to="/admin/organizer">Coördinatoren</Link>
+            <Link to="/admin/organisers">Coördinatoren</Link>
           </li>
           <li>
-            <Link to="/admin/rule">Huisregelementen</Link>
+            <Link to="/admin/rules">Huisregelementen</Link>
           </li>
           {!loggedIn ? (
             <>

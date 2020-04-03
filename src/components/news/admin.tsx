@@ -25,7 +25,7 @@ const Admin: React.FC<Props> = ({ news, profile, auth }) => {
         <div className="s-admin__container">
           <div className="s-admin__container__top">
             <h2>Nieuwsberichten</h2>
-            <Link to={"/admin/news/add"}>
+            <Link to={"/admin/newsitem/add"}>
               <button
                 onChange={e => {
                   e.preventDefault();

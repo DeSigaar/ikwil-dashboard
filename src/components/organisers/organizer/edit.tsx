@@ -126,7 +126,7 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
         </div>
       );
     } else {
-      return <Redirect to={"/admin/organizer/"} />;
+      return <Redirect to={"/admin/organisers/"} />;
     }
   } else {
     return <>Error</>;

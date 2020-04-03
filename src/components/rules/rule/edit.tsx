@@ -59,7 +59,7 @@ const Edit: React.FC<Props> = ({ rule, auth, profile, link }) => {
         </div>
       );
     } else {
-      return <Redirect to={"/admin/rule/" + link.params.id} />;
+      return <Redirect to={"/admin/rules/"} />;
     }
   } else {
     return <>Error</>;

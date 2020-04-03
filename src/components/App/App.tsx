@@ -57,7 +57,7 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           <Route path="/admin/activity/add" component={ActivityAdd} />
           <Route path="/admin/rule/add" component={RuleAdd} />
           <Route path="/admin/organizer/add" component={OrganizerAdd} />
-          <Route path="/admin/news/add" component={NewsItemAdd} />
+          <Route path="/admin/newsitem/add" component={NewsItemAdd} />
 
           <Route
             path="/admin/activity/:id/edit"
@@ -72,7 +72,7 @@ const App: React.FC<Props> = ({ loggedIn }) => {
             render={({ match }) => <OrganizerEdit link={match} />}
           />
           <Route
-            path="/admin/news/:id/edit"
+            path="/admin/newsitem/:id/edit"
             render={({ match }) => <NewsItemEdit link={match} />}
           />
           <Route
@@ -85,8 +85,8 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           <Route exact path="/admin/meals" component={MealAdmin} />
           <Route exact path="/admin/activities" component={ActivityAdmin} />
           <Route exact path="/admin/news" component={NewsAdmin} />
-          <Route exact path="/admin/organizer" component={OrganizerAdmin} />
-          <Route exact path="/admin/rule" component={RuleAdmin} />
+          <Route exact path="/admin/organisers" component={OrganizerAdmin} />
+          <Route exact path="/admin/rules" component={RuleAdmin} />
         </>
       ) : (
         <>

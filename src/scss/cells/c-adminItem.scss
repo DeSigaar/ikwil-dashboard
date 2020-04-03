@@ -35,9 +35,10 @@
     }
 
     &__right {
-      height: auto;
-      width: 140px;
-      align-self: flex-end;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      width: 100%;
     }
   }
 
@@ -51,7 +52,7 @@
     right: -10px;
     width: 412px;
 
-    &>button {
+    & > button {
       margin-left: $spacing-tiny;
     }
   }
@@ -65,10 +66,10 @@
   }
 
   &__activeBox {
-    &>.checkbox-container {
+    & > .checkbox-container {
       margin-bottom: 0px;
 
-      &>.checkmark {
+      & > .checkmark {
         left: 80px;
       }
     }
@@ -77,13 +78,13 @@
   &__buttons {
     position: relative;
 
-    &>button {
+    & > button {
       margin-right: $spacing-small-tiny;
     }
   }
 
   &__image {
-    &>img {
+    & > img {
       max-width: none;
       width: 100px;
       height: 100px;

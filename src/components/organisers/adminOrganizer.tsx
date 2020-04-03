@@ -67,7 +67,7 @@ const AdminOrganizer: React.FC<Props> = ({ organizer }) => {
         </div>
       );
     } else {
-      return <Redirect to={"/admin/organizer"} />;
+      return <Redirect to={"/admin/organisers"} />;
     }
   } else {
     return null;

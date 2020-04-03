@@ -55,7 +55,7 @@ const Rule: React.FC<Props> = ({ rule }) => {
         </div>
       );
     } else {
-      return <Redirect to={"/admin/rule"} />;
+      return <Redirect to={"/admin/rules"} />;
     }
   } else {
     return null;
