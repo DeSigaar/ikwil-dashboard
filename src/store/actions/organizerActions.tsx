@@ -6,7 +6,8 @@ export const createOrganizer = (
   organizer: iOrganizer,
   profile: any,
   id: string,
-  img: any
+  img: any,
+  availability: any
 ) => {
   let imgRef = { fullPath: "images/organisers/default.png" };
   if (typeof img !== "undefined") {
@@ -19,11 +20,13 @@ export const createOrganizer = (
       name: organizer.name,
       description: organizer.description,
       place: organizer.place,
-      isAvailable: organizer.isAvailable,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id,
       id: ref.id,
       img: imgRef.fullPath,
+      availability,
+      __deleted: false,
+
     })
     .then(() => {
       store.dispatch({ type: "CREATE_ORGANISERS_SUCCESS", organizer });
@@ -42,7 +45,8 @@ export const EditOrganizer = (
   id: string,
   docId: string,
   imgPath: string,
-  img?: any
+  img?: any,
+  availability?: any
 ) => {
   let imgRef = { fullPath: "images/organisers/default.jpg" };
   if (typeof imgPath !== "undefined") {
@@ -60,10 +64,12 @@ export const EditOrganizer = (
       name: organizer.name,
       description: organizer.description,
       place: organizer.place,
-      isAvailable: organizer.isAvailable,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id,
       img: imgRef.fullPath,
+      availability,
+      __deleted: false,
+
     })
     .then(() => store.dispatch({ type: "EDIT_ORGANIZER_SUCCESS" }))
     .catch((err) => store.dispatch({ type: "EDIT_ORGANIZER_ERROR", err }));
