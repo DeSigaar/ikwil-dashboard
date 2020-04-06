@@ -87,14 +87,18 @@ export const sortData = (activities) => {
 export const sortArray = (arr) => {
   Object.keys(arr).forEach(function (key) {
     arr[key].sort((a, b) => {
-      return (
-        moment
-          .duration(a.days.find((item) => item.name === key).startTime)
-          .asSeconds() -
-        moment
-          .duration(b.days.find((item) => item.name === key).startTime)
-          .asSeconds()
-      );
+      if (typeof a.days !== "undefined" && typeof b.days !== "undefined") {
+        return (
+          moment
+            .duration(a.days.find((item) => item.name === key).startTime)
+            .asSeconds() -
+          moment
+            .duration(b.days.find((item) => item.name === key).startTime)
+            .asSeconds()
+        );
+      } else {
+        return null;
+      }
     });
   });
 
