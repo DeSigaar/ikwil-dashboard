@@ -66,7 +66,7 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
       thursday,
       friday,
       saturday,
-      sunday,
+      sunday
     };
     EditOrganizer(
       { name, description, place },
@@ -92,14 +92,14 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
         <div className="s-cms">
           <div className="s-cms__form-conatiner">
             <h2 className="s-cms__header">Bewerken</h2>
-            <form onSubmit={(e) => handleSubmit(e)}>
+            <form onSubmit={e => handleSubmit(e)}>
               <div className="o-inputfield">
                 <label>Naam</label>
                 <input
                   className="o-inputfield__input"
                   required
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={e => setName(e.target.value)}
                 />
               </div>
               <div className="o-inputfield">
@@ -108,7 +108,7 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                   className="o-inputfield__input"
                   required
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={e => setDescription(e.target.value)}
                 />
               </div>
               <div className="o-inputfield">
@@ -116,100 +116,89 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                 <input
                   className="o-inputfield__input"
                   value={place}
-                  onChange={(e) => setPlace(e.target.value)}
+                  onChange={e => setPlace(e.target.value)}
                 />
               </div>
 
-              <div>
+              <div className="o-inputfield">
+                <label>Beschikbaarheid</label>
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Maandag</label>
                   <input
                     checked={monday}
-                    onChange={(e) => setMonday(!monday)}
+                    onChange={e => setMonday(!monday)}
                     type="checkbox"
                   />
                   <span className="checkmark"></span>
                 </label>
-              </div>
-              <div>
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Dinsdag</label>
                   <input
                     checked={tuesday}
-                    onChange={(e) => setTuesday(!tuesday)}
+                    onChange={e => setTuesday(!tuesday)}
                     type="checkbox"
                   />
                   <span className="checkmark"></span>
                 </label>
-              </div>
-              <div>
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Woensdag</label>
                   <input
                     checked={wednesday}
-                    onChange={(e) => setWednesday(!wednesday)}
+                    onChange={e => setWednesday(!wednesday)}
                     type="checkbox"
                   />
                   <span className="checkmark"></span>
                 </label>
-              </div>
-              <div>
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Donderdag</label>
                   <input
                     checked={thursday}
-                    onChange={(e) => setThursday(!thursday)}
+                    onChange={e => setThursday(!thursday)}
                     type="checkbox"
                   />
                   <span className="checkmark"></span>
                 </label>
-              </div>
-              <div>
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Vrijdag</label>
                   <input
                     checked={friday}
-                    onChange={(e) => setFriday(!friday)}
+                    onChange={e => setFriday(!friday)}
                     type="checkbox"
                   />
                   <span className="checkmark"></span>
                 </label>
-              </div>
-              <div>
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Zaterdag</label>
                   <input
                     checked={saturday}
-                    onChange={(e) => setSaturday(!saturday)}
+                    onChange={e => setSaturday(!saturday)}
                     type="checkbox"
                   />
                   <span className="checkmark"></span>
                 </label>
-              </div>
-              <div>
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Zondag</label>
                   <input
                     checked={sunday}
-                    onChange={(e) => setSunday(!sunday)}
+                    onChange={e => setSunday(!sunday)}
                     type="checkbox"
                   />
                   <span className="checkmark"></span>
                 </label>
               </div>
-              <input
-                className="o-inputfield__file-upload"
-                type="file"
-                name="imgToUpload"
-                id="imgToUplaod"
-                onChange={(e) => handleImageUpload(e)}
-              />
               <div className="o-inputfield">
                 <label>Afbeelding toevoegen</label>
                 <img
                   className="o-inputfield__upload-preview"
                   src={imgPreview}
                   alt="preview"
+                />
+                <input
+                  className="o-inputfield__file-upload"
+                  type="file"
+                  name="imgToUpload"
+                  id="imgToUplaod"
+                  onChange={e => handleImageUpload(e)}
                 />
               </div>
               <button>update bestuurslid</button>
@@ -229,7 +218,7 @@ const mapStateToProps = (state: any) => {
     return {
       organizer: state.firestore.ordered.organisers[0],
       profile: state.firebase.profile,
-      auth: state.firebase.auth,
+      auth: state.firebase.auth
     };
   } else {
     return {};
@@ -249,13 +238,13 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(
         EditOrganizer(organizer, profile, id, docId, imgPath, img, availability)
       ),
-    GetPhoto: (path: string) => dispatch(GetPhoto(path)),
+    GetPhoto: (path: string) => dispatch(GetPhoto(path))
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props: Props) => [
-    { collection: "organisers", doc: props.link.params.id },
+    { collection: "organisers", doc: props.link.params.id }
   ])
 )(Edit) as React.FC<Props>;
