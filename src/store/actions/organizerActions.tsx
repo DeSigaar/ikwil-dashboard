@@ -24,6 +24,7 @@ export const createOrganizer = (
       id: ref.id,
       img: imgRef.fullPath,
       availability,
+      __deleted: false,
     })
     .then(() => {
       store.dispatch({ type: "CREATE_ORGANISERS_SUCCESS", organizer });
@@ -64,6 +65,7 @@ export const EditOrganizer = (
       creatorID: id,
       img: imgRef.fullPath,
       availability,
+      __deleted: false,
     })
     .then(() => store.dispatch({ type: "EDIT_ORGANIZER_SUCCESS" }))
     .catch((err) => store.dispatch({ type: "EDIT_ORGANIZER_ERROR", err }));

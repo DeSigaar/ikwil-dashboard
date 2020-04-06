@@ -123,7 +123,11 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
               <div>
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Maandag</label>
-                  <input onChange={(e) => setMonday(!monday)} type="checkbox" />
+                  <input
+                    checked={monday}
+                    onChange={(e) => setMonday(!monday)}
+                    type="checkbox"
+                  />
                   <span className="checkmark"></span>
                 </label>
               </div>
@@ -131,6 +135,7 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Dinsdag</label>
                   <input
+                    checked={tuesday}
                     onChange={(e) => setTuesday(!tuesday)}
                     type="checkbox"
                   />
@@ -141,6 +146,7 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Woensdag</label>
                   <input
+                    checked={wednesday}
                     onChange={(e) => setWednesday(!wednesday)}
                     type="checkbox"
                   />
@@ -151,6 +157,7 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Donderdag</label>
                   <input
+                    checked={thursday}
                     onChange={(e) => setThursday(!thursday)}
                     type="checkbox"
                   />
@@ -160,7 +167,11 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
               <div>
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Vrijdag</label>
-                  <input onChange={(e) => setFriday(!friday)} type="checkbox" />
+                  <input
+                    checked={friday}
+                    onChange={(e) => setFriday(!friday)}
+                    type="checkbox"
+                  />
                   <span className="checkmark"></span>
                 </label>
               </div>
@@ -168,6 +179,7 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Zaterdag</label>
                   <input
+                    checked={saturday}
                     onChange={(e) => setSaturday(!saturday)}
                     type="checkbox"
                   />
@@ -177,7 +189,11 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
               <div>
                 <label className="checkbox-container">
                   <label className="o-inputfield__sublabel">Zondag</label>
-                  <input onChange={(e) => setSunday(!sunday)} type="checkbox" />
+                  <input
+                    checked={sunday}
+                    onChange={(e) => setSunday(!sunday)}
+                    type="checkbox"
+                  />
                   <span className="checkmark"></span>
                 </label>
               </div>
