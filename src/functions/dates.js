@@ -3,9 +3,6 @@ let moment = require("moment");
 export function GetDayByNumber(n) {
   let day = "";
   switch (n) {
-    case 0:
-      day = "zondag";
-      break;
     case 1:
       day = "maandag";
       break;
@@ -24,7 +21,9 @@ export function GetDayByNumber(n) {
     case 6:
       day = "zaterdag";
       break;
-
+    case 7:
+      day = "zondag";
+      break;
     default:
       break;
   }

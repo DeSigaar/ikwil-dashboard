@@ -25,14 +25,14 @@ const Summary: React.FC<Props> = ({ activities }) => {
     Thursday: [],
     Friday: [],
     Saturday: [],
-    Sunday: []
+    Sunday: [],
   };
 
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 1
-    }
+      items: 1,
+    },
   };
 
   const [sortedDays, setSortedDays] = useState<any>(initSortedDays);
@@ -62,7 +62,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
   let renderDays: any = [];
 
   if (typeof sortedDays !== "undefined" && sortedDays !== null) {
-    Object.keys(sortedDays).forEach(function(key) {
+    Object.keys(sortedDays).forEach(function (key) {
       renderDays.push(
         <div key={key}>
           {sortedDays[key].length !== 0 ? (
@@ -89,14 +89,14 @@ const Summary: React.FC<Props> = ({ activities }) => {
     next,
     previous,
     carouselState,
-    goToSlide
+    goToSlide,
   }) => {
     const { currentSlide } = carouselState;
     const [day, setDay] = useState<any>(undefined);
 
     useEffect(() => {
       let today = new Date();
-      setDay(GetDayByNumber(currentSlide));
+      setDay(GetDayByNumber(currentSlide + 1));
       if (today.getDay() - 1 !== currentSlide) {
         goToSlide(today.getDay() - 1);
       }
@@ -146,8 +146,8 @@ const Summary: React.FC<Props> = ({ activities }) => {
         onRequestClose={closeModal}
         style={{
           overlay: {
-            backgroundColor: "rgba(0, 0, 0, .75)"
-          }
+            backgroundColor: "rgba(0, 0, 0, .75)",
+          },
         }}
       >
         <div
@@ -172,7 +172,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     GetPhoto: (path: string) => dispatch(GetPhoto(path)),
-    DeleteActivity: (docId: string) => dispatch(DeleteActivity(docId))
+    DeleteActivity: (docId: string) => dispatch(DeleteActivity(docId)),
   };
 };
 export default connect(null, mapDispatchToProps)(Summary) as React.FC<Props>;
