@@ -18,7 +18,7 @@ interface Props {
   goToSlide?: any;
 }
 
-const Summary: React.FC<Props> = ({ activities }) => {
+const Summary: React.FC<Props> = ({ activities }) => {  
   const firestore = useFirestore();
   const initSortedDays = {
     Monday: [],
@@ -44,6 +44,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
   const [modalContent, setModalContent] = React.useState<any>(false);
   const [organisers, setOrganisers] = React.useState<any>(false);
   const [count, setCount] = React.useState<any>(false);
+  const [currentSlide, setCurrentSlide] = React.useState<any>(false);
 
   const getOrganisers = (activity: iActivity) => {
     setOrganisers([]);
@@ -74,7 +75,9 @@ const Summary: React.FC<Props> = ({ activities }) => {
   const openModal = (activity: iActivity) => {
     setIsOpen(true);
     setModalContent(activity);
-    getOrganisers(activity)
+    getOrganisers(activity);
+    console.log(activity);
+    
   };
 
   const closeModal = () => {
@@ -164,7 +167,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
   let renderDays: any = [];
   Object.keys(sortedDays).forEach(function(key) {
     renderDays.push(
-      <div key={key}>
+      <div key={key} className="test">
         {sortedDays[key].length !== 0 ? (
           <>
             {sortedDays[key].map((activity: any) => {
@@ -177,7 +180,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
               }
               return (
                 <div key={activity.id + key}>
-                  <div className="c-activity" onClick={() => openModal(activity)}>
+                  <div className="c-activity" onClick={(e) => openModal(activity)}>
                     <div className="c-activity__top-content">
                       <img
                         className="c-activity__top-content__icon"
@@ -254,7 +257,11 @@ const Summary: React.FC<Props> = ({ activities }) => {
         arrows={false}
         customButtonGroup={<ButtonGroup />}
         beforeChange={() => setIsMoving(true)}
-        afterChange={() => setIsMoving(false)}
+        // afterChange={() => setIsMoving(false)}
+        afterChange={(previousSlide, { currentSlide }) => {
+          setIsMoving(false);
+          setCurrentSlide(currentSlide);
+        }}
       >
         {renderDays}
       </Carousel>
@@ -281,7 +288,14 @@ const Summary: React.FC<Props> = ({ activities }) => {
               />
             <h2 className="ReactModal__Content__title_wrapper__title">{modalContent.name}</h2>
           </div>
+          Wordt gegeven op 
+          {modalContent.days ? " " + modalContent.days[currentSlide].name + " van " + modalContent.days[currentSlide].startTime + " tot " + modalContent.days[currentSlide].endTime : null}
+          {modalContent.day ? modalContent.day : null}
+          {/* day.date
+          day.endTime
+          day.startTime */}
           <p className="ReactModal__Content__text">{modalContent.description}</p>
+          <br/>
           {organisers.length > 0 ? <h2 className="ReactModal__Content__title">Word gegeven door</h2> : null}
           {organisers.length > 0 ? organisers.map((organizer: any) => { return <ActiveOrganizer organizer={organizer} key={organizer.id} /> }) : null}
         </div>
