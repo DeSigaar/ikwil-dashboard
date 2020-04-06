@@ -7,4 +7,5 @@ interface iOrganizer {
   createdBy?: string;
   creatorId?: string;
   img?: any;
+  availability?: any;
 }

@@ -18,27 +18,51 @@ const AddAdmin: React.FC<Props> = ({ signUp, authError }) => {
     signUp({ email, firstName, lastName, password });
   };
   return (
-    <form onSubmit={e => handleSubmit(e)}>
-      <div>
-        Email <input value={email} onChange={e => setEmail(e.target.value)} />
-      </div>
-      <div>
-        First name
-        <input value={firstName} onChange={e => setFirstName(e.target.value)} />
-      </div>
-      <div>
-        Last name
-        <input value={lastName} onChange={e => setLastName(e.target.value)} />
-      </div>
-      <div>
-        Password name
-        <input value={password} onChange={e => setPassword(e.target.value)} />
-      </div>
-      <button>Submit</button>
-      {typeof authError !== "undefined" && authError !== null
-        ? authError.message
-        : null}
-    </form>
+    <div className="s-login">
+      <img
+        src="/logo.svg"
+        alt="Stichting Ik Wil Logo"
+        className="s-login__logo"
+      />
+      <form onSubmit={e => handleSubmit(e)}>
+        <div className="o-inputfield">
+          <label>Emailadres</label>
+          <input
+            className="o-inputfield__input login"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="o-inputfield">
+          <label>Voornaam</label>
+          <input
+            className="o-inputfield__input login"
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+          />
+        </div>
+        <div className="o-inputfield">
+          <label>Achternaam</label>
+          <input
+            className="o-inputfield__input login"
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+          />
+        </div>
+        <div className="o-inputfield">
+          <label>Wachtwoord</label>
+          <input
+            className="o-inputfield__input login"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
+        <button>Submit</button>
+        {typeof authError !== "undefined" && authError !== null
+          ? authError.message
+          : null}
+      </form>
+    </div>
   );
 };
 

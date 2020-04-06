@@ -17,11 +17,19 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [place, setPlace] = useState<string>("");
-  const [isAvailable, setIsAvailable] = useState<boolean>(false);
+
   const [redirect, setRedirect] = useState<boolean>(false);
   const [img, setImg] = useState<any>(undefined);
   const [imgPreview, setImgPreview] = useState<any>(undefined);
   const [imgRef, setImgRef] = useState<string>("");
+
+  const [monday, setMonday] = useState<boolean>(false);
+  const [tuesday, setTuesday] = useState<boolean>(false);
+  const [wednesday, setWednesday] = useState<boolean>(false);
+  const [thursday, setThursday] = useState<boolean>(false);
+  const [friday, setFriday] = useState<boolean>(false);
+  const [saturday, setSaturday] = useState<boolean>(false);
+  const [sunday, setSunday] = useState<boolean>(false);
 
   useEffect(() => {
     if (typeof organizer !== "undefined") {
@@ -30,27 +38,44 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
       if (typeof organizer.place !== "undefined") {
         setPlace(organizer.place);
       }
-      if (typeof organizer.isAvailable !== "undefined") {
-        setIsAvailable(organizer.isAvailable);
-      }
+
       if (typeof organizer.img !== "undefined") {
         setImgRef(organizer.img);
       }
       GetPhoto(organizer.img)?.then((res: any) => {
         setImgPreview(res);
       });
+      if (typeof organizer.availability !== "undefined") {
+        setMonday(organizer.availability.monday);
+        setTuesday(organizer.availability.tuesday);
+        setWednesday(organizer.availability.wednesday);
+        setThursday(organizer.availability.thursday);
+        setFriday(organizer.availability.friday);
+        setSaturday(organizer.availability.saturday);
+        setSunday(organizer.availability.sunday);
+      }
     }
   }, [organizer]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let availability = {
+      monday,
+      tuesday,
+      wednesday,
+      thursday,
+      friday,
+      saturday,
+      sunday
+    };
     EditOrganizer(
-      { name, description, place, isAvailable },
+      { name, description, place },
       profile,
       auth.uid,
       link.params.id,
       imgRef,
-      img
+      img,
+      availability
     );
     setRedirect(true);
   };
@@ -94,13 +119,69 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                   onChange={e => setPlace(e.target.value)}
                 />
               </div>
+
               <div className="o-inputfield">
+                <label>Beschikbaarheid</label>
                 <label className="checkbox-container">
-                  <label>Beschikbaar</label>
+                  <label className="o-inputfield__sublabel">Maandag</label>
                   <input
+                    checked={monday}
+                    onChange={e => setMonday(!monday)}
                     type="checkbox"
-                    checked={isAvailable}
-                    onChange={e => setIsAvailable(!isAvailable)}
+                  />
+                  <span className="checkmark"></span>
+                </label>
+                <label className="checkbox-container">
+                  <label className="o-inputfield__sublabel">Dinsdag</label>
+                  <input
+                    checked={tuesday}
+                    onChange={e => setTuesday(!tuesday)}
+                    type="checkbox"
+                  />
+                  <span className="checkmark"></span>
+                </label>
+                <label className="checkbox-container">
+                  <label className="o-inputfield__sublabel">Woensdag</label>
+                  <input
+                    checked={wednesday}
+                    onChange={e => setWednesday(!wednesday)}
+                    type="checkbox"
+                  />
+                  <span className="checkmark"></span>
+                </label>
+                <label className="checkbox-container">
+                  <label className="o-inputfield__sublabel">Donderdag</label>
+                  <input
+                    checked={thursday}
+                    onChange={e => setThursday(!thursday)}
+                    type="checkbox"
+                  />
+                  <span className="checkmark"></span>
+                </label>
+                <label className="checkbox-container">
+                  <label className="o-inputfield__sublabel">Vrijdag</label>
+                  <input
+                    checked={friday}
+                    onChange={e => setFriday(!friday)}
+                    type="checkbox"
+                  />
+                  <span className="checkmark"></span>
+                </label>
+                <label className="checkbox-container">
+                  <label className="o-inputfield__sublabel">Zaterdag</label>
+                  <input
+                    checked={saturday}
+                    onChange={e => setSaturday(!saturday)}
+                    type="checkbox"
+                  />
+                  <span className="checkmark"></span>
+                </label>
+                <label className="checkbox-container">
+                  <label className="o-inputfield__sublabel">Zondag</label>
+                  <input
+                    checked={sunday}
+                    onChange={e => setSunday(!sunday)}
+                    type="checkbox"
                   />
                   <span className="checkmark"></span>
                 </label>
@@ -151,8 +232,12 @@ const mapDispatchToProps = (dispatch: any) => {
       id: string,
       docId: string,
       imgPath: string,
-      img?: any
-    ) => dispatch(EditOrganizer(organizer, profile, id, docId, imgPath, img)),
+      img?: any,
+      availability?: any
+    ) =>
+      dispatch(
+        EditOrganizer(organizer, profile, id, docId, imgPath, img, availability)
+      ),
     GetPhoto: (path: string) => dispatch(GetPhoto(path))
   };
 };
@@ -160,6 +245,6 @@ const mapDispatchToProps = (dispatch: any) => {
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props: Props) => [
-    { collection: "organizer", doc: props.link.params.id }
+    { collection: "organisers", doc: props.link.params.id }
   ])
 )(Edit) as React.FC<Props>;

@@ -8,7 +8,12 @@ import Modal from "react-modal";
 import { GetDayByNumber, isThisWeek } from "../../functions/dates";
 import ActiveOrganizer from "../organisers/activeOrganizer";
 import { getSecondPart } from "../../functions/stringSplitting";
-import activeOrganizer from "../organisers/activeOrganizer";
+import { sortData } from "../../functions/activitySort";
+import { GetPhoto } from "../../store/actions/imgActions";
+import ActivityItem from "./activityItem";
+import moment from "moment";
+import 'moment/locale/nl'  // without this line it didn't work
+moment.locale('nl')
 
 interface Props {
   activities?: iActivity[] | undefined;
@@ -27,14 +32,14 @@ const Summary: React.FC<Props> = ({ activities }) => {
     Thursday: [],
     Friday: [],
     Saturday: [],
-    Sunday: []
+    Sunday: [],
   };
 
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 1
-    }
+      items: 1,
+    },
   };
 
   const [sortedDays, setSortedDays] = useState<any>(initSortedDays);
@@ -44,7 +49,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
   const [modalContent, setModalContent] = React.useState<any>(false);
   const [organisers, setOrganisers] = React.useState<any>(false);
   const [count, setCount] = React.useState<any>(false);
-  const [currentSlide, setCurrentSlide] = React.useState<any>(false);
+  const [currentSlide, setCurrentSlide] = React.useState<any>(0);
 
   const getOrganisers = (activity: iActivity) => {
     setOrganisers([]);
@@ -84,144 +89,61 @@ const Summary: React.FC<Props> = ({ activities }) => {
     setIsOpen(false);
   };
 
+  const onClick = (activity: iActivity) => {
+    setIsOpen(true);
+    setModalContent(activity);
+  };
+
   useEffect(() => {
     if (activities !== inititialActivities) {
       setCheckActivities(activities);
-      let tempSortedDays: any = initSortedDays;
-
-      activities?.forEach((activity: iActivity) => {
-        if (typeof activity.day !== "undefined") {
-          const date = new Date(activity.day.date);
-          const dateToday = new Date();
-          let thisWeek = isThisWeek(date);
-
-          if (typeof thisWeek !== "undefined") {
-            if (thisWeek) {
-              if (date > dateToday) {
-                switch (date.getDay()) {
-                  case 1:
-                    tempSortedDays.Monday.push(activity);
-                    break;
-                  case 2:
-                    tempSortedDays.Tuesday.push(activity);
-                    break;
-                  case 3:
-                    tempSortedDays.Wednesday.push(activity);
-                    break;
-                  case 4:
-                    tempSortedDays.Thursday.push(activity);
-                    break;
-                  case 5:
-                    tempSortedDays.Friday.push(activity);
-                    break;
-                  case 6:
-                    tempSortedDays.Saturday.push(activity);
-                    break;
-                  case 7:
-                    tempSortedDays.Sunday.push(activity);
-                    break;
-                  default:
-                    break;
-                }
-              } else {
-                if (typeof activity.id !== "undefined") {
-                  DeleteActivity(activity.id);
-                }
-              }
-            }
-          }
-        }
-
-        if (typeof activity.days !== "undefined") {
-          activity.days.forEach((day: iDay) => {
-            if (day.startTime !== "" && day.endTime !== "") {
-              if (day.name === "Monday") {
-                tempSortedDays.Monday.push(activity);
-              }
-              if (day.name === "Tuesday") {
-                tempSortedDays.Tuesday.push(activity);
-              }
-              if (day.name === "Wednesday") {
-                tempSortedDays.Wednesday.push(activity);
-              }
-              if (day.name === "Thursday") {
-                tempSortedDays.Thursday.push(activity);
-              }
-              if (day.name === "Friday") {
-                tempSortedDays.Friday.push(activity);
-              }
-              if (day.name === "Saturday") {
-                tempSortedDays.Saturday.push(activity);
-              }
-              if (day.name === "Sunday") {
-                tempSortedDays.Sunday.push(activity);
-              }
-            }
-          });
-          setSortedDays(tempSortedDays);
-        }
-      });
+      setSortedDays(sortData(activities));
     }
   }, [activities, inititialActivities, sortedDays, initSortedDays]);
 
   let renderDays: any = [];
-  Object.keys(sortedDays).forEach(function(key) {
-    renderDays.push(
-      <div key={key} className="test">
-        {sortedDays[key].length !== 0 ? (
-          <>
-            {sortedDays[key].map((activity: any) => {
-              let times;
-              if (typeof activity.days !== "undefined") {
-                times = activity.days.find((item: any) => item.name === key);
-              }
-              if (typeof activity.day !== "undefined") {
-                times = activity.day;
-              }
-              return (
-                <div key={activity.id + key}>
-                  <div className="c-activity" onClick={(e) => openModal(activity)}>
-                    <div className="c-activity__top-content">
-                      <img
-                        className="c-activity__top-content__icon"
-                        src="/yoga.svg"
-                        alt="activity icon"
-                      />
-                      <h3>{activity.name}</h3>
-                    </div>
-                    <div className="c-activity__bottom-content">
-                      <div className="c-activity__bottom-content__time">
-                        {times.startTime} - {times.endTime}
-                      </div>
-                      <div className="c-activity__bottom-content__room">
-                        {activity.room}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </>
-        ) : (
-          <div>Geen activiteiten vandaag!</div>
-        )}
-      </div>
-    );
-  });
+
+  if (typeof sortedDays !== "undefined" && sortedDays !== null) {
+    Object.keys(sortedDays).forEach(function (key) {
+      renderDays.push(
+        <div key={key}>
+          {sortedDays[key].length !== 0 ? (
+            <>
+              {sortedDays[key].map((activity: any) => {
+                return (
+                  <ActivityItem
+                    action={openModal}
+                    key={activity.id}
+                    day={key}
+                    activity={activity}
+                  />
+                );
+              })}
+            </>
+          ) : (
+            <div>Geen activiteiten vandaag!</div>
+          )}
+        </div>
+      );
+    });
+  }
 
   const ButtonGroup: React.FC<Props> = ({
     next,
     previous,
     carouselState,
-    goToSlide
+    goToSlide,
   }) => {
     const { currentSlide } = carouselState;
-    const day = GetDayByNumber(currentSlide);
-    let today = new Date();
+    const [day, setDay] = useState<any>(undefined);
 
     useEffect(() => {
-      goToSlide(today.getDay() - 1);
-    });
+      let today = new Date();
+      // setDay(GetDayByNumber(currentSlide + 1));
+      if (today.getDay() - 1 !== currentSlide) {
+        goToSlide(today.getDay() - 1);
+      }
+    }, [currentSlide, goToSlide]);
 
     return (
       <div className="c-dayChanger">
@@ -271,8 +193,8 @@ const Summary: React.FC<Props> = ({ activities }) => {
         onRequestClose={closeModal}
         style={{
           overlay: {
-            backgroundColor: "rgba(0, 0, 0, .75)"
-          }
+            backgroundColor: "rgba(0, 0, 0, .75)",
+          },
         }}
       >
         <div
@@ -286,16 +208,15 @@ const Summary: React.FC<Props> = ({ activities }) => {
               src="/yoga.svg"
               alt=""
               />
-            <h2 className="ReactModal__Content__title_wrapper__title">{modalContent.name}</h2>
+            {modalContent.name ? <h2 className="ReactModal__Content__title_wrapper__title">{modalContent.name}</h2> : null}
           </div>
           Wordt gegeven op 
-          {modalContent.days ? " " + modalContent.days[currentSlide].name + " van " + modalContent.days[currentSlide].startTime + " tot " + modalContent.days[currentSlide].endTime : null}
-          {modalContent.day ? modalContent.day : null}
-          {/* day.date
-          day.endTime
-          day.startTime */}
-          <p className="ReactModal__Content__text">{modalContent.description}</p>
+          {modalContent.days ? " " + moment.weekdays(true, currentSlide) + " van " + modalContent.days[currentSlide].startTime + " tot " + modalContent.days[currentSlide].endTime : null}
+          {modalContent.day ? " " + new Date(modalContent.day.date).toLocaleString('NL-nl', { weekday: 'long' }) + " van " + modalContent.day.startTime + " tot " +  modalContent.day.endTime  : null}
           <br/>
+          <br/>
+          <p className="ReactModal__Content__text">{modalContent.description}</p>
+          <br />
           {organisers.length > 0 ? <h2 className="ReactModal__Content__title">Word gegeven door</h2> : null}
           {organisers.length > 0 ? organisers.map((organizer: any) => { return <ActiveOrganizer organizer={organizer} key={organizer.id} /> }) : null}
         </div>
@@ -305,7 +226,8 @@ const Summary: React.FC<Props> = ({ activities }) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    DeleteActivity: (docId: string) => dispatch(DeleteActivity(docId))
+    GetPhoto: (path: string) => dispatch(GetPhoto(path)),
+    DeleteActivity: (docId: string) => dispatch(DeleteActivity(docId)),
   };
 };
 export default connect(null, mapDispatchToProps)(Summary) as React.FC<Props>;

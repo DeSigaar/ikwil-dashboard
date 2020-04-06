@@ -49,7 +49,7 @@ const NewsItem: React.FC<Props> = ({ newsItem }) => {
           <div className="c-adminItem__bottom">
             <div></div>
             <div className="c-adminItem__buttons">
-              <Link to={"newsitem/" + newsItem.id + "/edit"}>
+              <Link to={"/admin/newsitem/" + newsItem.id + "/edit"}>
                 <button
                   onChange={e => {
                     e.preventDefault();
