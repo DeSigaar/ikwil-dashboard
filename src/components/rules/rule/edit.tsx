@@ -25,7 +25,7 @@ const Edit: React.FC<Props> = ({ rule, auth, profile, link }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    EditRule({ name, rule }, profile, auth.uid, link.params.id);
+    EditRule({ name, userRule }, profile, auth.uid, link.params.id);
     setRedirect(true);
   };
   if (typeof rule !== "undefined") {
@@ -34,14 +34,14 @@ const Edit: React.FC<Props> = ({ rule, auth, profile, link }) => {
         <div className="s-cms">
           <div className="s-cms__form-conatiner">
             <h2 className="s-cms__header">Bewerk regel</h2>
-            <form onSubmit={e => handleSubmit(e)}>
+            <form onSubmit={(e) => handleSubmit(e)}>
               <div className="o-inputfield">
                 <label className="o-inputfield__label">Naam</label>
                 <input
                   className="o-inputfield__input"
                   required
                   value={name}
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="o-inputfield">
@@ -50,7 +50,7 @@ const Edit: React.FC<Props> = ({ rule, auth, profile, link }) => {
                   className="o-inputfield__input"
                   required
                   value={userRule}
-                  onChange={e => setUserRule(e.target.value)}
+                  onChange={(e) => setUserRule(e.target.value)}
                 />
               </div>
               <button>update regel</button>
@@ -68,9 +68,9 @@ const Edit: React.FC<Props> = ({ rule, auth, profile, link }) => {
 const mapStateToProps = (state: any) => {
   if (typeof state.firestore.ordered.rules !== "undefined") {
     return {
-      organizer: state.firestore.ordered.rules[0],
+      rule: state.firestore.ordered.rules[0],
       profile: state.firebase.profile,
-      auth: state.firebase.auth
+      auth: state.firebase.auth,
     };
   } else {
     return {};
@@ -79,13 +79,13 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     EditRule: (rule: any, profile: any, id: string, docId: string) =>
-      dispatch(EditRule(rule, profile, id, docId))
+      dispatch(EditRule(rule, profile, id, docId)),
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props: Props) => [
-    { collection: "rules", doc: props.link.params.id }
+    { collection: "rules", doc: props.link.params.id },
   ])
 )(Edit) as React.FC<Props>;

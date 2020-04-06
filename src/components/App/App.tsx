@@ -78,7 +78,7 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           <Route
             path="/admin/rule/:id/edit"
             render={({ match }) => <RuleEdit link={match} />}
-          />
+          ></Route>
           <Route path="/admin/add-admin">
             <AddAdmin />
           </Route>

@@ -1,20 +1,15 @@
 import { store } from "../../index";
 import firebase from "firebase/app";
 
-export const createRule = (
-  rule: iRule,
-  profile: any,
-  id: string
-) => {
-  const ref = firebase
-  .firestore().collection('rules').doc();
+export const createRule = (rule: iRule, profile: any, id: string) => {
+  const ref = firebase.firestore().collection("rules").doc();
   ref
     .set({
       name: rule.name,
       rule: rule.rule,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id,
-      id: ref.id
+      id: ref.id,
     })
     .then(() => {
       store.dispatch({ type: "CREATE_RULE_SUCCESS", rule });
@@ -33,18 +28,19 @@ export const EditRule = (
   id: string,
   docId: string
 ) => {
+  console.log("rule, profile, id, docId :", rule, profile, id, docId);
   firebase
     .firestore()
     .collection("rules")
     .doc(docId)
     .set({
       name: rule.name,
-      rule: rule.rule,
+      rule: rule.userRule,
       createdBy: profile.firstName + " " + profile.lastName,
-      creatorID: id
+      creatorID: id,
     })
     .then(() => store.dispatch({ type: "EDIT_RULE_SUCCESS" }))
-    .catch(err => store.dispatch({ type: "EDIT_RULE_ERROR", err }));
+    .catch((err) => store.dispatch({ type: "EDIT_RULE_ERROR", err }));
 };
 
 export const DeleteRule = (docId: string) => {
@@ -54,5 +50,5 @@ export const DeleteRule = (docId: string) => {
     .doc(docId)
     .delete()
     .then(() => store.dispatch({ type: "DELETE_RULE_SUCCESS" }))
-    .catch(err => store.dispatch({ type: "DELETE_RULE_ERROR", err }));
+    .catch((err) => store.dispatch({ type: "DELETE_RULE_ERROR", err }));
 };
