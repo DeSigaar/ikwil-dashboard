@@ -7,6 +7,8 @@ import Modal from "react-modal";
 import { Link } from "react-router-dom";
 import { GetDayByNumber } from "../../functions/dates";
 import { sortData } from "../../functions/activitySort";
+import { GetPhoto } from "../../store/actions/imgActions";
+import ActivityItem from "./activityItem";
 interface Props {
   activities?: iActivity[] | undefined;
   next?: any;
@@ -23,14 +25,14 @@ const Summary: React.FC<Props> = ({ activities }) => {
     Thursday: [],
     Friday: [],
     Saturday: [],
-    Sunday: [],
+    Sunday: []
   };
 
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 1,
-    },
+      items: 1
+    }
   };
 
   const [sortedDays, setSortedDays] = useState<any>(initSortedDays);
@@ -60,43 +62,18 @@ const Summary: React.FC<Props> = ({ activities }) => {
   let renderDays: any = [];
 
   if (typeof sortedDays !== "undefined" && sortedDays !== null) {
-    Object.keys(sortedDays).forEach(function (key) {
+    Object.keys(sortedDays).forEach(function(key) {
       renderDays.push(
         <div key={key}>
           {sortedDays[key].length !== 0 ? (
             <>
               {sortedDays[key].map((activity: any) => {
-                let times;
-                if (typeof activity.days !== "undefined") {
-                  times = activity.days.find((item: any) => item.name === key);
-                }
-                if (typeof activity.day !== "undefined") {
-                  times = activity.day;
-                }
                 return (
-                  <div key={activity.id + key}>
-                    <Link
-                      to={"/activity/" + activity.id}
-                      className="c-activity"
-                    >
-                      <div className="c-activity__top-content">
-                        <img
-                          className="c-activity__top-content__icon"
-                          src="/yoga.svg"
-                          alt="activity icon"
-                        />
-                        <h3>{activity.name}</h3>
-                      </div>
-                      <div className="c-activity__bottom-content">
-                        <div className="c-activity__bottom-content__time">
-                          {times.startTime} - {times.endTime}
-                        </div>
-                        <div className="c-activity__bottom-content__room">
-                          {activity.room}
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
+                  <ActivityItem
+                    key={activity.id}
+                    day={key}
+                    activity={activity}
+                  />
                 );
               })}
             </>
@@ -112,7 +89,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
     next,
     previous,
     carouselState,
-    goToSlide,
+    goToSlide
   }) => {
     const { currentSlide } = carouselState;
     const [day, setDay] = useState<any>(undefined);
@@ -169,8 +146,8 @@ const Summary: React.FC<Props> = ({ activities }) => {
         onRequestClose={closeModal}
         style={{
           overlay: {
-            backgroundColor: "rgba(0, 0, 0, .75)",
-          },
+            backgroundColor: "rgba(0, 0, 0, .75)"
+          }
         }}
       >
         <div
@@ -194,7 +171,8 @@ const Summary: React.FC<Props> = ({ activities }) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    DeleteActivity: (docId: string) => dispatch(DeleteActivity(docId)),
+    GetPhoto: (path: string) => dispatch(GetPhoto(path)),
+    DeleteActivity: (docId: string) => dispatch(DeleteActivity(docId))
   };
 };
 export default connect(null, mapDispatchToProps)(Summary) as React.FC<Props>;

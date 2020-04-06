@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { DeleteActivity } from "../../store/actions/activitiesActions";
 import { Redirect } from "react-router-dom";
 import { getSecondPart } from "../../functions/stringSplitting";
-
+import { GetPhoto } from "../../store/actions/imgActions";
 interface Props {
   data?: any;
   activity: any;
@@ -19,12 +19,12 @@ const Activity: React.FC<Props> = ({ activity }) => {
   const [category, setCategory] = useState<iCategory | undefined>(undefined);
   const [organisers, setOrganisers] = useState<any>([]);
   const [count, setCount] = useState<number>(1);
-
+  const [img, setImg] = useState<any>(undefined);
   const [daysState, setDaysState] = useState<iDay[] | undefined>(undefined);
   const [time, setTime] = useState<iOnce>({
     date: "",
     startTime: "",
-    endTime: "",
+    endTime: ""
   });
 
   useEffect(() => {
@@ -35,37 +35,41 @@ const Activity: React.FC<Props> = ({ activity }) => {
           .collection("categories")
           .doc(getSecondPart(activity.category, "/"))
           .get()
-          .then((data: any) => setCategory(data.data()));
-
-        if (
-          typeof activity.organisers !== "undefined" &&
-          activity.organisers.length > 0
-        ) {
-          //Organisers fetch
-          let organisersIds: any = [];
-          activity.organisers.forEach((organizer: iOrganizer) => {
-            organisersIds.push(getSecondPart(organizer, "/"));
+          .then((data: any) => {
+            setCategory(data.data());
+            GetPhoto(data.data().icon)?.then((res: any) => {
+              setImg(res);
+            });
           });
+      }
+      if (
+        typeof activity.organisers !== "undefined" &&
+        activity.organisers.length > 0
+      ) {
+        //Organisers fetch
+        let organisersIds: any = [];
+        activity.organisers.forEach((organizer: iOrganizer) => {
+          organisersIds.push(getSecondPart(organizer, "/"));
+        });
 
-          let arr: any = [];
-          firestore
-            .collection("organisers")
-            .where("id", "in", organisersIds)
-            .get()
-            .then((data: any) =>
-              data.docs.forEach((doc: any) => {
-                arr.push(doc.data());
-                setOrganisers(arr);
-                setCount(Math.floor(Math.random() * Math.floor(100)));
-              })
-            );
+        let arr: any = [];
+        firestore
+          .collection("organisers")
+          .where("id", "in", organisersIds)
+          .get()
+          .then((data: any) =>
+            data.docs.forEach((doc: any) => {
+              arr.push(doc.data());
+              setOrganisers(arr);
+              setCount(Math.floor(Math.random() * Math.floor(100)));
+            })
+          );
 
-          if (typeof activity.days !== "undefined") {
-            setDaysState(activity.days);
-          }
-          if (typeof activity.day !== "undefined") {
-            setTime(activity.day);
-          }
+        if (typeof activity.days !== "undefined") {
+          setDaysState(activity.days);
+        }
+        if (typeof activity.day !== "undefined") {
+          setTime(activity.day);
         }
       }
     }
@@ -85,7 +89,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
             <div className="c-adminItem__top__left">
               <div className="c-adminItem__image">
                 {typeof category !== "undefined" ? (
-                  <img src={category.icon} alt="preview" />
+                  <img src={img} alt="preview" />
                 ) : null}
               </div>
             </div>
@@ -100,7 +104,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
             <div className="c-adminItem__buttons">
               <Link to={"/admin/activity/" + activity.id + "/edit"}>
                 <button
-                  onChange={(e) => {
+                  onChange={e => {
                     e.preventDefault();
                   }}
                 >
@@ -130,6 +134,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     DeleteActivity: (docId: string) => dispatch(DeleteActivity(docId)),
+    GetPhoto: (path: string) => dispatch(GetPhoto(path))
   };
 };
 
