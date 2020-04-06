@@ -45,7 +45,7 @@ const AdminOrganizer: React.FC<Props> = ({ organizer }) => {
           <div className="c-adminItem__bottom">
             <div></div>
             <div className="c-adminItem__buttons">
-              <Link to={"organizer/" + organizer.id + "/edit"}>
+              <Link to={"/admin/organizer/" + organizer.id + "/edit"}>
                 <button
                   onChange={e => {
                     e.preventDefault();

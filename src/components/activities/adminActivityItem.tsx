@@ -99,7 +99,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
           <div className="c-adminItem__bottom">
             <div></div>
             <div className="c-adminItem__buttons">
-              <Link to={"activity/" + activity.id + "/edit"}>
+              <Link to={"/admin/activity/" + activity.id + "/edit"}>
                 <button
                   onChange={e => {
                     e.preventDefault();
