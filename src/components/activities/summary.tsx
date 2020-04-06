@@ -124,11 +124,21 @@ const Summary: React.FC<Props> = ({ activities }) => {
               }
             }
           });
-          setSortedDays(tempSortedDays);
         }
+        setSortedDays(sortArray(tempSortedDays));
       });
     }
   }, [activities, inititialActivities, sortedDays, initSortedDays]);
+  const sortArray = (arr: any) => {
+    // arr.Monday.sort((a: any, b: any) => {
+    //   let startA = a.days.find((item: any) => item.name === "Monday").startTime;
+    //   let startB = b.days.find((item: any) => item.name === "Monday").startTime;
+    //   console.log("startA, startB :", startA, startB);
+    //   return startA - startB;
+    // });
+    // console.log("arr :", arr);
+    return arr;
+  };
 
   let renderDays: any = [];
   Object.keys(sortedDays).forEach(function (key) {
@@ -184,12 +194,15 @@ const Summary: React.FC<Props> = ({ activities }) => {
     const { currentSlide } = carouselState;
     const [day, setDay] = useState<any>(undefined);
     useEffect(() => {
+      if (day !== GetDayByNumber(currentSlide)) {
+        setDay(GetDayByNumber(currentSlide));
+      }
+
       let today = new Date();
       if (today.getDay() - 1 !== currentSlide) {
-        setDay(GetDayByNumber(currentSlide));
         goToSlide(today.getDay() - 1);
       }
-    }, [currentSlide, goToSlide]);
+    }, [currentSlide, goToSlide, day]);
 
     return (
       <div className="c-dayChanger">

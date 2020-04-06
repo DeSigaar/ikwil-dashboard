@@ -28,7 +28,6 @@ export const EditRule = (
   id: string,
   docId: string
 ) => {
-  console.log("rule, profile, id, docId :", rule, profile, id, docId);
   firebase
     .firestore()
     .collection("rules")
