@@ -12,12 +12,10 @@ export const createOrganizer = (
   if (typeof img !== "undefined") {
     imgRef = uploadPhoto(img, "organisers/" + img.name);
   }
-  const ref = firebase
-    .firestore()
-    .collection("organisers")
-    .doc();
+  const ref = firebase.firestore().collection("organisers").doc();
   ref
     .set({
+      __deleted: false,
       name: organizer.name,
       description: organizer.description,
       place: organizer.place,
@@ -25,7 +23,7 @@ export const createOrganizer = (
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id,
       id: ref.id,
-      img: imgRef.fullPath
+      img: imgRef.fullPath,
     })
     .then(() => {
       store.dispatch({ type: "CREATE_ORGANISERS_SUCCESS", organizer });
@@ -58,16 +56,17 @@ export const EditOrganizer = (
     .collection("organisers")
     .doc(docId)
     .set({
+      __deleted: false,
       name: organizer.name,
       description: organizer.description,
       place: organizer.place,
       isAvailable: organizer.isAvailable,
       createdBy: profile.firstName + " " + profile.lastName,
       creatorID: id,
-      img: imgRef.fullPath
+      img: imgRef.fullPath,
     })
     .then(() => store.dispatch({ type: "EDIT_ORGANIZER_SUCCESS" }))
-    .catch(err => store.dispatch({ type: "EDIT_ORGANIZER_ERROR", err }));
+    .catch((err) => store.dispatch({ type: "EDIT_ORGANIZER_ERROR", err }));
 };
 
 export const DeleteOrganizer = (docId: string) => {
@@ -77,5 +76,5 @@ export const DeleteOrganizer = (docId: string) => {
     .doc(docId)
     .delete()
     .then(() => store.dispatch({ type: "DELETE_ORGANIZER_SUCCESS" }))
-    .catch(err => store.dispatch({ type: "DELETE_ORGANIZER_ERROR", err }));
+    .catch((err) => store.dispatch({ type: "DELETE_ORGANIZER_ERROR", err }));
 };
