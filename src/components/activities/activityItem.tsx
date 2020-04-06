@@ -8,8 +8,9 @@ import { getSecondPart } from "../../functions/stringSplitting";
 interface Props {
   activity?: iActivity;
   day?: any;
+  action?: any;
 }
-const ActivityItem: React.FC<Props> = ({ activity, day }) => {
+const ActivityItem: React.FC<Props> = ({ activity, day, action }) => {
   const firestore = useFirestore();
 
   const [category, setCategory] = useState<any>(undefined);
@@ -43,11 +44,9 @@ const ActivityItem: React.FC<Props> = ({ activity, day }) => {
       times = activity.day;
     }
 
-    console.log(category);
-
     return (
       <div>
-        <Link to={"/activity/" + activity.id} className="c-activity">
+        <div className="c-activity" onClick={() => action(activity)}>
           <div className="c-activity__top-content">
             <img
               className="c-activity__top-content__icon"
@@ -64,7 +63,7 @@ const ActivityItem: React.FC<Props> = ({ activity, day }) => {
               {activity.room}
             </div>
           </div>
-        </Link>
+        </div>
       </div>
     );
   } else {
