@@ -116,10 +116,11 @@ const Summary: React.FC<Props> = ({ activities }) => {
   }) => {
     const { currentSlide } = carouselState;
     const [day, setDay] = useState<any>(undefined);
+
     useEffect(() => {
       let today = new Date();
+      setDay(GetDayByNumber(currentSlide));
       if (today.getDay() - 1 !== currentSlide) {
-        setDay(GetDayByNumber(currentSlide));
         goToSlide(today.getDay() - 1);
       }
     }, [currentSlide, goToSlide]);
