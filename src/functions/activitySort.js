@@ -13,7 +13,6 @@ export const sortData = (activities) => {
   };
   if (typeof activities !== "undefined") {
     activities.forEach((activity) => {
-      console.log("activity", activity);
       if (typeof activity.day !== "undefined") {
         const date = new Date(activity.day.date);
         const dateToday = new Date();
@@ -87,7 +86,6 @@ export const sortData = (activities) => {
 
 export const sortArray = (arr) => {
   Object.keys(arr).forEach(function (key) {
-    console.log("key", key);
     arr[key].sort((a, b) => {
       return (
         moment
