@@ -24,7 +24,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
   const [time, setTime] = useState<iOnce>({
     date: "",
     startTime: "",
-    endTime: ""
+    endTime: "",
   });
 
   useEffect(() => {
@@ -57,7 +57,6 @@ const Activity: React.FC<Props> = ({ activity }) => {
                 arr.push(doc.data());
                 setOrganisers(arr);
                 setCount(Math.floor(Math.random() * Math.floor(100)));
-                //TO:DO Netter maken
               })
             );
 
@@ -101,7 +100,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
             <div className="c-adminItem__buttons">
               <Link to={"/admin/activity/" + activity.id + "/edit"}>
                 <button
-                  onChange={e => {
+                  onChange={(e) => {
                     e.preventDefault();
                   }}
                 >
@@ -121,7 +120,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
         </div>
       );
     } else {
-      return <Redirect to={"/admin/activity"} />;
+      return <Redirect to={"/admin/activities"} />;
     }
   } else {
     return null;
@@ -130,7 +129,7 @@ const Activity: React.FC<Props> = ({ activity }) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    DeleteActivity: (docId: string) => dispatch(DeleteActivity(docId))
+    DeleteActivity: (docId: string) => dispatch(DeleteActivity(docId)),
   };
 };
 
