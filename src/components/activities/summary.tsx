@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { useFirestore } from "react-redux-firebase";
 import { DeleteActivity } from "../../store/actions/activitiesActions";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Modal from "react-modal";
-import { Link } from "react-router-dom";
 import { GetDayByNumber, isThisWeek } from "../../functions/dates";
+import ActiveOrganizer from "../organisers/activeOrganizer";
+import { getSecondPart } from "../../functions/stringSplitting";
+import activeOrganizer from "../organisers/activeOrganizer";
+
 interface Props {
   activities?: iActivity[] | undefined;
   next?: any;
@@ -15,6 +19,7 @@ interface Props {
 }
 
 const Summary: React.FC<Props> = ({ activities }) => {
+  const firestore = useFirestore();
   const initSortedDays = {
     Monday: [],
     Tuesday: [],
@@ -37,17 +42,43 @@ const Summary: React.FC<Props> = ({ activities }) => {
   const [isMoving, setIsMoving] = useState<boolean>(false);
   const [modalIsOpen, setIsOpen] = React.useState<boolean>(false);
   const [modalContent, setModalContent] = React.useState<any>(false);
+  const [organisers, setOrganisers] = React.useState<any>(false);
+  const [count, setCount] = React.useState<any>(false);
+
+  const getOrganisers = (activity: iActivity) => {
+    setOrganisers([]);
+    if (typeof activity.organisers !== "undefined" && activity.organisers.length > 0) {      
+      //Organisers fetch
+      let organisersIds: any = [];
+      activity.organisers.forEach((organizer: any) => {
+        organisersIds.push(getSecondPart(organizer, "/"));
+      });
+      
+    let arr: any = [];
+    firestore
+      .collection("organisers")
+      .where("id", "in", organisersIds)
+      .get()
+      .then((data: any) =>
+        data.docs.forEach((doc: any) => {
+          arr.push(doc.data());
+          setOrganisers(arr);
+          setCount(Math.floor(Math.random() * Math.floor(100)));
+        })
+      );
+    }
+  }
 
   Modal.setAppElement("#root");
+  
+  const openModal = (activity: iActivity) => {
+    setIsOpen(true);
+    setModalContent(activity);
+    getOrganisers(activity)
+  };
 
   const closeModal = () => {
     setIsOpen(false);
-  };
-
-  const onClick = (activity: iActivity) => {
-    console.log("activity :", activity);
-    setIsOpen(true);
-    setModalContent(activity);
   };
 
   useEffect(() => {
@@ -146,7 +177,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
               }
               return (
                 <div key={activity.id + key}>
-                  <Link to={"/activity/" + activity.id} className="c-activity">
+                  <div className="c-activity" onClick={() => openModal(activity)}>
                     <div className="c-activity__top-content">
                       <img
                         className="c-activity__top-content__icon"
@@ -163,7 +194,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
                         {activity.room}
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 </div>
               );
             })}
@@ -241,16 +272,18 @@ const Summary: React.FC<Props> = ({ activities }) => {
           className="ReactModal__Content__close-icon"
           onClick={closeModal}
         ></div>
-        <div className="ReactModal__Content__image-wrapper">
-          {/* <img
-            className="ReactModal__Content__image"
-            src={}
-            alt="toiletrolls-Coronavirus"
-          /> */}
-        </div>
-        <div className="ReactModal__Content__wrapper">
-          <h2 className="ReactModal__Content__title">{modalContent.name}</h2>
-          <p className="ReactModal__Content__text">{modalContent.text}</p>
+        <div className="ReactModal__Content__wrapper__full">
+          <div className="ReactModal__Content__title_wrapper">
+            <img
+              className="ReactModal__Content__title_wrapper__image"
+              src="/yoga.svg"
+              alt=""
+              />
+            <h2 className="ReactModal__Content__title_wrapper__title">{modalContent.name}</h2>
+          </div>
+          <p className="ReactModal__Content__text">{modalContent.description}</p>
+          {organisers.length > 0 ? <h2 className="ReactModal__Content__title">Word gegeven door</h2> : null}
+          {organisers.length > 0 ? organisers.map((organizer: any) => { return <ActiveOrganizer organizer={organizer} key={organizer.id} /> }) : null}
         </div>
       </Modal>
     </>
