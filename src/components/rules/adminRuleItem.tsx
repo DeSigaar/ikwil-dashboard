@@ -33,7 +33,7 @@ const Rule: React.FC<Props> = ({ rule }) => {
           <div className="c-adminItem__bottom">
             <div></div>
             <div className="c-adminItem__buttons">
-              <Link to={"rule/" + rule.id + "/edit"}>
+              <Link to={"/admin/rule/" + rule.id + "/edit"}>
                 <button
                   onChange={e => {
                     e.preventDefault();

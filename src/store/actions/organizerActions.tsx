@@ -16,6 +16,7 @@ export const createOrganizer = (
   const ref = firebase.firestore().collection("organisers").doc();
   ref
     .set({
+      __deleted: false,
       name: organizer.name,
       description: organizer.description,
       place: organizer.place,
@@ -25,6 +26,7 @@ export const createOrganizer = (
       img: imgRef.fullPath,
       availability,
       __deleted: false,
+
     })
     .then(() => {
       store.dispatch({ type: "CREATE_ORGANISERS_SUCCESS", organizer });
@@ -58,6 +60,7 @@ export const EditOrganizer = (
     .collection("organisers")
     .doc(docId)
     .set({
+      __deleted: false,
       name: organizer.name,
       description: organizer.description,
       place: organizer.place,
@@ -66,6 +69,7 @@ export const EditOrganizer = (
       img: imgRef.fullPath,
       availability,
       __deleted: false,
+
     })
     .then(() => store.dispatch({ type: "EDIT_ORGANIZER_SUCCESS" }))
     .catch((err) => store.dispatch({ type: "EDIT_ORGANIZER_ERROR", err }));
