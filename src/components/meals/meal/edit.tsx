@@ -4,7 +4,6 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { EditMeal } from "../../../store/actions/mealActions";
 import { Redirect } from "react-router-dom";
-import { GetPhoto } from "../../../store/actions/imgActions";
 
 interface Props {
   link?: any;
@@ -21,9 +20,6 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
   const [isVegan, setIsVegan] = useState<boolean>(false);
   const [isVegetarian, setisVegetarian] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
-  const [img, setImg] = useState<any>(undefined);
-  const [imgPreview, setImgPreview] = useState<any>(undefined);
-  const [imgRef, setImgRef] = useState<string>("");
 
   useEffect(() => {
     if (typeof meal !== "undefined") {
@@ -33,12 +29,6 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
       setIsHallal(meal.isHallal);
       setIsVegan(meal.isVegan);
       setisVegetarian(meal.isVegetarian);
-      if (typeof meal.img !== "undefined") {
-        setImgRef(meal.img);
-      }
-      GetPhoto(meal.img)?.then((res: any) => {
-        setImgPreview(res);
-      });
     }
   }, [meal]);
 
@@ -51,20 +41,12 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
       isHallal,
       isVegan,
       isVegetarian,
-      isActive: true,
-      img: imgRef
+      isActive: true
     };
-    EditMeal(tempMeal, profile, auth.uid, link.params.id, imgRef, img);
+    EditMeal(tempMeal, profile, auth.uid, link.params.id);
     setRedirect(true);
   };
 
-  const handleImageUpload = (e: any) => {
-    e.preventDefault();
-    if (typeof e.target.files[0] !== "undefined") {
-      setImgPreview(URL.createObjectURL(e.target.files[0]));
-      setImg(e.target.files[0]);
-    }
-  };
   if (typeof meal !== "undefined") {
     if (!redirect) {
       return (
@@ -135,21 +117,6 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
                   <span className="checkmark"></span>
                 </label>
               </div>
-              <div className="o-inputfield">
-                <label>Afbeelding toevoegen</label>
-                <img
-                  className="o-inputfield__upload-preview"
-                  src={imgPreview}
-                  alt="preview"
-                />
-                <input
-                  className="o-inputfield__file-upload"
-                  type="file"
-                  name="imgToUpload"
-                  id="imgToUplaod"
-                  onChange={e => handleImageUpload(e)}
-                />
-              </div>
               <button>Update Maaltijd</button>
             </form>
           </div>
@@ -175,15 +142,8 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    EditMeal: (
-      meal: any,
-      profile: any,
-      id: string,
-      docId: string,
-      imgRef: string,
-      img: any
-    ) => dispatch(EditMeal(meal, profile, id, docId, imgRef, img)),
-    GetPhoto: (path: string) => dispatch(GetPhoto(path))
+    EditMeal: (meal: any, profile: any, id: string, docId: string) =>
+      dispatch(EditMeal(meal, profile, id, docId))
   };
 };
 

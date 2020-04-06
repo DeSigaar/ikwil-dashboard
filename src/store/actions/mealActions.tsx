@@ -56,18 +56,8 @@ export const EditMeal = (
   meal: any,
   profile: any,
   id: string,
-  docId: string,
-  imgPath: string,
-  img?: any
+  docId: string
 ) => {
-  let imgRef = { fullPath: "images/meals/default.png" };
-  if (typeof imgPath !== "undefined") {
-    imgRef.fullPath = imgPath;
-  }
-  if (typeof img !== "undefined") {
-    imgRef = uploadPhoto(img, "meals/" + img.name);
-  }
-
   firebase
     .firestore()
     .collection("meals")
@@ -81,8 +71,7 @@ export const EditMeal = (
       isActive: meal.isActive,
       isVegetarian: meal.isVegetarian,
       createdBy: profile.firstName + " " + profile.lastName,
-      creatorID: id,
-      img: imgRef.fullPath
+      creatorID: id
     })
     .then(() => store.dispatch({ type: "EDIT_MEAL_SUCCESS" }))
     .catch(err => store.dispatch({ type: "EDIT_MEAL_ERROR", err }));
