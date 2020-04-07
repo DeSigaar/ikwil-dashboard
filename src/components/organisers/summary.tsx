@@ -24,7 +24,7 @@ const Summary: React.FC<Props> = ({ data }) => {
           <>
             {data.map((organisor) => {
               if (typeof organisor.availability !== "undefined") {
-                if (organisor.availability[days[today + 1]]) {
+                if (organisor.availability[days[today - 1]]) {
                   return (
                     <ActiveOrganizer organizer={organisor} key={organisor.id} />
                   );
