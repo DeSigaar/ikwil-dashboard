@@ -10,6 +10,7 @@ import ActiveOrganizer from "../organisers/activeOrganizer";
 import { getSecondPart } from "../../functions/stringSplitting";
 import { sortData } from "../../functions/activitySort";
 import { GetPhoto } from "../../store/actions/imgActions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActivityItem from "./activityItem";
 import moment from "moment";
 import "moment/locale/nl"; // without this line it didn't work
@@ -154,16 +155,15 @@ const Summary: React.FC<Props> = ({ activities }) => {
           onClick={() => previous()}
           className="c-dayChanger__arrow"
         >
-          <img src="../chevron-left-solid.svg" alt="left chevron" />
+          <FontAwesomeIcon icon="chevron-left" />
         </button>
-        {console.log(day)}
         <h3 className="c-dayChanger__date">{day}</h3>
         <button
           id="forward"
           onClick={() => next()}
           className="c-dayChanger__arrow"
         >
-          <img src="../chevron-right-solid.svg" alt="right chevron" />
+          <FontAwesomeIcon icon="chevron-right" />
         </button>
       </div>
     );
