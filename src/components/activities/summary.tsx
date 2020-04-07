@@ -12,8 +12,8 @@ import { sortData } from "../../functions/activitySort";
 import { GetPhoto } from "../../store/actions/imgActions";
 import ActivityItem from "./activityItem";
 import moment from "moment";
-import 'moment/locale/nl'  // without this line it didn't work
-moment.locale('nl')
+import "moment/locale/nl"; // without this line it didn't work
+moment.locale("nl");
 
 interface Props {
   activities?: iActivity[] | undefined;
@@ -23,7 +23,7 @@ interface Props {
   goToSlide?: any;
 }
 
-const Summary: React.FC<Props> = ({ activities }) => {  
+const Summary: React.FC<Props> = ({ activities }) => {
   const firestore = useFirestore();
   const initSortedDays = {
     Monday: [],
@@ -53,36 +53,38 @@ const Summary: React.FC<Props> = ({ activities }) => {
 
   const getOrganisers = (activity: iActivity) => {
     setOrganisers([]);
-    if (typeof activity.organisers !== "undefined" && activity.organisers.length > 0) {      
+    if (
+      typeof activity.organisers !== "undefined" &&
+      activity.organisers.length > 0
+    ) {
       //Organisers fetch
       let organisersIds: any = [];
       activity.organisers.forEach((organizer: any) => {
         organisersIds.push(getSecondPart(organizer, "/"));
       });
-      
-    let arr: any = [];
-    firestore
-      .collection("organisers")
-      .where("id", "in", organisersIds)
-      .get()
-      .then((data: any) =>
-        data.docs.forEach((doc: any) => {
-          arr.push(doc.data());
-          setOrganisers(arr);
-          setCount(Math.floor(Math.random() * Math.floor(100)));
-        })
-      );
+
+      let arr: any = [];
+      firestore
+        .collection("organisers")
+        .where("id", "in", organisersIds)
+        .get()
+        .then((data: any) =>
+          data.docs.forEach((doc: any) => {
+            arr.push(doc.data());
+            setOrganisers(arr);
+            setCount(Math.floor(Math.random() * Math.floor(100)));
+          })
+        );
     }
-  }
+  };
 
   Modal.setAppElement("#root");
-  
+
   const openModal = (activity: iActivity) => {
     setIsOpen(true);
     setModalContent(activity);
     getOrganisers(activity);
     console.log(activity);
-    
   };
 
   const closeModal = () => {
@@ -139,7 +141,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
 
     useEffect(() => {
       let today = new Date();
-      // setDay(GetDayByNumber(currentSlide + 1));
+      setDay(GetDayByNumber(currentSlide + 1));
       if (today.getDay() - 1 !== currentSlide) {
         goToSlide(today.getDay() - 1);
       }
@@ -154,6 +156,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
         >
           <img src="../chevron-left-solid.svg" alt="left chevron" />
         </button>
+        {console.log(day)}
         <h3 className="c-dayChanger__date">{day}</h3>
         <button
           id="forward"
@@ -207,18 +210,48 @@ const Summary: React.FC<Props> = ({ activities }) => {
               className="ReactModal__Content__title_wrapper__image"
               src="/yoga.svg"
               alt=""
-              />
-            {modalContent.name ? <h2 className="ReactModal__Content__title_wrapper__title">{modalContent.name}</h2> : null}
+            />
+            {modalContent.name ? (
+              <h2 className="ReactModal__Content__title_wrapper__title">
+                {modalContent.name}
+              </h2>
+            ) : null}
           </div>
-          Wordt gegeven op 
-          {modalContent.days ? " " + moment.weekdays(true, currentSlide) + " van " + modalContent.days[currentSlide].startTime + " tot " + modalContent.days[currentSlide].endTime : null}
-          {modalContent.day ? " " + new Date(modalContent.day.date).toLocaleString('NL-nl', { weekday: 'long' }) + " van " + modalContent.day.startTime + " tot " +  modalContent.day.endTime  : null}
-          <br/>
-          <br/>
-          <p className="ReactModal__Content__text">{modalContent.description}</p>
+          Wordt gegeven op
+          {modalContent.days
+            ? " " +
+              moment.weekdays(true, currentSlide) +
+              " van " +
+              modalContent.days[currentSlide].startTime +
+              " tot " +
+              modalContent.days[currentSlide].endTime
+            : null}
+          {modalContent.day
+            ? " " +
+              new Date(modalContent.day.date).toLocaleString("NL-nl", {
+                weekday: "long",
+              }) +
+              " van " +
+              modalContent.day.startTime +
+              " tot " +
+              modalContent.day.endTime
+            : null}
           <br />
-          {organisers.length > 0 ? <h2 className="ReactModal__Content__title">Word gegeven door</h2> : null}
-          {organisers.length > 0 ? organisers.map((organizer: any) => { return <ActiveOrganizer organizer={organizer} key={organizer.id} /> }) : null}
+          <br />
+          <p className="ReactModal__Content__text">
+            {modalContent.description}
+          </p>
+          <br />
+          {organisers.length > 0 ? (
+            <h2 className="ReactModal__Content__title">Word gegeven door</h2>
+          ) : null}
+          {organisers.length > 0
+            ? organisers.map((organizer: any) => {
+                return (
+                  <ActiveOrganizer organizer={organizer} key={organizer.id} />
+                );
+              })
+            : null}
         </div>
       </Modal>
     </>
