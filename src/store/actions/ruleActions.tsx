@@ -5,6 +5,7 @@ export const createRule = (rule: iRule, profile: any, id: string) => {
   const ref = firebase.firestore().collection("rules").doc();
   ref
     .set({
+      __deleted: false,
       name: rule.name,
       rule: rule.rule,
       createdBy: profile.firstName + " " + profile.lastName,
@@ -28,12 +29,12 @@ export const EditRule = (
   id: string,
   docId: string
 ) => {
-  console.log("rule, profile, id, docId :", rule, profile, id, docId);
   firebase
     .firestore()
     .collection("rules")
     .doc(docId)
     .set({
+      __deleted: false,
       name: rule.name,
       rule: rule.userRule,
       createdBy: profile.firstName + " " + profile.lastName,

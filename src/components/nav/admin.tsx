@@ -30,6 +30,9 @@ const AdminNav: React.FC<Props> = ({ loggedIn }) => {
           <li>
             <Link to="/admin/rules">Huisregelementen</Link>
           </li>
+          <li>
+            <Link to="/admin/add-admin">Voeg administrator toe</Link>
+          </li>
           {!loggedIn ? (
             <>
               <li>
@@ -58,7 +61,7 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    signOut: () => dispatch(signOut())
+    signOut: () => dispatch(signOut()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AdminNav);

@@ -56,6 +56,16 @@
     height: 100%;
     overflow: hidden;
   }
+  &__title_wrapper{
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-small;
+
+    &__title{
+      margin-bottom: 0;
+      margin-left: $spacing-small-tiny;
+    }
+  }
   &__image{
     height: 100%;
     max-width: initial;
@@ -65,6 +75,14 @@
     width: 70%;
     right: 0;
     position: fixed;
+    padding: 15px 30px;
+    overflow: auto;
+    height: 100%;
+  }
+  &__wrapper__full{
+    width: 100%;
+    // right: 0;
+    // position: fixed;
     padding: 15px 30px;
     overflow: auto;
     height: 100%;
