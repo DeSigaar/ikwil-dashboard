@@ -13,15 +13,13 @@
     border-radius: 0px;
     border: 0px;
     background-color: transparent;
-    float: none;
     cursor: pointer;
+    color: $color-black;
+    font-size: $font-size-nav;
 
     &:hover {
+      color: $color-green;
       background-color: transparent;
-    }
-
-    &>img {
-      width: 15px;
     }
   }
 }

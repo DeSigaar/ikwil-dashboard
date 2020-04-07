@@ -40,6 +40,14 @@ import Meal from "../meals/meal/meal";
 import MealAdd from "../meals/meal/create";
 import MealEdit from "../meals/meal/edit";
 import MealAdmin from "../meals/admin";
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faChevronLeft, faChevronRight);
 interface Props {
   loggedIn?: boolean;
 }
