@@ -27,7 +27,7 @@ const Admin: React.FC<Props> = ({ activities, profile, auth }) => {
             <h2>Activiteiten</h2>
             <Link to={"/admin/activity/add"}>
               <button
-                onChange={e => {
+                onChange={(e) => {
                   e.preventDefault();
                 }}
               >
@@ -56,11 +56,13 @@ const mapStateToProps = (state: any) => {
   return {
     activities: state.firestore.ordered.activities,
     profile: state.firebase.profile,
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
   };
 };
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: "activities" }])
+  firestoreConnect([
+    { collection: "activities", where: [["__deleted", "==", false]] },
+  ])
 )(Admin) as React.FC<Props>;
