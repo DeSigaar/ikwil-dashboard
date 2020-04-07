@@ -11,11 +11,12 @@ export const createActivity = (
   let dateToSet: any = {
     name: activity.name,
     room: activity.room,
+    description: activity.description,
     category: "categories/" + activity.category,
     organisers: activity.organisers,
     createdBy: profile.firstName + " " + profile.lastName,
     creatorID: id,
-    __deleted: false
+    __deleted: false,
   };
   if (typeof dayToPush !== "undefined") {
     dateToSet.day = dayToPush;
@@ -23,10 +24,7 @@ export const createActivity = (
   if (typeof daysToPush !== "undefined") {
     dateToSet.days = daysToPush;
   }
-  const ref = firebase
-    .firestore()
-    .collection("activities")
-    .doc();
+  const ref = firebase.firestore().collection("activities").doc();
   ref
     .set(dateToSet)
     .then(() => {
@@ -53,7 +51,7 @@ export const EditActivity = (
     category: "categories/" + activity.category,
     createdBy: profile.firstName + " " + profile.lastName,
     creatorID: id,
-    __deleted: false
+    __deleted: false,
   };
   if (typeof dayToPush !== "undefined") {
     dateToSet.day = dayToPush;
@@ -67,7 +65,7 @@ export const EditActivity = (
     .doc(docId)
     .set(dateToSet)
     .then(() => store.dispatch({ type: "EDIT_ACTIVITY_SUCCESS" }))
-    .catch(err => store.dispatch({ type: "EDIT_ACTIVITY_ERROR", err }));
+    .catch((err) => store.dispatch({ type: "EDIT_ACTIVITY_ERROR", err }));
 };
 
 export const DeleteActivity = (docId: string) => {
@@ -75,7 +73,7 @@ export const DeleteActivity = (docId: string) => {
     .firestore()
     .collection("activities")
     .doc(docId)
-    .update({'__deleted': true})
+    .update({ __deleted: true })
     .then(() => store.dispatch({ type: "DELETE_ACTIVITY_SUCCESS" }))
-    .catch(err => store.dispatch({ type: "DELETE_ACTIVITY_ERROR", err }));
+    .catch((err) => store.dispatch({ type: "DELETE_ACTIVITY_ERROR", err }));
 };
