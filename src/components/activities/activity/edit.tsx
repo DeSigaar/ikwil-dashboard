@@ -24,7 +24,7 @@ const ActivityEdit: React.FC<Props> = ({
   profile,
   link,
   categories,
-  organisers
+  organisers,
 }) => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -45,7 +45,7 @@ const ActivityEdit: React.FC<Props> = ({
       setRoom(activity.room);
       setSelectedCategory(getSecondPart(activity.category, "/"));
       let arr: string[] = [];
-      activity.organisers.forEach(organizer => {
+      activity.organisers.forEach((organizer) => {
         arr.push(getSecondPart(organizer, "/"));
         setActiveOrganisers(arr);
       });
@@ -83,10 +83,10 @@ const ActivityEdit: React.FC<Props> = ({
   let categoryOptions = [
     <option key="noKey" value="geen">
       Select
-    </option>
+    </option>,
   ];
   if (typeof categories !== "undefined") {
-    categories.forEach(category =>
+    categories.forEach((category) =>
       categoryOptions.push(
         <option key={category.id} value={category.id}>
           {category.name}
@@ -101,7 +101,7 @@ const ActivityEdit: React.FC<Props> = ({
     let dayToPush: iOnce | undefined = undefined;
     let daysToPush: iDay[] | undefined = undefined;
 
-    activeOrganisers.forEach(ref => {
+    activeOrganisers.forEach((ref) => {
       organisers.push("organisers/" + ref);
     });
     if (once) {
@@ -124,7 +124,7 @@ const ActivityEdit: React.FC<Props> = ({
 
   let organisersOptions: any = [];
   if (typeof organisers !== "undefined") {
-    organisers.forEach(organizer => {
+    organisers.forEach((organizer) => {
       if (typeof organizer.id !== "undefined") {
         organisersOptions.push(
           <div key={organizer.id}>
@@ -133,7 +133,7 @@ const ActivityEdit: React.FC<Props> = ({
               <input
                 type="checkbox"
                 checked={activeOrganisers.includes(organizer.id)}
-                onChange={e => handleActiveOrganisers(e, organizer.id)}
+                onChange={(e) => handleActiveOrganisers(e, organizer.id)}
               />
               <span className="checkmark"></span>
             </label>
@@ -151,7 +151,7 @@ const ActivityEdit: React.FC<Props> = ({
     if (typeof id !== "undefined") {
       if (tempActiveOrganisers.includes(id)) {
         tempActiveOrganisers.splice(
-          tempActiveOrganisers.findIndex(item => item === id),
+          tempActiveOrganisers.findIndex((item) => item === id),
           1
         );
       } else {
@@ -166,14 +166,14 @@ const ActivityEdit: React.FC<Props> = ({
         <div className="s-cms">
           <div className="s-cms__form-conatiner">
             <h2 className="s-cms__header">Bewerken</h2>
-            <form onSubmit={e => handleSubmit(e)}>
+            <form onSubmit={(e) => handleSubmit(e)}>
               <div className="o-inputfield">
                 <label className="o-inputfield__label">Naam</label>
                 <input
                   className="o-inputfield__input"
                   required
                   value={name}
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="o-inputfield">
@@ -182,7 +182,7 @@ const ActivityEdit: React.FC<Props> = ({
                   className="o-inputfield__input"
                   required
                   value={description}
-                  onChange={e => setDescription(e.target.value)}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
               <div className="o-inputfield">
@@ -191,7 +191,7 @@ const ActivityEdit: React.FC<Props> = ({
                   className="o-inputfield__input"
                   required
                   value={room}
-                  onChange={e => setRoom(e.target.value)}
+                  onChange={(e) => setRoom(e.target.value)}
                 />
               </div>
               {organisersOptions.length === 0 ? (
@@ -208,7 +208,7 @@ const ActivityEdit: React.FC<Props> = ({
                 <select
                   required
                   value={category}
-                  onChange={e => setSelectedCategory(e.target.value)}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
                 >
                   {categoryOptions}
                 </select>
@@ -233,7 +233,7 @@ const ActivityEdit: React.FC<Props> = ({
                         className="o-inputfield__input"
                         type="date"
                         value={date}
-                        onChange={e => setDate(e.target.value)}
+                        onChange={(e) => setDate(e.target.value)}
                       />
                     </div>
                     <div className="o-inputfield">
@@ -243,14 +243,14 @@ const ActivityEdit: React.FC<Props> = ({
                           className="o-inputfield__input"
                           type="time"
                           value={startTime}
-                          onChange={e => setStartTime(e.target.value)}
+                          onChange={(e) => setStartTime(e.target.value)}
                         />
                         tot
                         <input
                           className="o-inputfield__input"
                           type="time"
                           value={endTime}
-                          onChange={e => setEndTime(e.target.value)}
+                          onChange={(e) => setEndTime(e.target.value)}
                         />
                       </div>
                     </div>
@@ -279,7 +279,7 @@ const mapStateToProps = (state: any) => {
       profile: state.firebase.profile,
       auth: state.firebase.auth,
       categories: state.firestore.ordered.categories,
-      organisers: state.firestore.ordered.organisers
+      organisers: state.firestore.ordered.organisers,
     };
   } else {
     return {};
@@ -298,7 +298,7 @@ const mapDispatchToProps = (dispatch: any) => {
     ) =>
       dispatch(
         EditActivity(activity, profile, id, docId, dayToPush, daysToPush)
-      )
+      ),
   };
 };
 
@@ -307,10 +307,10 @@ export default compose(
   firestoreConnect((props: Props) => [
     { collection: "activities", doc: props.link.params.id },
     {
-      collection: "categories"
+      collection: "categories",
     },
     {
-      collection: "organisers"
-    }
+      collection: "organisers",
+    },
   ])
 )(ActivityEdit) as React.FC<Props>;

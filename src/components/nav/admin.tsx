@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { signOut } from "../../store/actions/authActions";
 
@@ -15,35 +15,34 @@ const AdminNav: React.FC<Props> = ({ loggedIn }) => {
       </Link>
       <nav className="c-nav">
         <ul>
-          <li>
-            <Link to="/admin/meals">Maaltijd van de dag</Link>
-          </li>
-          <li>
-            <Link to="/admin/news">Nieuws</Link>
-          </li>
-          <li>
-            <Link to="/admin/activities">Activiteiten</Link>
-          </li>
-          <li>
-            <Link to="/admin/organisers">Coördinatoren</Link>
-          </li>
-          <li>
-            <Link to="/admin/rules">Huisregelementen</Link>
-          </li>
-          <li>
-            <Link to="/admin/add-admin">Voeg administrator toe</Link>
-          </li>
           {!loggedIn ? (
+            <Redirect to="/admin/login">Login</Redirect>
+          ) : (
             <>
               <li>
-                <Link to="/login">Login</Link>
+                <Link to="/admin/meals">Maaltijd van de dag</Link>
               </li>
               <li>
-                <Link to="/sign-up">sign up</Link>
+                <Link to="/admin/news">Nieuws</Link>
+              </li>
+              <li>
+                <Link to="/admin/activities">Activiteiten</Link>
+              </li>
+              <li>
+                <Link to="/admin/organisers">Coördinatoren</Link>
+              </li>
+              <li>
+                <Link to="/admin/rules">Huisregelementen</Link>
+              </li>
+              <li>
+                <Link to="/admin/add-admin">Voeg administrator toe</Link>
+              </li>
+              <li>
+                <Link to="#" onClick={() => signOut()}>
+                  Logout
+                </Link>
               </li>
             </>
-          ) : (
-            <>{/* <span onClick={() => signOut()}>Logout</span> */}</>
           )}
         </ul>
       </nav>
@@ -53,11 +52,13 @@ const AdminNav: React.FC<Props> = ({ loggedIn }) => {
 };
 
 const mapStateToProps = (state: any) => {
-  if (state.firebase.auth.isEmpty === false) {
-    return { loggedIn: true };
-  } else {
-    return { loggedIn: false };
+  let loggedIn = false;
+  if (!state.firebase.profile.isEmpty) {
+    if (state.firebase.profile.admin) {
+      loggedIn = true;
+    }
   }
+  return { authError: state.auth.authError, loggedIn };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
