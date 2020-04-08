@@ -101,36 +101,40 @@ const Summary: React.FC<Props> = ({ meals }) => {
             </div>
             <div className="ReactModal__Content__wrapper">
               {meals.map((meal: iMeal) => {
-                return (
-                  <div className="c-modal-meal" key={meal.id}>
-                    <h2 className="c-modal-meal__title">{meal.name}</h2>
-                    <div className="c-modal-meal__left-wrapper">
-                      <div className="c-modal-meal__price">
-                        &euro;{meal.price}
+                if (meal.isActive) {
+                  return (
+                    <div className="c-modal-meal" key={meal.id}>
+                      <h2 className="c-modal-meal__title">{meal.name}</h2>
+                      <div className="c-modal-meal__left-wrapper">
+                        <div className="c-modal-meal__price">
+                          &euro;{meal.price}
+                        </div>
+                        <h3 className="c-modal-meal__ingredients-title">
+                          Ingredienten
+                        </h3>
+                        <div className="c-modal-meal__ingredients">
+                          {meal.ingredients}
+                        </div>
                       </div>
-                      <h3 className="c-modal-meal__ingredients-title">
-                        Ingredienten
-                      </h3>
-                      <div className="c-modal-meal__ingredients">
-                        {meal.ingredients}
+                      <div className="c-modal-meal__characteristics">
+                        <div className="c-modal-meal__characteristics__item">
+                          {meal.isHallal ? <img src="/check.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is halal" /> : <img src="/close.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is niet halal" />}
+                          Halal
+                        </div>
+                        <div className="c-modal-meal__characteristics__item">
+                          {meal.isVegetarian ? <img src="/check.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is vegetarisch" /> : <img src="/close.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is niet vegetarisch" />}
+                          Vegetarisch
+                        </div>
+                        <div className="c-modal-meal__characteristics__item">
+                          {meal.isVegan ? <img src="/check.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is vegan" /> : <img src="/close.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is niet vegan" />}
+                          Vegan
+                        </div>
                       </div>
                     </div>
-                    <div className="c-modal-meal__characteristics">
-                      <div className="c-modal-meal__characteristics__item">
-                        {meal.isHallal ? <img src="/check.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is halal"/> : <img src="/close.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is niet halal"/>}
-                        Halal
-                      </div>
-                      <div className="c-modal-meal__characteristics__item">
-                        {meal.isVegetarian ? <img src="/check.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is vegetarisch"/> : <img src="/close.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is niet vegetarisch"/>}
-                        Vegetarisch
-                      </div>
-                      <div className="c-modal-meal__characteristics__item">
-                        {meal.isVegan ? <img src="/check.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is vegan"/> : <img src="/close.svg" className="c-modal-meal__characteristics__item__img" alt="Eten is niet vegan"/>}
-                        Vegan
-                      </div>
-                    </div>
-                  </div>
-                );
+                  );
+                } else {
+                  return null
+                }
               })}
             </div>
           </>
