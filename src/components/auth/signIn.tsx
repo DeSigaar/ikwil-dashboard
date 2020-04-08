@@ -9,8 +9,8 @@ interface Props {
 }
 
 const SignIn: React.FC<Props> = ({ authError, loggedIn }) => {
-  const [email, setEmail] = useState<string>("test@test.nl");
-  const [password, setPassword] = useState<string>("testtest");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [redirect, setRedirect] = useState<boolean>(false);
   const [notValid, setNotValid] = useState<string>("");
 

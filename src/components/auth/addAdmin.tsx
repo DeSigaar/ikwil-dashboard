@@ -8,10 +8,10 @@ interface Props {
 }
 
 const AddAdmin: React.FC<Props> = ({ signUp, authError }) => {
-  const [email, setEmail] = useState<string>("testerino@gmail.com");
-  const [firstName, setFirstName] = useState<string>("Tester");
-  const [lastName, setLastName] = useState<string>("ino");
-  const [password, setPassword] = useState<string>("testtest");
+  const [email, setEmail] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
