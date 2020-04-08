@@ -33,10 +33,7 @@ const Nav: React.FC<Props> = ({ loggedIn }) => {
           {!loggedIn ? (
             <>
               <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/sign-up">sign up</Link>
+                <Link to="/admin/login">Login</Link>
               </li>
             </>
           ) : (
@@ -58,7 +55,7 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    signOut: () => dispatch(signOut())
+    signOut: () => dispatch(signOut()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Nav);
