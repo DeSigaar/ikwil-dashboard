@@ -98,7 +98,7 @@ const App: React.FC<Props> = ({ loggedIn }) => {
         </>
       ) : (
         <>
-          <Route exact path="/login">
+          <Route exact path="/admin/login">
             <Login />
           </Route>
         </>
