@@ -70,7 +70,6 @@ const Edit: React.FC<Props> = ({ meal, auth, profile, link }) => {
                   required
                   value={price}
                   type="number"
-                  min="1"
                   step="any"
                   onChange={e => setPrice(e.target.value)}
                 />
