@@ -11,7 +11,7 @@ export const signIn = (credentials: iLogin) => {
     .auth()
     .signInWithEmailAndPassword(credentials.email, credentials.password)
     .then(() => store.dispatch({ type: "LOGIN_SUCCESS" }))
-    .catch(err => store.dispatch({ type: "LOGIN_ERROR", err }));
+    .catch((err) => store.dispatch({ type: "LOGIN_ERROR", err }));
 };
 
 export const signOut = () => {
@@ -26,10 +26,23 @@ export const signUp = (newUser: iNewUser) => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password)
+      .then((resp: any) => {
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(resp.user?.uid)
+          .set({
+            admin: true,
+            name: newUser.firstName + newUser.lastName,
+            firstName: newUser.firstName,
+            lastName: newUser.lastName,
+            initials: newUser.firstName[0] + newUser.lastName[0],
+          });
+      })
       .then(() => {
         store.dispatch({ type: "SIGNUP_SUCCESS" });
       })
-      .catch(err => {
+      .catch((err) => {
         store.dispatch({ type: "SIGNUP_ERROR", err });
       });
   };

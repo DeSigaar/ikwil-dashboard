@@ -13,7 +13,7 @@ import { GetPhoto } from "../../store/actions/imgActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActivityItem from "./activityItem";
 import moment from "moment";
-import "moment/locale/nl"; // without this line it didn't work
+import "moment/locale/nl";
 moment.locale("nl");
 
 interface Props {
@@ -85,17 +85,17 @@ const Summary: React.FC<Props> = ({ activities }) => {
     setIsOpen(true);
     setModalContent(activity);
     getOrganisers(activity);
-    console.log(activity);
+    // console.log(activity);
   };
 
   const closeModal = () => {
     setIsOpen(false);
   };
 
-  const onClick = (activity: iActivity) => {
-    setIsOpen(true);
-    setModalContent(activity);
-  };
+  // const onClick = (activity: iActivity) => {
+  //   setIsOpen(true);
+  //   setModalContent(activity);
+  // };
 
   useEffect(() => {
     if (activities !== inititialActivities) {
@@ -115,7 +115,11 @@ const Summary: React.FC<Props> = ({ activities }) => {
               {sortedDays[key].map((activity: any) => {
                 return (
                   <ActivityItem
-                    action={openModal}
+                    action={() => {
+                      if (isMoving !== true) {
+                        openModal(activity)
+                      }
+                    }}
                     key={activity.id}
                     day={key}
                     activity={activity}
