@@ -53,7 +53,6 @@ interface Props {
 }
 
 const App: React.FC<Props> = ({ loggedIn }) => {
-  console.log("loggedIn :", loggedIn);
   return (
     <div>
       {loggedIn ? (
