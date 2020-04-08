@@ -16,7 +16,7 @@ const AdminNav: React.FC<Props> = ({ loggedIn }) => {
       <nav className="c-nav">
         <ul>
           {!loggedIn ? (
-            <Redirect to="/admin/login">Login</Redirect>
+            <div></div>
           ) : (
             <>
               <li>
@@ -38,7 +38,7 @@ const AdminNav: React.FC<Props> = ({ loggedIn }) => {
                 <Link to="/admin/add-admin">Voeg administrator toe</Link>
               </li>
               <li>
-                <Link to="#" onClick={() => signOut()}>
+                <Link to="/admin/login" onClick={() => signOut()}>
                   Logout
                 </Link>
               </li>
