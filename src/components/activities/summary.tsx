@@ -147,21 +147,30 @@ const Summary: React.FC<Props> = ({ activities }) => {
         goToSlide(today.getDay() - 1);
       }
     }, [currentSlide, goToSlide]);
-
+    console.log("currentSlide :", currentSlide);
     return (
       <div className="c-dayChanger">
         <button
           id="back"
           onClick={() => previous()}
-          className="c-dayChanger__arrow"
+          className={
+            currentSlide !== 0
+              ? "c-dayChanger__arrow"
+              : "c-dayChanger__arrow disabled"
+          }
         >
           <FontAwesomeIcon icon="chevron-left" />
         </button>
         <h3 className="c-dayChanger__date">{day}</h3>
         <button
+          disabled={currentSlide === 6}
           id="forward"
           onClick={() => next()}
-          className="c-dayChanger__arrow"
+          className={
+            currentSlide !== 6
+              ? "c-dayChanger__arrow"
+              : "c-dayChanger__arrow disabled"
+          }
         >
           <FontAwesomeIcon icon="chevron-right" />
         </button>
