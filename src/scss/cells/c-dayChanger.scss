@@ -5,6 +5,14 @@
   align-items: center;
   padding-top: $spacing-small-tiny;
 
+  .disabled {
+    color: $color-light-gray;
+    cursor: unset;
+    &:hover {
+      color: $color-light-gray;
+    }
+  }
+
   &__date {
     padding: 0 $spacing-small;
   }

@@ -5,10 +5,9 @@ import { Redirect } from "react-router-dom";
 interface Props {
   authError?: any;
   signIn: any;
-  loggedIn?: boolean;
 }
 
-const SignIn: React.FC<Props> = ({ authError, loggedIn }) => {
+const SignIn: React.FC<Props> = ({ authError }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [redirect, setRedirect] = useState<boolean>(false);
@@ -17,13 +16,6 @@ const SignIn: React.FC<Props> = ({ authError, loggedIn }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signIn({ email, password });
-    if (loggedIn) {
-      setRedirect(true);
-    } else {
-      setTimeout(() => {
-        setNotValid("Geen geldig account");
-      }, 1000);
-    }
   };
   if (!redirect) {
     return (
@@ -66,13 +58,7 @@ const SignIn: React.FC<Props> = ({ authError, loggedIn }) => {
   }
 };
 const mapStateToProps = (state: any) => {
-  let loggedIn = false;
-  if (!state.firebase.profile.isEmpty) {
-    if (state.firebase.profile.admin) {
-      loggedIn = true;
-    }
-  }
-  return { authError: state.auth.authError, loggedIn };
+  return { authError: state.auth.authError };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {

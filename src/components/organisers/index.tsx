@@ -6,33 +6,26 @@ import Summary from "./summary";
 // import Create from "./organizer/create";
 interface Props {
   data?: iOrganizer[];
-  isLoggedIn: boolean;
 }
 
-const Organisers: React.FC<Props> = ({ data, isLoggedIn }) => {
+const Organisers: React.FC<Props> = ({ data }) => {
   return (
     <div id="organisers" className="s-card-small">
       <Summary data={data} />
-      {/* {isLoggedIn ? <Create /> : null} */}
     </div>
   );
 };
 
 const mapStateToProps = (state: any) => {
-  let isLoggedIn = false;
-  if (!state.firebase.profile.isEmpty) {
-    isLoggedIn = true;
-  }
   return {
     data: state.firestore.ordered.organisers,
-    isLoggedIn
   };
 };
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([
     {
-      collection: "organisers"
-    }
+      collection: "organisers",
+    },
   ])
 )(Organisers) as React.FC;

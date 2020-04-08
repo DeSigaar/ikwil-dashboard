@@ -6,33 +6,26 @@ import Summary from "./summary";
 // import Create from "./rule/create";
 interface Props {
   data?: iRule[];
-  isLoggedIn: boolean;
 }
 
-const Rules: React.FC<Props> = ({ data, isLoggedIn }) => {
+const Rules: React.FC<Props> = ({ data }) => {
   return (
     <div id="rules" className="s-card-small">
       <Summary data={data} />
-      {/* {isLoggedIn ? <Create /> : null} */}
     </div>
   );
 };
 
 const mapStateToProps = (state: any) => {
-  let isLoggedIn = false;
-  if (!state.firebase.profile.isEmpty) {
-    isLoggedIn = true;
-  }
   return {
     data: state.firestore.ordered.rules,
-    isLoggedIn
   };
 };
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([
     {
-      collection: "rules"
-    }
+      collection: "rules",
+    },
   ])
 )(Rules) as React.FC;
