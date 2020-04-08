@@ -5,7 +5,7 @@ import { DeleteActivity } from "../../store/actions/activitiesActions";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Modal from "react-modal";
-import { GetDayByNumber, isThisWeek } from "../../functions/dates";
+import { GetDayByNumber } from "../../functions/dates";
 import ActiveOrganizer from "../organisers/activeOrganizer";
 import { getSecondPart } from "../../functions/stringSplitting";
 import { sortData } from "../../functions/activitySort";
@@ -139,14 +139,18 @@ const Summary: React.FC<Props> = ({ activities }) => {
   }) => {
     const { currentSlide } = carouselState;
     const [day, setDay] = useState<any>(undefined);
+    const [inited, setInited] = useState<boolean>(false);
 
     useEffect(() => {
-      let today = new Date();
       setDay(GetDayByNumber(currentSlide + 1));
-      if (today.getDay() - 1 !== currentSlide) {
-        goToSlide(today.getDay() - 1);
+      if (!inited) {
+        setInited(true);
+        let today = new Date();
+        if (today.getDay() - 1 !== currentSlide) {
+          goToSlide(today.getDay() - 1);
+        }
       }
-    }, [currentSlide, goToSlide]);
+    }, [currentSlide, goToSlide, inited]);
 
     return (
       <div className="c-dayChanger">
@@ -175,6 +179,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
       <Carousel
         responsive={responsive}
         infinite={false}
+        draggable={false}
         containerClass="o-carousel"
         dotListClass="o-carousel__dots"
         sliderClass="o-carousel__slider"
@@ -182,7 +187,6 @@ const Summary: React.FC<Props> = ({ activities }) => {
         arrows={false}
         customButtonGroup={<ButtonGroup />}
         beforeChange={() => setIsMoving(true)}
-        // afterChange={() => setIsMoving(false)}
         afterChange={(previousSlide, { currentSlide }) => {
           setIsMoving(false);
           setCurrentSlide(currentSlide);
