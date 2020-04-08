@@ -52,11 +52,13 @@ const AdminNav: React.FC<Props> = ({ loggedIn }) => {
 };
 
 const mapStateToProps = (state: any) => {
-  if (state.firebase.auth.isEmpty === false) {
-    return { loggedIn: true };
-  } else {
-    return { loggedIn: false };
+  let loggedIn = false;
+  if (!state.firebase.profile.isEmpty) {
+    if (state.firebase.profile.admin) {
+      loggedIn = true;
+    }
   }
+  return { authError: state.auth.authError, loggedIn };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {

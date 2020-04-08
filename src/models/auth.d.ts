@@ -3,8 +3,10 @@ interface iNewUser {
   firstName: string;
   lastName: string;
   password: string;
+  admin?: boolean;
 }
 interface iLogin {
   email: string;
   password: string;
+  admin?: boolean;
 }

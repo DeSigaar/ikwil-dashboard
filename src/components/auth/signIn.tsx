@@ -5,17 +5,25 @@ import { Redirect } from "react-router-dom";
 interface Props {
   authError?: any;
   signIn: any;
+  loggedIn?: boolean;
 }
 
-const SignIn: React.FC<Props> = ({ authError }) => {
+const SignIn: React.FC<Props> = ({ authError, loggedIn }) => {
   const [email, setEmail] = useState<string>("test@test.nl");
   const [password, setPassword] = useState<string>("testtest");
   const [redirect, setRedirect] = useState<boolean>(false);
+  const [notValid, setNotValid] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signIn({ email, password });
-    setRedirect(true);
+    if (loggedIn) {
+      setRedirect(true);
+    } else {
+      setTimeout(() => {
+        setNotValid("Geen geldig account");
+      }, 1000);
+    }
   };
   if (!redirect) {
     return (
@@ -45,6 +53,7 @@ const SignIn: React.FC<Props> = ({ authError }) => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          {notValid}
           <button>Login</button>
           {typeof authError !== "undefined" && authError !== null
             ? authError.message
@@ -57,7 +66,13 @@ const SignIn: React.FC<Props> = ({ authError }) => {
   }
 };
 const mapStateToProps = (state: any) => {
-  return { authError: state.auth.authError };
+  let loggedIn = false;
+  if (!state.firebase.profile.isEmpty) {
+    if (state.firebase.profile.admin) {
+      loggedIn = true;
+    }
+  }
+  return { authError: state.auth.authError, loggedIn };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
