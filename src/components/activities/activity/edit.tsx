@@ -178,7 +178,7 @@ const ActivityEdit: React.FC<Props> = ({
               </div>
               <div className="o-inputfield">
                 <label className="o-inputfield__label">Beschrijving</label>
-                <input
+                <textarea
                   className="o-inputfield__input"
                   required
                   value={description}
