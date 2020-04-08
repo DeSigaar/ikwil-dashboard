@@ -5,7 +5,7 @@ import { DeleteActivity } from "../../store/actions/activitiesActions";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Modal from "react-modal";
-import { GetDayByNumber, isThisWeek } from "../../functions/dates";
+import { GetDayByNumber } from "../../functions/dates";
 import ActiveOrganizer from "../organisers/activeOrganizer";
 import { getSecondPart } from "../../functions/stringSplitting";
 import { sortData } from "../../functions/activitySort";
@@ -13,7 +13,7 @@ import { GetPhoto } from "../../store/actions/imgActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActivityItem from "./activityItem";
 import moment from "moment";
-import "moment/locale/nl"; // without this line it didn't work
+import "moment/locale/nl";
 moment.locale("nl");
 
 interface Props {
@@ -49,7 +49,6 @@ const Summary: React.FC<Props> = ({ activities }) => {
   const [modalIsOpen, setIsOpen] = React.useState<boolean>(false);
   const [modalContent, setModalContent] = React.useState<any>(false);
   const [organisers, setOrganisers] = React.useState<any>(false);
-  const [count, setCount] = React.useState<any>(false);
   const [currentSlide, setCurrentSlide] = React.useState<any>(0);
 
   const getOrganisers = (activity: iActivity) => {
@@ -73,7 +72,6 @@ const Summary: React.FC<Props> = ({ activities }) => {
           data.docs.forEach((doc: any) => {
             arr.push(doc.data());
             setOrganisers(arr);
-            setCount(Math.floor(Math.random() * Math.floor(100)));
           })
         );
     }
@@ -85,16 +83,10 @@ const Summary: React.FC<Props> = ({ activities }) => {
     setIsOpen(true);
     setModalContent(activity);
     getOrganisers(activity);
-    console.log(activity);
   };
 
   const closeModal = () => {
     setIsOpen(false);
-  };
-
-  const onClick = (activity: iActivity) => {
-    setIsOpen(true);
-    setModalContent(activity);
   };
 
   useEffect(() => {
@@ -115,7 +107,11 @@ const Summary: React.FC<Props> = ({ activities }) => {
               {sortedDays[key].map((activity: any) => {
                 return (
                   <ActivityItem
-                    action={openModal}
+                    action={() => {
+                      if (isMoving !== true) {
+                        openModal(activity)
+                      }
+                    }}
                     key={activity.id}
                     day={key}
                     activity={activity}
@@ -139,15 +135,21 @@ const Summary: React.FC<Props> = ({ activities }) => {
   }) => {
     const { currentSlide } = carouselState;
     const [day, setDay] = useState<any>(undefined);
+    const [inited, setInited] = useState<boolean>(false);
 
     useEffect(() => {
-      let today = new Date();
       setDay(GetDayByNumber(currentSlide + 1));
-      if (today.getDay() - 1 !== currentSlide) {
-        goToSlide(today.getDay() - 1);
+      if (!inited) {
+        setInited(true);
+        let today = new Date();
+        if (today.getDay() - 1 !== currentSlide) {
+          goToSlide(today.getDay() - 1);
+        }
       }
-    }, [currentSlide, goToSlide]);
-    console.log("currentSlide :", currentSlide);
+
+    }, [currentSlide, goToSlide, inited]);
+
+
     return (
       <div className="c-dayChanger">
         <button
@@ -184,6 +186,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
       <Carousel
         responsive={responsive}
         infinite={false}
+        draggable={false}
         containerClass="o-carousel"
         dotListClass="o-carousel__dots"
         sliderClass="o-carousel__slider"
@@ -191,7 +194,6 @@ const Summary: React.FC<Props> = ({ activities }) => {
         arrows={false}
         customButtonGroup={<ButtonGroup />}
         beforeChange={() => setIsMoving(true)}
-        // afterChange={() => setIsMoving(false)}
         afterChange={(previousSlide, { currentSlide }) => {
           setIsMoving(false);
           setCurrentSlide(currentSlide);

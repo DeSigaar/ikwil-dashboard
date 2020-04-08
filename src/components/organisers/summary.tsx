@@ -1,6 +1,5 @@
 import React from "react";
 import ActiveOrganizer from "./activeOrganizer";
-import { getDayNumber } from "../../functions/dates";
 interface Props {
   data?: iOrganizer[] | undefined;
 }

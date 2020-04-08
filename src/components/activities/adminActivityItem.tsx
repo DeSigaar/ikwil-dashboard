@@ -17,20 +17,11 @@ const Activity: React.FC<Props> = ({ activity }) => {
   const [safeDelete, setSafeDelete] = useState<boolean>(false);
   const [redirect, setRedirect] = useState<boolean>(false);
   const [category, setCategory] = useState<iCategory | undefined>(undefined);
-  const [organisers, setOrganisers] = useState<any>([]);
-  const [count, setCount] = useState<number>(1);
   const [img, setImg] = useState<any>(undefined);
-  const [daysState, setDaysState] = useState<iDay[] | undefined>(undefined);
-  const [time, setTime] = useState<iOnce>({
-    date: "",
-    startTime: "",
-    endTime: ""
-  });
 
   useEffect(() => {
     if (typeof activity !== "undefined") {
       if (typeof activity.category !== "undefined") {
-        //Category fetch
         firestore
           .collection("categories")
           .doc(getSecondPart(activity.category, "/"))
@@ -46,7 +37,6 @@ const Activity: React.FC<Props> = ({ activity }) => {
         typeof activity.organisers !== "undefined" &&
         activity.organisers.length > 0
       ) {
-        //Organisers fetch
         let organisersIds: any = [];
         activity.organisers.forEach((organizer: iOrganizer) => {
           organisersIds.push(getSecondPart(organizer, "/"));
@@ -60,17 +50,8 @@ const Activity: React.FC<Props> = ({ activity }) => {
           .then((data: any) =>
             data.docs.forEach((doc: any) => {
               arr.push(doc.data());
-              setOrganisers(arr);
-              setCount(Math.floor(Math.random() * Math.floor(100)));
             })
           );
-
-        if (typeof activity.days !== "undefined") {
-          setDaysState(activity.days);
-        }
-        if (typeof activity.day !== "undefined") {
-          setTime(activity.day);
-        }
       }
     }
   }, [activity, firestore]);

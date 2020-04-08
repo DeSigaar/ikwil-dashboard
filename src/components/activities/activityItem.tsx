@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { GetPhoto } from "../../store/actions/imgActions";
 import { useFirestore } from "react-redux-firebase";
@@ -12,8 +11,6 @@ interface Props {
 }
 const ActivityItem: React.FC<Props> = ({ activity, day, action }) => {
   const firestore = useFirestore();
-
-  const [category, setCategory] = useState<any>(undefined);
   const [img, setImg] = useState<any>(undefined);
 
   useEffect(() => {
@@ -25,8 +22,6 @@ const ActivityItem: React.FC<Props> = ({ activity, day, action }) => {
           .doc(getSecondPart(activity.category, "/"))
           .get()
           .then((data: any) => {
-            setCategory(data.data());
-
             GetPhoto(data.data().icon)?.then((res: any) => {
               setImg(res);
             });

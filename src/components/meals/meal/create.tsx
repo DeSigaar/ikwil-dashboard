@@ -48,7 +48,6 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
               required
               value={price}
               type="number"
-              min="1"
               step="any"
               onChange={e => setPrice(e.target.value)}
             />
