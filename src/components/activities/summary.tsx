@@ -49,7 +49,6 @@ const Summary: React.FC<Props> = ({ activities }) => {
   const [modalIsOpen, setIsOpen] = React.useState<boolean>(false);
   const [modalContent, setModalContent] = React.useState<any>(false);
   const [organisers, setOrganisers] = React.useState<any>(false);
-  const [count, setCount] = React.useState<any>(false);
   const [currentSlide, setCurrentSlide] = React.useState<any>(0);
 
   const getOrganisers = (activity: iActivity) => {
@@ -73,7 +72,6 @@ const Summary: React.FC<Props> = ({ activities }) => {
           data.docs.forEach((doc: any) => {
             arr.push(doc.data());
             setOrganisers(arr);
-            setCount(Math.floor(Math.random() * Math.floor(100)));
           })
         );
     }
@@ -85,7 +83,6 @@ const Summary: React.FC<Props> = ({ activities }) => {
     setIsOpen(true);
     setModalContent(activity);
     getOrganisers(activity);
-    // console.log(activity);
   };
 
   const closeModal = () => {

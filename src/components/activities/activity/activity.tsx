@@ -58,7 +58,6 @@ const Activity: React.FC<Props> = ({ link, data }) => {
                 arr.push(doc.data());
                 setOrganisers(arr);
                 setCount(Math.floor(Math.random() * Math.floor(100)));
-                //TO:DO Netter maken
               })
             );
 
