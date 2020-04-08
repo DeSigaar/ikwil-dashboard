@@ -92,11 +92,6 @@ const Summary: React.FC<Props> = ({ activities }) => {
     setIsOpen(false);
   };
 
-  // const onClick = (activity: iActivity) => {
-  //   setIsOpen(true);
-  //   setModalContent(activity);
-  // };
-
   useEffect(() => {
     if (activities !== inititialActivities) {
       setCheckActivities(activities);
