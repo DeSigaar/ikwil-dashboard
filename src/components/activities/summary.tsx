@@ -138,7 +138,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
       if (!initted) {
         let today = new Date();
         setInitted(true);
-        goToSlide(today.getDay());
+        goToSlide(today.getDay() - 1);
       }
     }, [goToSlide]);
     return (
