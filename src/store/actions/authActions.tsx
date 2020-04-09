@@ -21,21 +21,23 @@ export const signOut = () => {
     .then(() => store.dispatch({ type: "SIGNOUT_SUCCESS" }));
 };
 
-export const signUp = (newUser: iNewUser) => {
+export const addAdmin = (newUser: iNewUser) => {
   return () => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password)
       .then((resp: any) => {
-        firebase
-          .firestore()
-          .collection("users")
-          .doc(resp.user?.uid)
-          .set({
-            admin: true,
-            displayName: newUser.firstName + newUser.lastName,
-            initials: newUser.firstName[0] + newUser.lastName[0],
-          });
+        setTimeout(function () {
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(resp.user?.uid)
+            .update({
+              admin: true,
+              displayName: newUser.firstName + newUser.lastName,
+              initials: newUser.firstName[0] + newUser.lastName[0],
+            });
+        }, 5000);
       })
       .then(() => {
         store.dispatch({ type: "SIGNUP_SUCCESS" });

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { signUp } from "../../store/actions/authActions";
+import { addAdmin } from "../../store/actions/authActions";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 interface Props {
   authError?: any;
-  signUp: any;
+  addAdmin: any;
 }
 
-const AddAdmin: React.FC<Props> = ({ signUp, authError }) => {
+const AddAdmin: React.FC<Props> = ({ addAdmin, authError }) => {
   const [email, setEmail] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
@@ -24,7 +24,7 @@ const AddAdmin: React.FC<Props> = ({ signUp, authError }) => {
       lastName,
       password
     );
-    signUp({ email, firstName, lastName, password });
+    addAdmin({ email, firstName, lastName, password });
     setRedirect(true);
   };
   if (!redirect) {
@@ -89,7 +89,7 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    signUp: (newUser: iNewUser) => dispatch(signUp(newUser)),
+    addAdmin: (newUser: iNewUser) => dispatch(addAdmin(newUser)),
   };
 };
 
