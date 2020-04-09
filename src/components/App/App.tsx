@@ -9,34 +9,24 @@ import Login from "../auth/signIn";
 import Nav from "../nav/index";
 import AdminNav from "../nav/admin";
 
-import Organisers from "../organisers/index";
-import Organizer from "../organisers/organizer/organizer";
 import OrganizerEdit from "../organisers/organizer/edit";
 import OrganizerAdd from "../organisers/organizer/create";
 import OrganizerAdmin from "../organisers/admin";
 
-import News from "../news/index";
-import NewsItem from "../news/newsItem/newsItem";
 import NewsItemEdit from "../news/newsItem/edit";
 import NewsItemAdd from "../news/newsItem/create";
 import NewsAdmin from "../news/admin";
 
-import Rules from "../rules/index";
 import RuleAdd from "../rules/rule/create";
-import Rule from "../rules/rule/rule";
 import RuleEdit from "../rules/rule/edit";
 import RuleAdmin from "../rules/admin";
 
-import Activities from "../activities/index";
-import Activity from "../activities/activity/activity";
 import ActivityAdd from "../activities/activity/create";
 import ActivityEdit from "../activities/activity/edit";
 import ActivityAdmin from "../activities/admin";
 
 import Admin from "../admin/index";
 
-import Meals from "../meals/index";
-import Meal from "../meals/meal/meal";
 import MealAdd from "../meals/meal/create";
 import MealEdit from "../meals/meal/edit";
 import MealAdmin from "../meals/admin";
