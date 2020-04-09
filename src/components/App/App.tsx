@@ -46,6 +46,9 @@ const App: React.FC<Props> = ({ loggedIn }) => {
   return (
     <div>
       <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
         <Route exact path="/loggingyouin">
           Logging you in
         </Route>
@@ -91,7 +94,7 @@ const App: React.FC<Props> = ({ loggedIn }) => {
             <Route exact path="/admin">
               <Admin />
             </Route>
-            <Redirect to="/admin" />
+            <Redirect to="/" />
           </>
         ) : (
           <>
