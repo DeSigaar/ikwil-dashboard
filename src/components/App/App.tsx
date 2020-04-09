@@ -45,6 +45,9 @@ interface Props {
 const App: React.FC<Props> = ({ loggedIn }) => {
   return (
     <div>
+      <Route exact path="/loggingyouin">
+        Logging you in
+      </Route>
       {loggedIn ? (
         <>
           <Route path="/admin/meal/add" component={MealAdd} />
@@ -91,6 +94,7 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           <Route exact path="/admin/login">
             <Login />
           </Route>
+
           <Redirect to="/admin/login" />
         </>
       )}

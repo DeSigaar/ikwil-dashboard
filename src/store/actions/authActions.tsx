@@ -37,7 +37,7 @@ export const addAdmin = (newUser: iNewUser) => {
               displayName: newUser.firstName + newUser.lastName,
               initials: newUser.firstName[0] + newUser.lastName[0],
             });
-        }, 5000);
+        }, 2000);
       })
       .then(() => {
         store.dispatch({ type: "SIGNUP_SUCCESS" });

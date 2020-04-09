@@ -77,7 +77,7 @@ const AddAdmin: React.FC<Props> = ({ addAdmin, authError }) => {
       </div>
     );
   } else {
-    return <Redirect to="/admin" />;
+    return <Redirect to="/loggingyouin" />;
   }
 };
 
