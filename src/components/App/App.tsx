@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "../home/index";
 import "../../scss/index.scss";
 import { connect } from "react-redux";
-
+import {withRouter} from 'react-router';
 import AddAdmin from "../auth/addAdmin";
 import Login from "../auth/signIn";
 import Nav from "../nav/index";
@@ -162,4 +162,4 @@ const mapStateToProps = (state: any) => {
     }
   }
 };
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));
