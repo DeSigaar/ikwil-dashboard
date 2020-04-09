@@ -29,7 +29,7 @@ firebase.initializeApp({
   messagingSenderId: process.env.REACT_APP_firebase_messagingSenderId,
   projectId: process.env.REACT_APP_firebase_projectId,
   storageBucket: process.env.REACT_APP_firebase_storageBucket,
-}});
+});
 
 const rrfConfig = {
   userProfile: "users",
