@@ -91,7 +91,7 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           <Route exact path="/admin/news" component={NewsAdmin} />
           <Route exact path="/admin/organisers" component={OrganizerAdmin} />
           <Route exact path="/admin/rules" component={RuleAdmin} />
-          <Route path="/admin">
+          <Route exact path="/admin">
             <Admin />
           </Route>
         </>
