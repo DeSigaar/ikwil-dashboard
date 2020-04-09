@@ -15,6 +15,15 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+        env:
+          REACT_APP_firebase_apiKey: ${{ secrets.REACT_APP_firebase_apiKey }}
+          REACT_APP_firebase_appId: ${{ secrets.REACT_APP_firebase_appId }}
+          REACT_APP_firebase_authDomain: ${{ secrets.REACT_APP_firebase_authDomain }}
+          REACT_APP_firebase_databaseURL: ${{ secrets.REACT_APP_firebase_databaseURL }}
+          REACT_APP_firebase_measurementId: ${{ secrets.REACT_APP_firebase_measurementId }}
+          REACT_APP_firebase_messagingSenderId: ${{ secrets.REACT_APP_firebase_messagingSenderId }}
+          REACT_APP_firebase_projectId: ${{ secrets.REACT_APP_firebase_projectId }}
+          REACT_APP_firebase_storageBucket: ${{ secrets.REACT_APP_firebase_storageBucket }}
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:

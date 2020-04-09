@@ -16,12 +16,20 @@ import thunk from "redux-thunk";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
-import fbConfig from "./config/fbConfig";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { createFirestoreInstance } from "redux-firestore";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-firebase.initializeApp(fbConfig);
+firebase.initializeApp({
+  apiKey: process.env.REACT_APP_firebase_apiKey,
+  appId: process.env.REACT_APP_firebase_appId,
+  authDomain: process.env.REACT_APP_firebase_authDomain,
+  databaseURL: process.env.REACT_APP_firebase_databaseURL,
+  measurementId: process.env.REACT_APP_firebase_measurementId,
+  messagingSenderId: process.env.REACT_APP_firebase_messagingSenderId,
+  projectId: process.env.REACT_APP_firebase_projectId,
+  storageBucket: process.env.REACT_APP_firebase_storageBucket,
+}});
 
 const rrfConfig = {
   userProfile: "users",
