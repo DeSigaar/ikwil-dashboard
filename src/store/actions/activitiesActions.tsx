@@ -17,6 +17,8 @@ export const createActivity = (
     createdBy: profile.firstName + " " + profile.lastName,
     creatorID: id,
     __deleted: false,
+    attending: 0,
+    maybeAttending: 0,
   };
   if (typeof dayToPush !== "undefined") {
     dateToSet.day = dayToPush;

@@ -37,6 +37,8 @@ const ActivityEdit: React.FC<Props> = ({
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("");
   const [once, setOnce] = useState<boolean>(false);
+  const [attending, setAttending] = useState<number>(0);
+  const [maybeAttending, setMaybeAttending] = useState<number>(0);
 
   useEffect(() => {
     if (typeof activity !== "undefined") {
@@ -49,7 +51,12 @@ const ActivityEdit: React.FC<Props> = ({
         arr.push(getSecondPart(organizer, "/"));
         setActiveOrganisers(arr);
       });
-
+      if (typeof activity.attending !== "undefined") {
+        setAttending(activity.attending);
+      }
+      if (typeof activity.maybeAttending !== "undefined") {
+        setMaybeAttending(activity.maybeAttending);
+      }
       if (typeof activity.days === "undefined") {
         setOnce(true);
       } else {
@@ -112,7 +119,15 @@ const ActivityEdit: React.FC<Props> = ({
       dayToPush = undefined;
     }
     EditActivity(
-      { name, description, room, category, organisers },
+      {
+        name,
+        description,
+        room,
+        category,
+        organisers,
+        attending,
+        maybeAttending,
+      },
       profile,
       auth.uid,
       link.params.id,
