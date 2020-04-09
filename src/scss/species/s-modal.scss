@@ -1,26 +1,27 @@
-.ReactModal__Content{
-  &--after-open{
-    border: none!important;
+.ReactModal__Content {
+  &--after-open {
+    border: none !important;
     width: 60%;
     height: 60%;
-    top: 50%!important;
-    left: 50%!important;
+    top: 50% !important;
+    left: 50% !important;
     transform: translate(-50%, -50%);
-    border-radius: 0!important;
-    position: fixed!important;
-    overflow: hidden!important;
+    border-radius: 0 !important;
+    position: fixed !important;
+    overflow: hidden !important;
   }
-  
-  &__close-icon{
+
+  &__close-icon {
     position: absolute;
     top: 0px;
     right: 0px;
     padding: 30px 20px;
-    z-index: 10;;
+    z-index: 10;
+    ;
     transition: .3s ease all;
     cursor: pointer;
-    
-    &::before{
+
+    &::before {
       content: '';
       display: block;
       position: relative;
@@ -31,7 +32,8 @@
       transition: .3s ease all;
       top: 2px;
     }
-    &::after{
+
+    &::after {
       content: '';
       display: block;
       position: relative;
@@ -42,13 +44,16 @@
       transition: .3s ease all;
     }
 
-    &:hover{
-      &::before, &::after{
+    &:hover {
+
+      &::before,
+      &::after {
         background-color: $color-grey;
       }
     }
   }
-  &__image-wrapper{
+
+  &__image-wrapper {
     position: fixed;
     top: 0;
     left: 0;
@@ -56,22 +61,24 @@
     height: 100%;
     overflow: hidden;
   }
-  &__title_wrapper{
+
+  &__title_wrapper {
     display: flex;
     align-items: center;
     margin-bottom: $spacing-small;
 
-    &__title{
+    &__title {
       margin-bottom: 0;
       margin-left: $spacing-small-tiny;
     }
+
+    &__image {
+      height: 50px;
+      max-width: 50px;
+    }
   }
-  &__image{
-    height: 100%;
-    max-width: initial;
-    transform: translateX(-40%);
-  }
-  &__wrapper{
+
+  &__wrapper {
     width: 70%;
     right: 0;
     position: fixed;
@@ -79,7 +86,8 @@
     overflow: auto;
     height: 100%;
   }
-  &__wrapper__full{
+
+  &__wrapper__full {
     width: 100%;
     // right: 0;
     // position: fixed;
@@ -87,10 +95,10 @@
     overflow: auto;
     height: 100%;
   }
-  &__title{
+
+  &__title {
     margin-bottom: $spacing-small-tiny;
   }
-  &__text{
 
-  }
+  &__text {}
 }
