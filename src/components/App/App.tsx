@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../home/index";
 import "../../scss/index.scss";
 import { connect } from "react-redux";
@@ -84,12 +84,14 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           <Route exact path="/admin">
             <Admin />
           </Route>
+          <Redirect to="/admin" />
         </>
       ) : (
         <>
           <Route exact path="/admin/login">
             <Login />
           </Route>
+          <Redirect to="/admin/login" />
         </>
       )}
       {window.location.href.indexOf("/admin") < 0 ? <Nav /> : <AdminNav />}
