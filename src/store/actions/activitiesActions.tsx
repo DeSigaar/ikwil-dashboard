@@ -14,7 +14,7 @@ export const createActivity = (
     description: activity.description,
     category: "categories/" + activity.category,
     organisers: activity.organisers,
-    createdBy: profile.firstName + " " + profile.lastName,
+    createdBy: profile.displayName,
     creatorID: id,
     __deleted: false,
     attending: 0,
@@ -51,7 +51,7 @@ export const EditActivity = (
   let dateToSet: any = {
     ...activity,
     category: "categories/" + activity.category,
-    createdBy: profile.firstName + " " + profile.lastName,
+    createdBy: profile.displayName,
     creatorID: id,
     __deleted: false,
   };
