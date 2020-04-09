@@ -45,66 +45,66 @@ interface Props {
 const App: React.FC<Props> = ({ loggedIn }) => {
   return (
     <div>
+      <Route exact path="/loggingyouin">
+        Logging you in
+      </Route>
+      <Route exact path="/admin/login">
+        <Login />
+      </Route>
+      {loggedIn ? (
+        <>
+          <Route path="/admin/meal/add" component={MealAdd} />
+          <Route path="/admin/activity/add" component={ActivityAdd} />
+          <Route path="/admin/rule/add" component={RuleAdd} />
+          <Route path="/admin/organizer/add" component={OrganizerAdd} />
+          <Route path="/admin/newsitem/add" component={NewsItemAdd} />
+
+          <Route
+            path="/admin/activity/:id/edit"
+            render={({ match }) => <ActivityEdit link={match} />}
+          />
+          <Route
+            path="/admin/meal/:id/edit"
+            render={({ match }) => <MealEdit link={match} />}
+          />
+          <Route
+            path="/admin/organizer/:id/edit"
+            render={({ match }) => <OrganizerEdit link={match} />}
+          />
+          <Route
+            path="/admin/newsitem/:id/edit"
+            render={({ match }) => <NewsItemEdit link={match} />}
+          />
+          <Route
+            path="/admin/rule/:id/edit"
+            render={({ match }) => <RuleEdit link={match} />}
+          ></Route>
+          <Route path="/admin/add-admin">
+            <AddAdmin />
+          </Route>
+          <Route exact path="/admin/meals" component={MealAdmin} />
+          <Route exact path="/admin/activities" component={ActivityAdmin} />
+          <Route exact path="/admin/news" component={NewsAdmin} />
+          <Route exact path="/admin/organisers" component={OrganizerAdmin} />
+          <Route exact path="/admin/rules" component={RuleAdmin} />
+          <Route exact path="/admin">
+            <Admin />
+          </Route>
+          <Redirect to="/" />
+        </>
+      ) : (
+        <>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          {/* <Redirect to="/admin" /> */}
+        </>
+      )}
+      {window.location.href.indexOf("/admin") < 0 ? <Nav /> : <AdminNav />}
       <Switch>
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/loggingyouin">
-          Logging you in
-        </Route>
-        <Route exact path="/admin/login">
-          <Login />
-        </Route>
-        {loggedIn ? (
-          <>
-            <Route path="/admin/meal/add" component={MealAdd} />
-            <Route path="/admin/activity/add" component={ActivityAdd} />
-            <Route path="/admin/rule/add" component={RuleAdd} />
-            <Route path="/admin/organizer/add" component={OrganizerAdd} />
-            <Route path="/admin/newsitem/add" component={NewsItemAdd} />
-
-            <Route
-              path="/admin/activity/:id/edit"
-              render={({ match }) => <ActivityEdit link={match} />}
-            />
-            <Route
-              path="/admin/meal/:id/edit"
-              render={({ match }) => <MealEdit link={match} />}
-            />
-            <Route
-              path="/admin/organizer/:id/edit"
-              render={({ match }) => <OrganizerEdit link={match} />}
-            />
-            <Route
-              path="/admin/newsitem/:id/edit"
-              render={({ match }) => <NewsItemEdit link={match} />}
-            />
-            <Route
-              path="/admin/rule/:id/edit"
-              render={({ match }) => <RuleEdit link={match} />}
-            ></Route>
-            <Route path="/admin/add-admin">
-              <AddAdmin />
-            </Route>
-            <Route exact path="/admin/meals" component={MealAdmin} />
-            <Route exact path="/admin/activities" component={ActivityAdmin} />
-            <Route exact path="/admin/news" component={NewsAdmin} />
-            <Route exact path="/admin/organisers" component={OrganizerAdmin} />
-            <Route exact path="/admin/rules" component={RuleAdmin} />
-            <Route exact path="/admin">
-              <Admin />
-            </Route>
-            <Redirect to="/" />
-          </>
-        ) : (
-          <>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            {/* <Redirect to="/admin" /> */}
-          </>
-        )}
-        {window.location.href.indexOf("/admin") < 0 ? <Nav /> : <AdminNav />}
       </Switch>
     </div>
   );
