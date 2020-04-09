@@ -49,7 +49,28 @@ const Summary: React.FC<Props> = ({ activities }) => {
   const [modalIsOpen, setIsOpen] = React.useState<boolean>(false);
   const [modalContent, setModalContent] = React.useState<any>(false);
   const [organisers, setOrganisers] = React.useState<any>(false);
+  const [catergory, setCategory] = React.useState<any>(false);
   const [currentSlide, setCurrentSlide] = React.useState<any>(0);
+  const [img, setImg] = useState<any>(undefined);
+
+  const getCategory = (activity: iActivity) => {
+    setCategory([]);
+
+    if (typeof activity !== "undefined") {
+      if (typeof activity.category !== "undefined") {
+        //Category fetch
+        firestore
+          .collection("categories")
+          .doc(getSecondPart(activity.category, "/"))
+          .get()
+          .then((data: any) => {
+            GetPhoto(data.data().icon)?.then((res: any) => {
+              setImg(res);
+            });
+          });
+      }
+    }
+  };
 
   const getOrganisers = (activity: iActivity) => {
     setOrganisers([]);
@@ -83,6 +104,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
     setIsOpen(true);
     setModalContent(activity);
     getOrganisers(activity);
+    getCategory(activity);
   };
 
   const closeModal = () => {
@@ -109,7 +131,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
                   <ActivityItem
                     action={() => {
                       if (isMoving !== true) {
-                        openModal(activity)
+                        openModal(activity);
                       }
                     }}
                     key={activity.id}
@@ -146,9 +168,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
           goToSlide(today.getDay() - 1);
         }
       }
-
     }, [currentSlide, goToSlide, inited]);
-
 
     return (
       <div className="c-dayChanger">
@@ -219,8 +239,8 @@ const Summary: React.FC<Props> = ({ activities }) => {
           <div className="ReactModal__Content__title_wrapper">
             <img
               className="ReactModal__Content__title_wrapper__image"
-              src="/yoga.svg"
-              alt=""
+              src={img}
+              alt="previewImage"
             />
             {modalContent.name ? (
               <h2 className="ReactModal__Content__title_wrapper__title">
