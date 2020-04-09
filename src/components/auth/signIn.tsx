@@ -10,8 +10,9 @@ interface Props {
 const SignIn: React.FC<Props> = ({ authError }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [redirect, setRedirect] = useState<boolean>(false);
-  const [notValid, setNotValid] = useState<string>("");
+
+  const [redirect, setRedirect] = useState<boolean>(false); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [notValid, setNotValid] = useState<string>(""); // eslint-disable-line @typescript-eslint/no-unused-vars
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

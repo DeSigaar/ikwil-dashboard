@@ -49,7 +49,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
   const [modalIsOpen, setIsOpen] = React.useState<boolean>(false);
   const [modalContent, setModalContent] = React.useState<any>(false);
   const [organisers, setOrganisers] = React.useState<any>(false);
-  const [catergory, setCategory] = React.useState<any>(false);
+  const [catergory, setCategory] = React.useState<any>(false); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [currentSlide, setCurrentSlide] = React.useState<any>(0);
   const [img, setImg] = useState<any>(undefined);
 

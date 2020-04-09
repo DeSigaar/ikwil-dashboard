@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import { connect } from "react-redux";
 import { signOut } from "../../store/actions/authActions";
 
