@@ -162,9 +162,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
         setInitted(true);
         goToSlide(today.getDay() - 1);
       }
-
-    }, [currentSlide, goToSlide, inited]);
-
+    }, [currentSlide, goToSlide]);
 
     return (
       <div className="c-dayChanger">
