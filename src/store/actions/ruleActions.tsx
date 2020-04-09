@@ -8,7 +8,7 @@ export const createRule = (rule: iRule, profile: any, id: string) => {
       __deleted: false,
       name: rule.name,
       rule: rule.rule,
-      createdBy: profile.firstName + " " + profile.lastName,
+      createdBy: profile.displayName,
       creatorID: id,
       id: ref.id,
     })
@@ -37,7 +37,7 @@ export const EditRule = (
       __deleted: false,
       name: rule.name,
       rule: rule.userRule,
-      createdBy: profile.firstName + " " + profile.lastName,
+      createdBy: profile.displayName,
       creatorID: id,
     })
     .then(() => store.dispatch({ type: "EDIT_RULE_SUCCESS" }))

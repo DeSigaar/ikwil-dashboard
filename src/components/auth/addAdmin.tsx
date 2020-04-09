@@ -24,13 +24,13 @@ const AddAdmin: React.FC<Props> = ({ signUp, authError }) => {
         alt="Stichting Ik Wil Logo"
         className="s-login__logo"
       />
-      <form onSubmit={e => handleSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className="o-inputfield">
           <label>Emailadres</label>
           <input
             className="o-inputfield__input login"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="o-inputfield">
@@ -38,7 +38,7 @@ const AddAdmin: React.FC<Props> = ({ signUp, authError }) => {
           <input
             className="o-inputfield__input login"
             value={firstName}
-            onChange={e => setFirstName(e.target.value)}
+            onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
         <div className="o-inputfield">
@@ -46,7 +46,7 @@ const AddAdmin: React.FC<Props> = ({ signUp, authError }) => {
           <input
             className="o-inputfield__input login"
             value={lastName}
-            onChange={e => setLastName(e.target.value)}
+            onChange={(e) => setLastName(e.target.value)}
           />
         </div>
         <div className="o-inputfield">
@@ -54,7 +54,7 @@ const AddAdmin: React.FC<Props> = ({ signUp, authError }) => {
           <input
             className="o-inputfield__input login"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <button>Submit</button>
@@ -69,12 +69,12 @@ const AddAdmin: React.FC<Props> = ({ signUp, authError }) => {
 const mapStateToProps = (state: any) => {
   return {
     auth: state.firebase.auth,
-    authError: state.auth.authError
+    authError: state.auth.authError,
   };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    signUp: (newUser: iNewUser) => dispatch(signUp(newUser))
+    signUp: (newUser: iNewUser) => dispatch(signUp(newUser)),
   };
 };
 

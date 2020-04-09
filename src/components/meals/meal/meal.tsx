@@ -66,13 +66,13 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     DeleteMeal: (docId: string) => dispatch(DeleteMeal(docId)),
-    GetPhoto: (path: string) => dispatch(GetPhoto(path))
+    GetPhoto: (path: string) => dispatch(GetPhoto(path)),
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props: Props) => [
-    { collection: "meals", doc: props.link.params.id }
+    { collection: "meals", doc: props.link.params.id },
   ])
 )(Meal) as React.FC<Props>;
