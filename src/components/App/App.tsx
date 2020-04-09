@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "../home/index";
 import "../../scss/index.scss";
 import { connect } from "react-redux";
-import {withRouter} from 'react-router';
+import { withRouter } from "react-router";
 import AddAdmin from "../auth/addAdmin";
 import Login from "../auth/signIn";
 import Nav from "../nav/index";
@@ -93,7 +93,6 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           <Route exact path="/admin/rules" component={RuleAdmin} />
           <Route path="/admin">
             <Admin />
-            {/* <AdminNav /> */}
           </Route>
         </>
       ) : (
@@ -108,47 +107,6 @@ const App: React.FC<Props> = ({ loggedIn }) => {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/activity">
-          <Activities />
-        </Route>
-        <Route exact path="/meal">
-          <Meals />
-        </Route>
-
-        <Route exact path="/organizer">
-          <Organisers />
-        </Route>
-        <Route exact path="/news">
-          <News />
-        </Route>
-        <Route exact path="/rule">
-          <Rules />
-        </Route>
-        <Route
-          exact
-          path="/organizer/:id"
-          render={({ match }) => <Organizer link={match} />}
-        />
-        <Route
-          exact
-          path="/meal/:id"
-          render={({ match }) => <Meal link={match} />}
-        />
-        <Route
-          exact
-          path="/news/:id"
-          render={({ match }) => <NewsItem link={match} />}
-        />
-        <Route
-          exact
-          path="/activity/:id"
-          render={({ match }) => <Activity link={match} />}
-        />
-        <Route
-          exact
-          path="/rule/:id"
-          render={({ match }) => <Rule link={match} />}
-        />
       </Switch>
     </div>
   );
