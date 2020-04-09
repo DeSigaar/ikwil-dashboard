@@ -9,4 +9,6 @@ interface iActivity {
   organisers: string[];
   day?: iOnce;
   days?: iDay[];
+  attending?: number;
+  maybeAttending?: number;
 }

@@ -148,7 +148,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
       );
     });
   }
-
+  const [initted, setInitted] = useState<boolean>(false);
   const ButtonGroup: React.FC<Props> = ({
     next,
     previous,
@@ -156,19 +156,15 @@ const Summary: React.FC<Props> = ({ activities }) => {
     goToSlide,
   }) => {
     const { currentSlide } = carouselState;
-    const [day, setDay] = useState<any>(undefined);
-    const [inited, setInited] = useState<boolean>(false);
-
     useEffect(() => {
-      setDay(GetDayByNumber(currentSlide + 1));
-      if (!inited) {
-        setInited(true);
+      if (!initted) {
         let today = new Date();
-        if (today.getDay() - 1 !== currentSlide) {
-          goToSlide(today.getDay() - 1);
-        }
+        setInitted(true);
+        goToSlide(today.getDay() - 1);
       }
+
     }, [currentSlide, goToSlide, inited]);
+
 
     return (
       <div className="c-dayChanger">
@@ -183,7 +179,9 @@ const Summary: React.FC<Props> = ({ activities }) => {
         >
           <FontAwesomeIcon icon="chevron-left" />
         </button>
-        <h3 className="c-dayChanger__date">{day}</h3>
+        <h3 className="c-dayChanger__date">
+          {GetDayByNumber(currentSlide + 1)}
+        </h3>
         <button
           disabled={currentSlide === 6}
           id="forward"
