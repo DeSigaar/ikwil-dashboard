@@ -33,9 +33,7 @@ export const signUp = (newUser: iNewUser) => {
           .doc(resp.user?.uid)
           .set({
             admin: true,
-            name: newUser.firstName + newUser.lastName,
-            firstName: newUser.firstName,
-            lastName: newUser.lastName,
+            displayName: newUser.firstName + newUser.lastName,
             initials: newUser.firstName[0] + newUser.lastName[0],
           });
       })

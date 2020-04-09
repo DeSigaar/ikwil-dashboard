@@ -13,10 +13,7 @@ export const createMeal = (
     imgRef = uploadPhoto(img, "meals/" + img.name);
   }
 
-  const ref = firebase
-    .firestore()
-    .collection("meals")
-    .doc();
+  const ref = firebase.firestore().collection("meals").doc();
   ref
     .set({
       name: meal.name,
@@ -25,11 +22,11 @@ export const createMeal = (
       isHallal: meal.isHallal,
       isVegan: meal.isVegan,
       isVegetarian: meal.isVegetarian,
-      createdBy: profile.firstName + " " + profile.lastName,
+      createdBy: profile.displayName,
       creatorID: id,
       id: ref.id,
       isActive: false,
-      img: imgRef.fullPath
+      img: imgRef.fullPath,
     })
     .then(() => {
       store.dispatch({ type: "CREATE_MEAL_SUCCESS", meal });
@@ -49,7 +46,7 @@ export const setActiveMeal = (id: string, active: boolean) => {
     .doc(id)
     .update({ isActive: active })
     .then(() => store.dispatch({ type: "EDIT_MEAL_SUCCESS" }))
-    .catch(err => store.dispatch({ type: "EDIT_MEAL_ERROR", err }));
+    .catch((err) => store.dispatch({ type: "EDIT_MEAL_ERROR", err }));
 };
 
 export const EditMeal = (
@@ -70,11 +67,11 @@ export const EditMeal = (
       isVegan: meal.isVegan,
       isActive: meal.isActive,
       isVegetarian: meal.isVegetarian,
-      createdBy: profile.firstName + " " + profile.lastName,
-      creatorID: id
+      createdBy: profile.displayName,
+      creatorID: id,
     })
     .then(() => store.dispatch({ type: "EDIT_MEAL_SUCCESS" }))
-    .catch(err => store.dispatch({ type: "EDIT_MEAL_ERROR", err }));
+    .catch((err) => store.dispatch({ type: "EDIT_MEAL_ERROR", err }));
 };
 
 export const DeleteMeal = (docId: string) => {
@@ -84,5 +81,5 @@ export const DeleteMeal = (docId: string) => {
     .doc(docId)
     .delete()
     .then(() => store.dispatch({ type: "DELETE_MEAL_SUCCESS" }))
-    .catch(err => store.dispatch({ type: "DELETE_MEAL_ERROR", err }));
+    .catch((err) => store.dispatch({ type: "DELETE_MEAL_ERROR", err }));
 };

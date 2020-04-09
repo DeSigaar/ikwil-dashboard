@@ -17,7 +17,7 @@ export const createNewsItem = (
     .set({
       title: newsItem.title,
       text: newsItem.text,
-      createdBy: profile.firstName + " " + profile.lastName,
+      createdBy: profile.displayName,
       creatorID: id,
       id: ref.id,
       img: imgRef.fullPath,
@@ -57,7 +57,7 @@ export const EditNewsItem = (
       __deleted: false,
       title: newsItem.title,
       text: newsItem.text,
-      createdBy: profile.firstName + " " + profile.lastName,
+      createdBy: profile.displayName,
       creatorID: id,
       img: imgRef.fullPath,
     })
