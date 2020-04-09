@@ -57,10 +57,6 @@ const App: React.FC<Props> = ({ loggedIn }) => {
     <div>
       {loggedIn ? (
         <>
-          <Route path="/admin">
-            <Admin />
-            {/* <AdminNav /> */}
-          </Route>
           <Route path="/admin/meal/add" component={MealAdd} />
           <Route path="/admin/activity/add" component={ActivityAdd} />
           <Route path="/admin/rule/add" component={RuleAdd} />
@@ -95,6 +91,10 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           <Route exact path="/admin/news" component={NewsAdmin} />
           <Route exact path="/admin/organisers" component={OrganizerAdmin} />
           <Route exact path="/admin/rules" component={RuleAdmin} />
+          <Route path="/admin">
+            <Admin />
+            {/* <AdminNav /> */}
+          </Route>
         </>
       ) : (
         <>
