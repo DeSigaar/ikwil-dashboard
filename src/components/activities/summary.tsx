@@ -202,7 +202,7 @@ const Summary: React.FC<Props> = ({ activities }) => {
       <Carousel
         responsive={responsive}
         infinite={false}
-        draggable={false}
+        draggable={true}
         containerClass="o-carousel"
         dotListClass="o-carousel__dots"
         sliderClass="o-carousel__slider"
