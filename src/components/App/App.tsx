@@ -46,6 +46,12 @@ const App: React.FC<Props> = ({ loggedIn }) => {
   return (
     <div>
       <Switch>
+        <Route exact path="/loggingyouin">
+          Logging you in
+        </Route>
+        <Route exact path="/admin/login">
+          <Login />
+        </Route>
         {loggedIn ? (
           <>
             <Route path="/admin/meal/add" component={MealAdd} />
@@ -89,18 +95,10 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           </>
         ) : (
           <>
-            <Route exact path="/admin/login">
-              <Login />
-            </Route>
-            <Redirect to="/admin" />
-
-            <Route exact path="/loggingyouin">
-              Logging you in
-            </Route>
-
             <Route exact path="/">
               <Home />
             </Route>
+            {/* <Redirect to="/admin" /> */}
           </>
         )}
         {window.location.href.indexOf("/admin") < 0 ? <Nav /> : <AdminNav />}
