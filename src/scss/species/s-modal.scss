@@ -79,6 +79,12 @@
     }
   }
 
+  &__image {
+    height: 100%;
+    max-width: initial;
+    transform: translateX(-40%);
+  }
+
   &__wrapper {
     width: 70%;
     right: 0;
