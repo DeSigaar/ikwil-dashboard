@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "../home/index";
 import "../../scss/index.scss";
 import { connect } from "react-redux";
-
+import {withRouter} from 'react-router';
 import AddAdmin from "../auth/addAdmin";
 import Login from "../auth/signIn";
 import Nav from "../nav/index";
@@ -57,10 +57,6 @@ const App: React.FC<Props> = ({ loggedIn }) => {
     <div>
       {loggedIn ? (
         <>
-          <Route path="/admin">
-            <Admin />
-            {/* <AdminNav /> */}
-          </Route>
           <Route path="/admin/meal/add" component={MealAdd} />
           <Route path="/admin/activity/add" component={ActivityAdd} />
           <Route path="/admin/rule/add" component={RuleAdd} />
@@ -95,6 +91,10 @@ const App: React.FC<Props> = ({ loggedIn }) => {
           <Route exact path="/admin/news" component={NewsAdmin} />
           <Route exact path="/admin/organisers" component={OrganizerAdmin} />
           <Route exact path="/admin/rules" component={RuleAdmin} />
+          <Route path="/admin">
+            <Admin />
+            {/* <AdminNav /> */}
+          </Route>
         </>
       ) : (
         <>
@@ -162,4 +162,4 @@ const mapStateToProps = (state: any) => {
     }
   }
 };
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));
