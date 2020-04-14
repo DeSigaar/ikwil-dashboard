@@ -201,7 +201,7 @@ const Edit: React.FC<Props> = ({ organizer, auth, profile, link }) => {
                   onChange={e => handleImageUpload(e)}
                 />
               </div>
-              <button>update bestuurslid</button>
+              <button>Update coördinator</button>
             </form>
           </div>
         </div>

@@ -24,14 +24,14 @@ const Admin: React.FC<Props> = ({ organisers, profile, auth }) => {
         </div>
         <div className="s-admin__container">
           <div className="s-admin__container__top">
-            <h2>Bestuur</h2>
+            <h2>Coördinatoren</h2>
             <Link to={"/admin/organizer/add"}>
               <button
                 onChange={e => {
                   e.preventDefault();
                 }}
               >
-                Bestuurslid toevoegen
+                Coördinator toevoegen
               </button>
             </Link>
           </div>

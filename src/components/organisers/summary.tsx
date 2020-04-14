@@ -17,7 +17,7 @@ const Summary: React.FC<Props> = ({ data }) => {
   ];
   return (
     <>
-      <h2 className="s-card-small__header">Aanwezig bestuur</h2>
+      <h2 className="s-card-small__header">Aanwezige coördinatoren</h2>
       <div className="s-card-small__scrollable-container">
         {typeof data !== "undefined" ? (
           <>

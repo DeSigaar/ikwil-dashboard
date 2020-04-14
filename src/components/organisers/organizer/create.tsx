@@ -54,7 +54,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
   return (
     <div className="s-cms">
       <div className="s-cms__form-conatiner">
-        <h2 className="s-cms__header">Toevoegen bestuurslid</h2>
+        <h2 className="s-cms__header">Coördinator toevoegen</h2>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="o-inputfield">
             <label>Naam</label>
@@ -150,7 +150,7 @@ const Create: React.FC<Props> = ({ profile, userId }) => {
               onChange={(e) => handleImageUpload(e)}
             />
           </div>
-          <button>Plaats bestuurslid</button>
+          <button>Coördinator aanmaken</button>
         </form>
       </div>
       {redirect ? <Redirect to="/admin/organisers" /> : null}
