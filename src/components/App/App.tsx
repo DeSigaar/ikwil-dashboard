@@ -95,7 +95,7 @@ const App: React.FC<Props> = ({ loggedIn }) => {
             <Login />
           </Route>
 
-          <Redirect to="/admin/login" />
+          <Redirect to="/" />
         </>
       )}
       {window.location.href.indexOf("/admin") < 0 ? <Nav /> : <AdminNav />}
